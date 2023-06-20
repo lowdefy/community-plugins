@@ -5,7 +5,10 @@
   "packageManager": "pnpm@7.12.2",
   "dependencies": {},
   "scripts": {
-    "update-packages": "pnpm up -i -r --latest"
+    "changeset": "changeset",
+    "test": "test",
+    "update-packages": "pnpm up -i -r --latest",
+    "publish": "changeset publish"
   },
   "devDependencies": {
     "prettier": "^2.8.4"
