@@ -1,6 +1,5 @@
 {
   "name": "@lowdefy/community-plugins",
-  "version": "1.0.0",
   "license": "MIT",
   "packageManager": "pnpm@7.12.2",
   "private": true,
