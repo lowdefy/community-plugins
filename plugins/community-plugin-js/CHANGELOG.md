@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-js
 
+## 1.0.2
+
+### Patch Changes
+
+- 0f9bfc3: Update npm publish config
+
 ## 1.0.1
 
 ### Patch Changes
