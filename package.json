@@ -6,11 +6,12 @@
   "dependencies": {},
   "scripts": {
     "changeset": "changeset",
-    "test": "test",
-    "update-packages": "pnpm up -i -r --latest",
-    "publish": "changeset publish"
+    "publish": "changeset publish",
+    "test": "pnpm -r test",
+    "update-packages": "pnpm up -i -r --latest"
   },
   "devDependencies": {
+    "@changesets/cli": "2.26.0",
     "prettier": "^2.8.4"
   }
 }
