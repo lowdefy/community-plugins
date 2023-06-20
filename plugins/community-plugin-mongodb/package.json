@@ -4,7 +4,8 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "./auth/adapters": "./dist/auth/adapters.js"
+    "./auth/adapters": "./dist/auth/adapters.js",
+    "./types": "./dist/types.js"
   },
   "files": [
     "dist/*"
