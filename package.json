@@ -1,4 +1,5 @@
 {
+  "name": "@lowdefy/community-plugins",
   "license": "MIT",
   "packageManager": "pnpm@7.12.2",
   "private": true,
