@@ -2,12 +2,13 @@ lowdefy: 4.0.0-rc.9
 license: MIT
 
 plugins:
-  - name: '@lowdefy/lowdefy-community-plugin-js'
+  - name: '@lowdefy/community-plugin-js'
     version: 'workspace:*'
-  - name: '@lowdefy/lowdefy-community-plugin-mongodb'
+  - name: '@lowdefy/community-plugin-mongodb'
     version: 'workspace:*'
-  - name: '@lowdefy/lowdefy-community-plugin-nodemailer'
+  - name: '@lowdefy/community-plugin-nodemailer'
     version: 'workspace:*'
+
 pages:
   - id: home
     type: PageHeaderMenu

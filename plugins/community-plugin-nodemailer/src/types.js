@@ -1,5 +1,9 @@
-import * as actions from './actions.js';
+/* eslint-disable import/namespace */
+
+import * as providers from './auth/providers.js';
 
 export default {
-  actions: Object.keys(actions),
+  auth: {
+    providers: Object.keys(providers),
+  },
 };
