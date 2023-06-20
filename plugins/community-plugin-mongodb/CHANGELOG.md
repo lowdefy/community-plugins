@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.0.3
+
+### Patch Changes
+
+- 728e512: Fix package types import config.
+
 ## 1.0.2
 
 ### Patch Changes
