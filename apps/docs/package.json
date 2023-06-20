@@ -1,8 +1,9 @@
 {
-  "name": "lowdefy-app",
+  "name": "@lowdefy/community-plugin-docs",
   "version": "1.0.1",
   "license": "MIT",
   "type": "module",
+  "private": true,
   "scripts": {
     "lowdefy": "lowdefy",
     "lowdefy:build": "lowdefy build",
