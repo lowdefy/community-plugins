@@ -1,0 +1,5 @@
+.DS_Store
+**/.lowdefy/**
+**/.env
+**/node_modules/**
+**/dist/**

@@ -1,0 +1,6 @@
+lowdefy: 4.0.0-rc.9
+license: MIT
+
+pages:
+  - id: home
+    type: PageHeaderMenu

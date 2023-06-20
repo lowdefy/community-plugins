@@ -1,0 +1,17 @@
+{
+  "exclude": [".*.test.js$", ".*/tests/.*", ".*/__mocks__/.*"],
+  "jsc": {
+    "parser": {
+      "syntax": "ecmascript",
+      "jsx": true
+    },
+    "target": "es2020",
+    "keepClassNames": true,
+    "transform": { "react": { "runtime": "classic" } }
+  },
+  "module": {
+    "type": "es6",
+    "noInterop": true,
+    "ignoreDynamic": true
+  }
+}

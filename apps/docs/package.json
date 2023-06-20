@@ -1,0 +1,16 @@
+{
+  "name": "lowdefy-app",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "lowdefy": "lowdefy",
+    "lowdefy:build": "lowdefy build",
+    "lowdefy:debug": "lowdefy dev --log-level=debug --no-open",
+    "lowdefy:dev": "lowdefy dev --no-open",
+    "lowdefy:start": "lowdefy start"
+  },
+  "dependencies": {
+    "lowdefy": "4.0.0-rc.9"
+  }
+}
