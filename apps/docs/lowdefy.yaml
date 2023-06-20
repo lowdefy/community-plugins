@@ -1,6 +1,9 @@
 lowdefy: 4.0.0-rc.9
 license: MIT
 
+plugins:
+  - name: '@lowdefy/lowdefy-community-plugin-js'
+    version: 'workspace:*'
 pages:
   - id: home
     type: PageHeaderMenu
