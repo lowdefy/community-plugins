@@ -1,0 +1,28 @@
+{
+  "name": "@lowdefy/community-plugin-auth",
+  "version": "1.0.3",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./auth/providers": "./dist/auth/providers.js",
+    "./types": "./dist/types.js"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "swc src --out-dir dist --config-file ../../.swcrc --delete-dir-on-start --copy-files",
+    "prepare": "pnpm build"
+  },
+  "dependencies": {
+    "jsonwebtoken": "8.5.1",
+    "next-auth": "4.22.1"
+  },
+  "devDependencies": {
+    "@swc/cli": "0.1.62",
+    "@swc/core": "1.3.66"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
