@@ -1,5 +1,12 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.1.0
+
+### Minor Changes
+
+- d90c399: Rexported @lowdefy/connection-mongodb plugins as part of this package.
+- d90c399: Added MongoDBInsertConsecutiveId request.
+
 ## 1.0.3
 
 ### Patch Changes
