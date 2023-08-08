@@ -12,6 +12,6 @@
     "lowdefy:start": "lowdefy start"
   },
   "dependencies": {
-    "lowdefy": "4.0.0-rc.9"
+    "lowdefy": "4.0.0-rc.10"
   }
 }
