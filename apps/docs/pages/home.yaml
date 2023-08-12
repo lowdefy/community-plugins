@@ -41,7 +41,6 @@ blocks:
       onClick:
         - id: throw_confetti
           type: Confetti
-          async: true
           params:
             emojis:
               - '💫'
