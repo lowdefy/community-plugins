@@ -8,7 +8,8 @@ plugins:
     version: 'workspace:*'
   - name: '@lowdefy/community-plugin-nodemailer'
     version: 'workspace:*'
+  - name: 'community-confetti'
+    version: 'workspace:*'
 
 pages:
-  - id: home
-    type: PageHeaderMenu
+- _ref: pages/home.yaml

@@ -1,0 +1,70 @@
+# This page is public.
+# Users are redirected to this page after they have been logged out from Auth0.
+# This is configured at "config.auth.openId.logoutRedirectUri" in the Lowdefy configuration,
+# This page needs to be configured as an "Allowed Logout URL" in the Auth0 application.
+# Alternatively, the could be redirected to the Lowdefy "login" page, which will redirect them back to the
+# Auth0 login page.
+id: logged-out
+type: Box
+loading:
+  type: IconSpinner
+  properties:
+    size: medium
+properties:
+  title: Logged Out
+#############################################################
+events:
+  onMount:
+    #
+    - id: logged_in_redirect
+      type: Link
+      skip:
+        _eq:
+          - _user: sub
+          - null
+      params: home
+#############################################################
+layout:
+  contentGutter: 16
+  contentJustify: center
+#############################################################
+blocks:
+  - id: logo
+    type: Html
+    style:
+      textAlign: center
+    properties:
+      html: |
+        <img style="width: 80%; max-width: 250px;" src="/logo-light-theme.png" alt="Logo"/>
+  - id: login_button
+    type: Button
+    style:
+      margin: 40px
+      maxWidth: 300
+    properties:
+      title: Login
+      icon: AiOutlineLogin
+      size: large
+      block: true
+      shape: round
+      type: primary
+    events:
+      onClick:
+        - id: throw_confetti
+          type: Confetti
+          async: true
+          params:
+            emojis:
+              - '💫'
+              - '⚡️'
+              - '💥'
+              - '✨'
+            confettiRadius: 3
+            confettiNumber: 200
+            emojiSize: 50
+            confettiColors:
+              - '#ff0a54'
+              - '#ff477e'
+              - '#ff7096'
+              - '#ff85a1'
+            
