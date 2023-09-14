@@ -1,6 +1,6 @@
 {
   "name": "@lowdefy/community-plugin-nodemailer",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "MIT",
   "type": "module",
   "exports": {
