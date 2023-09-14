@@ -1,3 +1,9 @@
-import EmailProvider from 'next-auth/providers/email';
+import _emailProvider from 'next-auth/providers/email';
 
-export default EmailProvider.default;
+import sendVerificationRequest from './sendVerificationRequest.js';
+
+function EmailProvider(properties) {
+  return _emailProvider.default({ ...properties, sendVerificationRequest });
+}
+
+export default EmailProvider;

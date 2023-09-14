@@ -1,0 +1,15 @@
+## EmailProvider
+
+#### Properties
+
+The `EmailProvider` provider extends the standard [NextAuth email provider](https://next-auth.js.org/providers/email) with support for email templates. This provider uses the auth theme settings that are set in `auth.theme`.
+
+- `server: string | object`: **Required** - Nodemailer server/transport configuration.
+- `from: string`: **Required** - The email address from which emails are sent.
+- `maxAge: number`: How long until the e-mail can be used to log the user in seconds. Defaults to 1 day.
+- `templates: object`: Nunjucks templates to customise the email message.
+  - `html: string`: Email HTML content template.
+  - `text: string`: Email text content template.
+  - `subject: string`: Email subject template.
+- `templateVariables: object`: Data to use in the email nunjucks template. The default templates use the `appName` and `logoHeight` template variables.
+- `returnPageId: string`: A pageId of a page in the Lowdefy app the user should be linked to instead of the standard `/api/auth/callback/email` route. This can be useful as email security software sometimes visit links in emails which expire the verification tokens. You can use a button on this page to link to the `/api/auth/callback/email` route
