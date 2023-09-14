@@ -9,6 +9,8 @@ plugins:
   - name: '@lowdefy/community-plugin-nodemailer'
     version: 'workspace:*'
 
+menus:
+  _ref: menus.yaml
+
 pages:
-  - id: home
-    type: PageHeaderMenu
+  - _ref: community-plugin-nodemailer/EmailProvider.yaml

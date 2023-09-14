@@ -1,0 +1,54 @@
+id: "{{ pageId }}"
+type: PageSiderMenu
+properties:
+  title: {{ pageTitle }}
+  header:
+    theme: light
+  menu:
+    forceSubMenuRender: true
+  sider:
+    width: 256px
+    initialCollapsed:
+      _or:
+        - _eq:
+            - _media: size
+            - md
+        - _eq:
+            - _media: size
+            - lg
+  layout:
+    style:
+      background: '#FFFFFF'
+  footer:
+    style:
+      background: '#FFFFFF'
+      padding: 16px 0px 0px 0px
+  breadcrumb:
+    list:
+  {% if section %}
+      - '{{ section }}'
+      - '{{ pageTitle }}'
+  {% endif %}
+
+areas:
+  content:
+    justify: center
+    blocks:
+      - id: max_width
+        type: Box
+        layout:
+          flex: 0 1 800px
+        blocks:
+          {% if pageTitle %}
+          - id: page_title
+            type: Title
+            properties:
+              content:
+                _var: pageTitle
+          {% endif %}
+          - id: content
+            type: Box
+            layout:
+              contentGutter: 16
+            blocks:
+              _var: content
