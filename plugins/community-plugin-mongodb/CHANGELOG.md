@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.2.0
+
+### Minor Changes
+
+- ee14311: Added the MongoDBInsertManyConsecutiveIds request.
+
 ## 1.1.0
 
 ### Minor Changes
