@@ -1,0 +1,99 @@
+_ref:
+  path: templates/general.yaml.njk
+  vars:
+    pageId: community-plugin-mongodb
+    pageTitle: MongoDB
+    section: '@lowdefy/community-plugin-mongodb'
+    content:
+      - id: markdown
+        type: MarkdownWithCode
+        properties:
+          content: |
+            This plugin extends the [Lowdefy MongoDB connection](https://docs.lowdefy.com/MongoDB) with additional request types.
+
+            ## Requests
+
+            Request types:
+              - MongoDBInsertConsecutiveId
+              - MongoDBInsertManyConsecutiveIds
+
+            ### MongoDBInsertConsecutiveId
+
+            #### Properties
+
+            The `MongoDBInsertConsecutiveId` request extends the standard [MongoDBInsert](https://www.mongodb.com/docs/manual/reference/method/db.collection.insertOne/) allowing consecutive ID insertion given an incremental ID format.
+
+            - `prefix: string`: **Required** - The prefix of the incremental ID format.
+            - `length: number`: **Required** - The length of the incremental ID following the prefix.
+            - `doc: object`: **Required** - The document to insert at the next consecutive ID.
+
+            #### Example
+
+            ###### Insert an item with the next ID.
+            ```yaml
+              id: insert_item
+              type: MongoDBInsertConsecutiveId
+              connectionId: items
+              payload:
+                doc:
+                  _state: item
+              properties:
+                prefix: ABC-
+                length: 4
+                doc:
+                  _object.assign:
+                    - _payload: doc
+                    - expired: false
+            ```
+            ###### Output
+            If the last item in the collection was `ABC-0013` then
+            ```json
+            {
+              "_id" : "ABC-0014",
+              ...,
+              "expired" : false
+            }
+            ```
+
+            ### MongoDBInsertManyConsecutiveIds
+
+            #### Properties
+
+            The `MongoDBInsertManyConsecutiveIds` request extends the standard [MongoDBInsertMany](https://www.mongodb.com/docs/manual/reference/method/db.collection.insertMany/) allowing consecutive ID insertion given an incremental ID format.
+
+            - `prefix: string`: **Required** - The prefix of the incremental ID format.
+            - `length: number`: **Required** - The length of the incremental ID following the prefix.
+            - `docs: object`: **Required** - The documents to insert at the next consecutive ID.
+
+            #### Example
+
+            ###### Insert items with the next IDs.
+            ```yaml
+              id: insert_items
+              type: MongoDBInsertManyConsecutiveIds
+              connectionId: items
+              payload:
+                docs:
+                  _state: items
+              properties:
+                prefix: ABC-
+                length: 4
+                docs:
+                  _payload: docs
+            ```
+            ###### Output
+            If the last item in the collection was `ABC-0013` and we are inserting 3 items then
+            ```json
+            {
+              "_id" : "ABC-0014",
+              ...,
+            },
+            {
+              "_id" : "ABC-0015",
+              ...,
+            },
+            {
+              "_id" : "ABC-0016",
+              ...,
+            }
+            ```

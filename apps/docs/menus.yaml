@@ -10,3 +10,8 @@
           pageId: EmailProvider
           properties:
             title: EmailProvider
+    - id: community-plugin-mongodb
+      type: MenuLink
+      pageId: community-plugin-mongodb
+      properties:
+        title: MongoDB
