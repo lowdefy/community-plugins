@@ -1,6 +1,6 @@
 {
   "name": "@lowdefy/community-plugin-nodemailer",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "next-auth": "4.22.1",
-    "nodemailer": "6.9.3"
+    "nodemailer": "6.9.3",
+    "@lowdefy/nunjucks": "4.0.0-rc.10"
   },
   "devDependencies": {
     "@swc/cli": "0.1.62",

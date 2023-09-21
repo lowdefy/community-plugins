@@ -1,5 +1,13 @@
 # @lowdefy/community-plugin-nodemailer
 
+## 1.1.0
+
+### Minor Changes
+
+- d1b3bae: Add returnPageId property to EmailProvider.
+- d1b3bae: Add support for custom email nunjucks templates.
+- d1b3bae: Improve email templates.
+
 ## 1.0.3
 
 ### Patch Changes

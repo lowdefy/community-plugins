@@ -11,5 +11,9 @@ plugins:
   - name: 'community-confetti'
     version: 'workspace:*'
 
+menus:
+  _ref: menus.yaml
+
 pages:
-- _ref: pages/home.yaml
+  - _ref: community-plugin-nodemailer/EmailProvider.yaml
+
