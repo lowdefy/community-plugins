@@ -17,6 +17,7 @@
 import { MongoDBCollection } from '@lowdefy/connection-mongodb/connections';
 
 import MongoDBInsertConsecutiveId from './MongoDBInsertConsecutiveId/MongoDBInsertConsecutiveId.js';
+import MongoDBInsertManyConsecutiveIds from './MongoDBInsertManyConsecutiveIds/MongoDBInsertManyConsecutiveIds.js';
 
 const { schema, requests } = MongoDBCollection;
 
@@ -25,5 +26,6 @@ export default {
   requests: {
     ...requests,
     MongoDBInsertConsecutiveId,
+    MongoDBInsertManyConsecutiveIds,
   },
 };

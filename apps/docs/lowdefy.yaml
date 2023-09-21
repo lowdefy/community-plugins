@@ -14,3 +14,4 @@ menus:
 
 pages:
   - _ref: community-plugin-nodemailer/EmailProvider.yaml
+  - _ref: community-plugin-mongodb/MongoDB.yaml

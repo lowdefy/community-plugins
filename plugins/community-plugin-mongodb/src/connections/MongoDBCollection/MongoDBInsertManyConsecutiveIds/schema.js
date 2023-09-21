@@ -16,41 +16,41 @@
 
 export default {
   $schema: 'http://json-schema.org/draft-07/schema#',
-  title: 'Lowdefy Request Schema - MongoDBInsertConsecutiveId',
+  title: 'Lowdefy Request Schema - MongoDBInsertManyConsecutiveIds',
   type: 'object',
-  required: ['doc'],
+  required: ['docs'],
   properties: {
-    doc: {
-      type: 'object',
-      description: 'The document to be inserted.',
+    docs: {
+      type: 'array',
+      description: 'The documents to be inserted.',
       errorMessage: {
-        type: 'MongoDBInsertConsecutiveId request property "doc" should be an object.',
+        type: 'MongoDBInsertManyConsecutiveIds request property "docs" should be an array.',
       },
     },
     options: {
       type: 'object',
       description: 'Optional settings.',
       errorMessage: {
-        type: 'MongoDBInsertConsecutiveId request property "options" should be an object.',
+        type: 'MongoDBInsertManyConsecutiveIds request property "options" should be an object.',
       },
     },
     prefix: {
       type: 'string',
       description: 'Prefix to add to _id.',
       errorMessage: {
-        type: 'MongoDBInsertConsecutiveId request property "prefix" should be a string.',
+        type: 'MongoDBInsertManyConsecutiveIds request property "prefix" should be a string.',
       },
     },
     length: {
       type: 'number',
       description: 'The numeric ID will be padded to this number of digits.',
       errorMessage: {
-        type: 'MongoDBInsertConsecutiveId request property "length" should be a number.',
+        type: 'MongoDBInsertManyConsecutiveIds request property "length" should be a number.',
       },
     },
   },
   errorMessage: {
-    type: 'MongoDBInsertConsecutiveId request properties should be an object.',
-    required: 'MongoDBInsertConsecutiveId request should have required property "doc".',
+    type: 'MongoDBInsertManyConsecutiveIds request properties should be an object.',
+    required: 'MongoDBInsertManyConsecutiveIds request should have required property "docs".',
   },
 };
