@@ -5,6 +5,11 @@ _ref:
     pageTitle: EmailProvider
     section: '@lowdefy/community-plugin-nodemailer'
     content:
+      - _ref:
+          path: templates/plugin_usage.yaml
+          vars:
+            name: '@lowdefy/community-plugin-nodemailer'
+            packageJsonPath: ../../plugins/community-plugin-nodemailer/package.json
       - id: markdown
         type: MarkdownWithCode
         properties:

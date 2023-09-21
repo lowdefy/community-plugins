@@ -1,0 +1,98 @@
+_ref:
+  path: templates/general.yaml.njk
+  vars:
+    pageId: Confetti
+    pageTitle: Confetti
+    section: '@lowdefy/community-plugin-confetti'
+    content:
+      - id: markdown
+        type: MarkdownWithCode
+        properties:
+          content: |
+            The `Confetti` action implements the [js-confetti](https://www.npmjs.com/package/js-confetti) `addConfetti` function.
+      - _ref:
+          path: templates/plugin_usage.yaml
+          vars:
+            name: '@lowdefy/community-plugin-confetti'
+            packageJsonPath: ../../plugins/community-plugin-confetti/package.json
+      - id: confetti_button
+        type: Button
+        style:
+          margin: 40px
+          maxWidth: 300
+        properties:
+          title: Throw Confetti
+          icon: GiPartyPopper
+          size: large
+          block: true
+          shape: round
+          type: default
+        events:
+          onClick:
+            - id: throw_confetti
+              type: Confetti
+              params:
+                confettiRadius: 3
+                confettiNumber: 200
+      - id: markdown
+        type: MarkdownWithCode
+        properties:
+          content: |
+            #### Properties
+            - `emojis: string[]`: An array of emojis to use as confetti.
+            - `confettiRadius: number`: The radius of non-emoji confetti.
+            - `confettiNumber: number`: The number of confetti to display
+            - `emojiSize: number`: The size of emoji confetti.
+            - `confettiColors: string[]`: An array of hex colors for the confetti.
+
+            ### Examples
+
+            ```yaml
+            id: confetti_button
+            type: Button
+            properties:
+              title: Default Confetti
+            events:
+              onClick:
+                - id: throw_confetti
+                  type: Confetti
+            ```
+
+            ```yaml
+            id: confetti_button
+            type: Button
+            properties:
+              title: Throw Confetti
+              icon: GiPartyPopper
+            events:
+              onClick:
+                - id: throw_confetti
+                  type: Confetti
+                  params:
+                    confettiRadius: 3
+                    confettiNumber: 200
+                    confettiColors:
+                      - '#ff0a54'
+                      - '#ff477e'
+                      - '#ff7096'
+                      - '#ff85a1'
+            ```
+
+            ```yaml
+            id: emoji_confetti_button
+            type: Button
+            properties:
+              title: Emoji Confetti
+              icon: GiPartyPopper
+            events:
+              onClick:
+                - id: throw_emoji_confetti
+                  type: Confetti
+                  params:
+                    emojis:
+                      - '💫'
+                      - '⚡️'
+                      - '💥'
+                      - '✨'
+                    emojiSize: 50
+            ```

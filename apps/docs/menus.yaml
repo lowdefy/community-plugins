@@ -1,5 +1,10 @@
 - id: default
   links:
+    - id: community-plugin-confetti
+      type: MenuLink
+      pageId: Confetti
+      properties:
+        title: Confetti
     - id: community-plugin-nodemailer
       type: MenuGroup
       properties:

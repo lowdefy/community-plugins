@@ -1,6 +1,6 @@
 {
-  "name": "@lowdefy/community-plugin-js",
-  "version": "1.0.3",
+  "name": "@lowdefy/community-plugin-confetti",
+  "version": "0.0.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -20,5 +20,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "js-confetti": "0.11.0"
   }
 }
