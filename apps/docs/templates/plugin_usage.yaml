@@ -1,0 +1,27 @@
+id: usage
+type: MarkdownWithCode
+properties:
+  content:
+    _nunjucks:
+      template: |
+        To use this plugin, import the `{{ name }}` plugin in your `lowdefy.yaml` file.
+
+        ```yaml
+        lowdefy: '{{ lowdefy }}'
+
+        plugins:
+          - name: '{{ name }}'
+            version: '{{ version }}'
+        ```
+      on:
+        name:
+          _var: name
+        version:
+          _ref:
+            path:
+              _var: packageJsonPath
+            key: version
+        lowdefy:
+          _ref:
+            path: package.json
+            key: dependencies.lowdefy

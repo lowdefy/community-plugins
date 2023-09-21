@@ -10,7 +10,15 @@ _ref:
         properties:
           content: |
             This plugin extends the [Lowdefy MongoDB connection](https://docs.lowdefy.com/MongoDB) with additional request types.
-
+      - _ref:
+          path: templates/plugin_usage.yaml
+          vars:
+            name: '@lowdefy/community-plugin-mongodb'
+            packageJsonPath: ../../plugins/community-plugin-mongodb/package.json
+      - id: markdown
+        type: MarkdownWithCode
+        properties:
+          content: |
             ## Requests
 
             Request types:

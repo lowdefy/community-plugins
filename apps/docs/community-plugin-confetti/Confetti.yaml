@@ -10,16 +10,11 @@ _ref:
         properties:
           content: |
             The `Confetti` action implements the [js-confetti](https://www.npmjs.com/package/js-confetti) `addConfetti` function.
-
-            To use this plugin, import the `@lowdefy/community-plugin-confetti` plugin in your `lowdefy.yaml` file.
-
-            ```yaml
-            lowdefy: '4.0.0-rc.10'
-
-            plugins:
-              - name: '@lowdefy/community-plugin-confetti'
-                version: '0.0.0'
-            ```
+      - _ref:
+          path: templates/plugin_usage.yaml
+          vars:
+            name: '@lowdefy/community-plugin-confetti'
+            packageJsonPath: ../../plugins/community-plugin-confetti/package.json
       - id: confetti_button
         type: Button
         style:
