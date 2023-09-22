@@ -27,6 +27,11 @@ _ref:
             - `length: number`: **Required** - The length of the incremental ID following the prefix.
             - `doc: object`: **Required** - The document to insert at the next consecutive ID.
 
+            The request returns the following:
+
+            - `acknowledged: boolean` - Acknowledgement of the insertion.
+            - `insertedId: string` - The inserted ID.
+
             #### Example
 
             ###### Insert an item with the next ID.
@@ -64,6 +69,11 @@ _ref:
             - `prefix: string`: **Required** - The prefix of the incremental ID format.
             - `length: number`: **Required** - The length of the incremental ID following the prefix.
             - `docs: object`: **Required** - The documents to insert at the next consecutive ID.
+
+            The request returns the following:
+
+            - `acknowledged: boolean` - Acknowledgement of the insertion.
+            - `insertedIds: array` - The array of inserted IDs.
 
             #### Example
 
