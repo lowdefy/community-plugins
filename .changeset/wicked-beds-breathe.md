@@ -1,5 +1,5 @@
 ---
-'@lowdefy/community-plugin-mongodb': minor
+'@lowdefy/community-plugin-mongodb': patch
 ---
 
 Fixed MongoDBInsertManyConsecutiveIds request response.
