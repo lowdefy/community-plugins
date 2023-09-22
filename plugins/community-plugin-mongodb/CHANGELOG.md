@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.2.1
+
+### Patch Changes
+
+- 39d35e0: Fixed MongoDBInsertManyConsecutiveIds request response.
+
 ## 1.2.0
 
 ### Minor Changes
