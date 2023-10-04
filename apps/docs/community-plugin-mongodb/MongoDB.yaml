@@ -9,7 +9,7 @@ _ref:
         type: MarkdownWithCode
         properties:
           content: |
-            This plugin extends the [Lowdefy MongoDB connection](https://docs.lowdefy.com/MongoDB) with additional request types.
+            This plugin extends the [Lowdefy MongoDB connection](https://docs.lowdefy.com/MongoDB) with additional request types. Additionally all create, update and delete requests are modified to include change tracking functionality.
       - _ref:
           path: templates/plugin_usage.yaml
           vars:
@@ -19,6 +19,25 @@ _ref:
         type: MarkdownWithCode
         properties:
           content: |
+            ## Connections
+
+            The `MongoDBCollection` connection adds change tracking functionality to the following request types:
+              - MongoDBDeleteMany
+              - MongoDBDeleteOne
+              - MongoDBInsertMany
+              - MongoDBInsertOne
+              - MongoDBUpdateMany
+              - MongoDBUpdateOne
+
+            When the `logCollection.collection` property is defined. Each connection will write changes specifics to the change log collection to improve data change tracking.
+
+            All other functionality, connection and request properties remains the same as defined in the [MongoDB Lowdefy connector](https://docs.lowdefy.com/MongoDB) documentation.
+
+            #### Additional Connection Properties
+            - `logCollection: object`: Optional log collection for logging changes.
+              - `collection: string`: __Required__ - The name of the MongoDB log collection.
+              - `meta: object`: Optional attributes object for user and other information.
+
             ## Requests
 
             Request types:
