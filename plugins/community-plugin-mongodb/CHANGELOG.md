@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.3.0
+
+### Minor Changes
+
+- afe6915: Add mongodb change log requests.
+
 ## 1.2.1
 
 ### Patch Changes
