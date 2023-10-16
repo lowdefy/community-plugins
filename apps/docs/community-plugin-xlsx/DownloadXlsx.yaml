@@ -1,0 +1,186 @@
+_ref:
+  path: templates/general.yaml.njk
+  vars:
+    pageId: DownloadXlsx
+    pageTitle: DownloadXlsx
+    section: '@lowdefy/community-plugin-xlsx'
+    content:
+      - id: markdown
+        type: MarkdownWithCode
+        properties:
+          content: |
+            The `DownloadXlsx` action implements [write-excel-file](https://www.npmjs.com/package/write-excel-file) for writing `*.xlsx` files.
+      - _ref:
+          path: templates/plugin_usage.yaml
+          vars:
+            name: '@lowdefy/community-plugin-xlsx'
+            packageJsonPath: ../../plugins/community-plugin-xlsx/package.json
+      - id: xlsx_button
+        type: Button
+        style:
+          margin: 40px
+          maxWidth: 300
+        properties:
+          title: Excel Download
+          icon: AiOutlineDownload
+          size: large
+          block: true
+          shape: round
+          type: default
+        events:
+          onClick:
+            - id: download_xlsx
+              type: DownloadXlsx
+              params:
+                fileName: download.xlsx
+                dateFormat: 'DD/MM/YYYY'
+                data:
+                  - Category: a
+                    Amount: 10
+                    Date:
+                      _date: 2023-01-26
+                  - Category: b
+                    Amount: 20
+                    Date:
+                      _date: 2023-01-27
+                  - Category: c
+                    Amount: 30
+                    Date:
+                      _date: 2023-01-28
+                schema:
+                  - column: Category Name
+                    value: Category
+                    type: String
+                    width: 20
+                  - column: Amount Made
+                    value: Amount
+                    type: Number
+                    width: 20
+                  - column: Date Created
+                    value: Date
+                    type: Date
+                    width: 20
+      - id: markdown
+        type: MarkdownWithCode
+        properties:
+          content: |
+            #### Properties
+            - `data: object[]`: An array of rows containing data.
+            - `fileName: string`: The name the file will be saved as when downloaded.
+            - `schema: object[]`: A schema to describe each column.
+            - `dateFormat: string`: The format of dates in the file.
+
+            See [write-excel-file](https://www.npmjs.com/package/write-excel-file) for additional properties.
+
+            ### Examples
+
+            ###### Defined data.
+            ```yaml
+            id: xlsx_button
+            type: Button
+            properties:
+              title: Excel Download
+            events:
+              onClick:
+                - id: download_xlsx
+                  type: DownloadXlsx
+                  params:
+                    fileName: download.xlsx
+                    dateFormat: 'DD/MM/YYYY'
+                    data:
+                      - Category: a
+                        Amount: 10
+                        Date:
+                          _date: 2023-01-26
+                      - Category: b
+                        Amount: 20
+                        Date:
+                          _date: 2023-01-27
+                      - Category: c
+                        Amount: 30
+                        Date:
+                          _date: 2023-01-28
+                    schema:
+                      - column: Category Name
+                        value: Category
+                        type: String
+                        width: 20
+                      - column: Amount Made
+                        value: Amount
+                        type: Number
+                        width: 20
+                      - column: Date Created
+                        value: Date
+                        type: Date
+                        width: 20
+            ```
+
+            ###### Request data.
+            ```yaml
+            id: xlsx_button
+            type: Button
+            properties:
+              title: Excel Download
+            events:
+              onClick:
+                - id: get_data
+                  type: Request
+                  params: get_data
+                - id: download_xlsx
+                  type: DownloadXlsx
+                  params:
+                    fileName: download.xlsx
+                    dateFormat: 'DD/MM/YYYY'
+                    data:
+                      _request: get_data
+                    schema:
+                      - column: Category Name
+                        value: Category
+                        type: String
+                        width: 20
+                      - column: Amount Made
+                        value: Amount
+                        type: Number
+                        width: 20
+                      - column: Date Created
+                        value: Date
+                        type: Date
+                        width: 20
+            ```
+
+            ###### Schema columns with functions.
+            ```yaml
+            id: xlsx_button
+            type: Button
+            properties:
+              title: Excel Download
+            events:
+              onClick:
+                - id: get_data
+                  type: Request
+                  params: get_data
+                - id: download_xlsx
+                  type: DownloadXlsx
+                  params:
+                    fileName: download.xlsx
+                    dateFormat: 'DD/MM/YYYY'
+                    data:
+                      _request: get_data
+                    schema:
+                      - column: Category Name
+                        value:
+                          _function:
+                            __args: 0.Category
+                        type: String
+                        width: 20
+                      - column: Amount Made
+                        value:
+                          _function:
+                            __args: 0.Amount
+                        type: Number
+                        width: 20
+                      - column: Date Created
+                        value: Date
+                        type: Date
+                        width: 20
+            ```
