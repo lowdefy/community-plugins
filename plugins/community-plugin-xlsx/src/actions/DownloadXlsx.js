@@ -8,34 +8,22 @@ async function DownloadXlsx({ params }) {
     throw new Error('Data should be an array of objects.');
   }
 
+  const colTypes = {
+    String: String,
+    Number: Number,
+    Boolean: Boolean,
+    Date: Date,
+  };
+
   await writeXlsxFile(data, {
     fileName: !type.isString(fileName) ? 'download.xlsx' : fileName,
     schema:
       type.isArray(schema) &&
-      schema.map((column) => {
-        let colType;
-        switch (column.type) {
-          case 'String':
-            colType = String;
-            break;
-          case 'Number':
-            colType = Number;
-            break;
-          case 'Boolean':
-            colType = Boolean;
-            break;
-          case 'Date':
-            colType = Date;
-            break;
-          default:
-            break;
-        }
-        return {
-          ...column,
-          value: type.isString(column.value) ? (row) => row[column.value] : column.value,
-          type: colType,
-        };
-      }),
+      schema.map((column) => ({
+        ...column,
+        value: type.isString(column.value) ? (row) => row[column.value] : column.value,
+        type: column.type ? colTypes[column.type] : undefined,
+      })),
     ...options,
   });
 
