@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.3.1
+
+### Patch Changes
+
+- 72d39d5: Do not pin Lowdefy utility dependencies to a fixed version.
+
 ## 1.3.0
 
 ### Minor Changes

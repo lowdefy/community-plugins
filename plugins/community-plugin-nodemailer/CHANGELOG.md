@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-nodemailer
 
+## 1.1.1
+
+### Patch Changes
+
+- 72d39d5: Do not pin Lowdefy utility dependencies to a fixed version.
+
 ## 1.1.0
 
 ### Minor Changes
