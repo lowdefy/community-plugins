@@ -231,10 +231,10 @@ importers:
   plugins/community-plugin-mongodb:
     dependencies:
       '@lowdefy/connection-mongodb':
-        specifier: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.11
         version: 4.0.0-rc.11(next-auth@4.22.1)
       '@lowdefy/helpers':
-        specifier: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.11
         version: 4.0.0-rc.11
       mongodb:
         specifier: 5.6.0
@@ -250,7 +250,7 @@ importers:
         version: 9.0.0
     devDependencies:
       '@lowdefy/ajv':
-        specifier: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.11
         version: 4.0.0-rc.11
       '@shelf/jest-mongodb':
         specifier: 4.1.4
@@ -274,7 +274,7 @@ importers:
   plugins/community-plugin-nodemailer:
     dependencies:
       '@lowdefy/nunjucks':
-        specifier: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.11
         version: 4.0.0-rc.11
       next-auth:
         specifier: 4.22.1
@@ -293,7 +293,7 @@ importers:
   plugins/community-plugin-xlsx:
     dependencies:
       '@lowdefy/helpers':
-        specifier: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.11
         version: 4.0.0-rc.11
       write-excel-file:
         specifier: 1.4.27
