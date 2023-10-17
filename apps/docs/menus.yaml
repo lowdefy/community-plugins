@@ -20,3 +20,8 @@
       pageId: community-plugin-mongodb
       properties:
         title: MongoDB
+    - id: community-plugin-xlsx
+      type: MenuLink
+      pageId: DownloadXlsx
+      properties:
+        title: DownloadXlsx
