@@ -42,44 +42,44 @@ importers:
   apps/docs:
     dependencies:
       lowdefy:
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
 
   apps/docs/.lowdefy/dev:
     dependencies:
       '@lowdefy/actions-core':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/api':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/blocks-antd':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/blocks-basic':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/blocks-color-selectors':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/blocks-echarts':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/blocks-loaders':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/blocks-markdown':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11(@types/react@18.2.28)
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12(@types/react@18.2.28)
       '@lowdefy/blocks-qr':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/build':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/client':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/community-plugin-confetti':
         specifier: workspace:*
         version: link:../../../../plugins/community-plugin-confetti
@@ -96,44 +96,44 @@ importers:
         specifier: workspace:*
         version: link:../../../../plugins/community-plugin-xlsx
       '@lowdefy/connection-axios-http':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/engine':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/helpers':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/layout':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/node-utils':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-change-case':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-diff':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-js':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-mql':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-nunjucks':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-uuid':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/operators-yaml':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@lowdefy/plugin-next-auth':
-        specifier: 4.0.0-rc.11
-        version: 4.0.0-rc.11(react-dom@18.2.0)(react@18.2.0)
+        specifier: 4.0.0-rc.12
+        version: 4.0.0-rc.12(react-dom@18.2.0)(react@18.2.0)
       chokidar:
         specifier: 3.5.3
         version: 3.5.3
@@ -231,11 +231,11 @@ importers:
   plugins/community-plugin-mongodb:
     dependencies:
       '@lowdefy/connection-mongodb':
-        specifier: ^4.0.0-rc.11
-        version: 4.0.0-rc.11(next-auth@4.22.1)
+        specifier: ^4.0.0-rc.12
+        version: 4.0.0-rc.12(next-auth@4.22.1)
       '@lowdefy/helpers':
-        specifier: ^4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.12
+        version: 4.0.0-rc.12
       mongodb:
         specifier: 5.6.0
         version: 5.6.0
@@ -250,8 +250,8 @@ importers:
         version: 9.0.0
     devDependencies:
       '@lowdefy/ajv':
-        specifier: ^4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.12
+        version: 4.0.0-rc.12
       '@shelf/jest-mongodb':
         specifier: 4.1.4
         version: 4.1.4(jest-environment-node@28.1.3)(mongodb@5.6.0)
@@ -274,8 +274,8 @@ importers:
   plugins/community-plugin-nodemailer:
     dependencies:
       '@lowdefy/nunjucks':
-        specifier: ^4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.12
+        version: 4.0.0-rc.12
       next-auth:
         specifier: 4.22.1
         version: 4.22.1(next@13.5.4)(nodemailer@6.9.3)(react-dom@18.2.0)(react@18.2.0)
@@ -293,8 +293,8 @@ importers:
   plugins/community-plugin-xlsx:
     dependencies:
       '@lowdefy/helpers':
-        specifier: ^4.0.0-rc.11
-        version: 4.0.0-rc.11
+        specifier: ^4.0.0-rc.12
+        version: 4.0.0-rc.12
       write-excel-file:
         specifier: 1.4.27
         version: 1.4.27
@@ -1808,46 +1808,46 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@lowdefy/actions-core@4.0.0-rc.11:
-    resolution: {integrity: sha512-cL1Trxe6UBD1SB4RZhfWVTYV07r9EI1vhX298cFsRGb4HLCZYhtJJ9NKRLggrzcfhbWkT7BM9uQtGS8sTfoTNg==}
+  /@lowdefy/actions-core@4.0.0-rc.12:
+    resolution: {integrity: sha512-ys0x+WzPI8Vyafz3IipLMu6VMO9sv1pdHRe6BEH4lc6775XwITMK1BZj1R9Ae7v1mZPdXqWLzbd5bQauo+w44Q==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
     dev: false
 
-  /@lowdefy/ajv@4.0.0-rc.11:
-    resolution: {integrity: sha512-brciZR0i8QJ3M/Cs9YUJy/ii+8NR8NcB2jI8cfEEiTMYtehjQ5ZyTmWhixrTNFzXVtWKeawysCSjLaqVpQu5Qg==}
+  /@lowdefy/ajv@4.0.0-rc.12:
+    resolution: {integrity: sha512-6A4LHmJnOSc6FPUpM/BwokB+zuUrSuRqPsCkRrSmZ8q7O4Dom4IPDkePpYbxvGoosoADrBkkSCQPZA7MsRNLhA==}
     dependencies:
-      '@lowdefy/nunjucks': 4.0.0-rc.11
+      '@lowdefy/nunjucks': 4.0.0-rc.12
       ajv: 8.12.0
       ajv-errors: 3.0.0(ajv@8.12.0)
 
-  /@lowdefy/api@4.0.0-rc.11:
-    resolution: {integrity: sha512-X+ruCY0oW0S2fQOi+7u7PvP3gfOo5U5CalsHw3bLySDswayxOirDaA07KwoVZfdG+WEo59b0Rm8IghvnQdBtGw==}
+  /@lowdefy/api@4.0.0-rc.12:
+    resolution: {integrity: sha512-/6I0fJhFURdwDc2tK3A2UzTCbE6j4tXqq+/oQrlyn3h7X612WQLhcv2cs6aw6Sqg7d+nrsH3jJvR/P8o0Hvj0g==}
     dependencies:
-      '@lowdefy/ajv': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/node-utils': 4.0.0-rc.11
-      '@lowdefy/nunjucks': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
-      '@lowdefy/operators-js': 4.0.0-rc.11
+      '@lowdefy/ajv': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/node-utils': 4.0.0-rc.12
+      '@lowdefy/nunjucks': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
+      '@lowdefy/operators-js': 4.0.0-rc.12
     dev: false
 
-  /@lowdefy/block-utils@4.0.0-rc.11:
-    resolution: {integrity: sha512-TzRI0qPMEx/oco+ts16LKWDKfnCfIFoXXN/b4afV5fGMS+B3XvBSsWNmoNIk1d/o05ursqWoQy0DdD5w5NPFDA==}
+  /@lowdefy/block-utils@4.0.0-rc.12:
+    resolution: {integrity: sha512-dsaxvOpmNNhbYaBAo6Oz3sbr9nVw/dTsaIMr9qNkYEt7KbWeyjtQ1Ug7uDa1ezIjLUXNk1t+2MVwUxnOwhtBTw==}
     dependencies:
       '@emotion/css': 11.11.2
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
       dompurify: 3.0.6
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/blocks-antd@4.0.0-rc.11:
-    resolution: {integrity: sha512-uFEu8oi8Fm3RgzA/Ae94ZvsY48Xts6V4Eo5iQ5+0D9Y+BDl51eEiO9aU9fn5mWDywktQ2403dFcAp/jdFuK4rw==}
+  /@lowdefy/blocks-antd@4.0.0-rc.12:
+    resolution: {integrity: sha512-p9yCI5I6ZYl3oGBM/FSL681jri1MUNMolNYqSoaAKtppD5RaZQjwkfHWMvIsp8UplQpVBJsyQvr3IIxIILWxPw==}
     dependencies:
       '@ant-design/icons': 4.8.0(react-dom@18.2.0)(react@18.2.0)
-      '@lowdefy/block-utils': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
       antd: 4.24.14(react-dom@18.2.0)(react@18.2.0)
       classnames: 2.3.2
       moment: 2.29.4
@@ -1857,50 +1857,50 @@ packages:
       tinycolor2: 1.6.0
     dev: false
 
-  /@lowdefy/blocks-basic@4.0.0-rc.11:
-    resolution: {integrity: sha512-wZxO6F5L4IhJ/FtageOzI/Q2BC972EW6rmR2T8Jcl6wSBHrOkzAkdUgOS3V3eyJ2FCIlC0mfxylLS6r/ZNP+/g==}
+  /@lowdefy/blocks-basic@4.0.0-rc.12:
+    resolution: {integrity: sha512-SFDHPJ/2Ux+cWcPlFCvTnEFGGvdRvNqWIBdzFtoSu2JJZ5wgVzQFaqCLjei3tDpWyO52arXEIl+AlsI9KWtOUw==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
       dompurify: 3.0.6
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/blocks-color-selectors@4.0.0-rc.11:
-    resolution: {integrity: sha512-dOs7G+/B+a1u2O/AsJ7dsvUMsxapNo6sZvoWEIHqlLq2z1gRoS8cBbh7nxfq4EOfGhvofbBSnvZzFTTfMpgmYQ==}
+  /@lowdefy/blocks-color-selectors@4.0.0-rc.12:
+    resolution: {integrity: sha512-iH1HNR/sq1nUowyt8J3rzlnfdohE9i7lE/7pRoKegqoUaehD89AQSim51VCsev2ln8nD/Y9h8YqgLsXanQzkgw==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
-      '@lowdefy/blocks-antd': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
+      '@lowdefy/blocks-antd': 4.0.0-rc.12
       classnames: 2.3.2
       react: 18.2.0
       react-colorful: 5.6.1(react-dom@18.2.0)(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/blocks-echarts@4.0.0-rc.11:
-    resolution: {integrity: sha512-W2iKKtRrj9nRwAce/F4nkS3P2UTby3JzCjO4zR+7lR5L+rgPBtg1LQSLCrmyYWazjUo+jO7qX26Xa116j4wcQQ==}
+  /@lowdefy/blocks-echarts@4.0.0-rc.12:
+    resolution: {integrity: sha512-hiY7+J+PO4lgRAgLOZ+Wgft8gUbGz2eQ13KkD2eM9eZAbZaGbp21ZorwojRd0lPDjJbMYlVWqdFAEMhG8gZ+XQ==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
       echarts: 5.4.3
       echarts-for-react: 3.0.2(echarts@5.4.3)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/blocks-loaders@4.0.0-rc.11:
-    resolution: {integrity: sha512-bh5blSBg6NyXFX8Y295mJ2ZjrslPxUCq4M03xlCKEvFIg+8Oi4vuINeCkRjle3HhBjohrOmzy0hTgnrKo7Tg1w==}
+  /@lowdefy/blocks-loaders@4.0.0-rc.12:
+    resolution: {integrity: sha512-4ar4wi9NzyWq4qzQVnPoHtaljDlb9ySUY1tH75Ym2/2qiWLM7IwRcY3qG6c97kWNriQNg9PdStZq5WP1fZ0q2Q==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/blocks-markdown@4.0.0-rc.11(@types/react@18.2.28):
-    resolution: {integrity: sha512-uuU4rL9Qmurui60lPRGmVqgFlRltstYeo3JwY5oJeisVbWA83YAyezg3vbzzOkAze6OYgas5rcsXv2yfpaB7SA==}
+  /@lowdefy/blocks-markdown@4.0.0-rc.12(@types/react@18.2.28):
+    resolution: {integrity: sha512-AvZTBXDaVuqOj8rGDqoVE+E8Pyy4aQHtd+ZPd9QZ3DLhDN2E8SEEc5pCQqTxN+ypkN+w6B36OPl8Nk7JcF7+yA==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
       dompurify: 3.0.6
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1913,166 +1913,166 @@ packages:
       - supports-color
     dev: false
 
-  /@lowdefy/blocks-qr@4.0.0-rc.11:
-    resolution: {integrity: sha512-CO5OCEGkNkIWH0MxIWv85KfsE8Aecz4uusdc3MG0RTujZh8olb9EVbrp0Nism2O8RU2DMKKoC/RhnR7ZH7ikkg==}
+  /@lowdefy/blocks-qr@4.0.0-rc.12:
+    resolution: {integrity: sha512-H4tFL0RvprOkgVBOlutP+TL6GjfW/OzCH4I5nmXdpRLgq80/c7LIKNPkPIuZiji9mhT0vrj8Ln9O5qWaf9L7VQ==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
       html5-qrcode: 2.3.8
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/build@4.0.0-rc.11:
-    resolution: {integrity: sha512-nmglHw5xw+/j4szrHndPxu6OpvD4QJO49Uemof9g12z2zLBR3mMrUUt6mnmXkDX7knk83iAsE819g6Umj7A6UQ==}
+  /@lowdefy/build@4.0.0-rc.12:
+    resolution: {integrity: sha512-PCZDfqXk/dODkNtX1pk+CB68JfYWI/+dQ8lFX+xKQWJH2GK/Vm6br5y8PquhbV3S97Z+4p6EOGYoo0d1C8ypeQ==}
     hasBin: true
     dependencies:
-      '@lowdefy/ajv': 4.0.0-rc.11
-      '@lowdefy/blocks-basic': 4.0.0-rc.11
-      '@lowdefy/blocks-loaders': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/node-utils': 4.0.0-rc.11
-      '@lowdefy/nunjucks': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
-      '@lowdefy/operators-js': 4.0.0-rc.11
+      '@lowdefy/ajv': 4.0.0-rc.12
+      '@lowdefy/blocks-basic': 4.0.0-rc.12
+      '@lowdefy/blocks-loaders': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/node-utils': 4.0.0-rc.12
+      '@lowdefy/nunjucks': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
+      '@lowdefy/operators-js': 4.0.0-rc.12
       ajv: 8.12.0
       json5: 2.2.3
       yaml: 2.3.2
       yargs: 17.7.2
     dev: false
 
-  /@lowdefy/client@4.0.0-rc.11:
-    resolution: {integrity: sha512-vIXA3D/WakIHLlMuwebYVUXxTvvslf3+0/YgTTI4ktIjlX9VUDmvJtJRvRc2+il+t15goYhVF90ZSud5SDm4xA==}
+  /@lowdefy/client@4.0.0-rc.12:
+    resolution: {integrity: sha512-1OFoCOXuF12Z8+vGClOo5gdsXo9Nx0RH3IkY41Uj4jtyIZCTjzbDH6jSTP9vjpU/ymaEYIf++6tUfFSkTQdb8A==}
     dependencies:
       '@ant-design/icons': 4.8.0(react-dom@18.2.0)(react@18.2.0)
-      '@lowdefy/block-utils': 4.0.0-rc.11
-      '@lowdefy/engine': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/layout': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
+      '@lowdefy/engine': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/layout': 4.0.0-rc.12
       classnames: 2.3.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/connection-axios-http@4.0.0-rc.11:
-    resolution: {integrity: sha512-4JmEexWBHkp9aGgHwxintbYtZprAf0DSIctisyBVFFjLfsXMGYP38j12aczMPvM8oiVf2Us7ChpXyrjd0WBGpA==}
+  /@lowdefy/connection-axios-http@4.0.0-rc.12:
+    resolution: {integrity: sha512-OnQ3LAmWnXMzarnp6mxYojWpC3M3Y5zm+ynMzpZ+QnbdfeYiIkF1mCougP2XSnFrOYXpXn/CbKKHO04QwKZF7w==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
       axios: 1.5.1
     transitivePeerDependencies:
       - debug
     dev: false
 
-  /@lowdefy/connection-mongodb@4.0.0-rc.11(next-auth@4.22.1):
-    resolution: {integrity: sha512-xKpQUCc45u6sVE3MA9sg6viUUOx7bZ52JDs5sCuRQctpSgxkV4zk5k+Luv5kky4hTRyPyL6bdNhGL011SsA96Q==}
+  /@lowdefy/connection-mongodb@4.0.0-rc.12(next-auth@4.22.1):
+    resolution: {integrity: sha512-vgIdMs7Uic6NXZHmW7svKiwAdNLZcVRzza8YpbvRoFbYzYgDrCDSjZE/BkGAuS2i+ePE4q8jwpRNy0Z2BHmpGA==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@next-auth/mongodb-adapter': 1.1.3(mongodb@4.13.0)(next-auth@4.22.1)
-      mongodb: 4.13.0
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@next-auth/mongodb-adapter': 1.1.3(mongodb@4.17.1)(next-auth@4.22.1)
+      mongodb: 4.17.1
       saslprep: 1.0.3
     transitivePeerDependencies:
       - aws-crt
       - next-auth
     dev: false
 
-  /@lowdefy/engine@4.0.0-rc.11:
-    resolution: {integrity: sha512-m5+UQD/XkEjxmXAIQkg5G9b742vVNi12uuAU4kRAbl22mrh9/8+j052PoI79FX9C1qJJEDnrwj1EM55zIvAWjg==}
+  /@lowdefy/engine@4.0.0-rc.12:
+    resolution: {integrity: sha512-tDc9/CZcHEmv2yvLVyz4KtsHFlZZloEQIOd+P7EjZOYauOySI25GtEMdjq8ksAX46XsooCQrIqafiXyGxisyGg==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
     dev: false
 
-  /@lowdefy/helpers@4.0.0-rc.11:
-    resolution: {integrity: sha512-wb01NEAOR0FbJC/xj1XWJmGKWlOL3+wMQIGnmH67zfoDaEfOWVFYcJfCcD0MmJZmJpvIQZ9yBEHcWYPEFhGj7w==}
+  /@lowdefy/helpers@4.0.0-rc.12:
+    resolution: {integrity: sha512-kFBTMRmjKKGG/Tc2UeZFleqlv1aKHTlRA7xH/9UZHNMhPg+IMs3YyBvlz5FpUQxTNSzlJdDbveaa5nUUrywJAA==}
     dependencies:
       lodash.merge: 4.6.2
       query-string: 8.1.0
 
-  /@lowdefy/layout@4.0.0-rc.11:
-    resolution: {integrity: sha512-c0jfL2kFIfd2Fpai1GVbP9CM9qdT8ZSVh1uQvvrgKHYIk85eQOODXXWzr6JVKa0i6h8E9w1wisl3G3P8E2E2AQ==}
+  /@lowdefy/layout@4.0.0-rc.12:
+    resolution: {integrity: sha512-tLIabEYVRlX1wHLkqNBEPHadjf2MY3tKfDw2KnhLFGD2NnDfRm84syA+i1RlB1roktosbXFJuUU3ox6nV7qDVA==}
     dependencies:
-      '@lowdefy/block-utils': 4.0.0-rc.11
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/block-utils': 4.0.0-rc.12
+      '@lowdefy/helpers': 4.0.0-rc.12
       antd: 4.24.14(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@lowdefy/node-utils@4.0.0-rc.11:
-    resolution: {integrity: sha512-hzRperBuyX3nqqvP9RTuJaj3rNhWcMNDqf6Q1ycTgaxvcAcSI7XqdU+Nld4wR5oRhBWIjPF3qiwK1kvzUu7Plw==}
+  /@lowdefy/node-utils@4.0.0-rc.12:
+    resolution: {integrity: sha512-bxMSrcdy75XYkGcKanRDxgauQK9ots6nH1X3iQYJmv8H5ZdRqcap4qoNnbyehAeVa02TT9t79KOuqkBH7ksnaw==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
       fs-extra: 11.1.1
     dev: false
 
-  /@lowdefy/nunjucks@4.0.0-rc.11:
-    resolution: {integrity: sha512-5Y7aD1OsqZSp9XPq5kNn/kFGQwZwYPiFX+7CBNUij2pQ8q19wY343wVhAGeFg7VZHOMiGD+nbh1PeufcmKnddw==}
+  /@lowdefy/nunjucks@4.0.0-rc.12:
+    resolution: {integrity: sha512-YRYfjEVRn1XN1rfhleEh3014HNleGjPk5WABkcZ6WRN5geHqhA7Pk0QEYKMqNoNggUcPAeYEJrhFNf3LMFcQDA==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
       moment: 2.29.4
 
-  /@lowdefy/operators-change-case@4.0.0-rc.11:
-    resolution: {integrity: sha512-HiyQvvc/+O6031/X+LCI6vdLTZVeK405QU16EeqxYT+KCJHrQDuQ6YfYhJZurSdjtbO9A2U2+JzqFjV/lnR4NQ==}
+  /@lowdefy/operators-change-case@4.0.0-rc.12:
+    resolution: {integrity: sha512-bgzUH76B8haWbbE7PN834JDAOjERcoat2Rpz2tRld2rQkO5SY7bXTEr/rvH/K82JfBqdqvZxs44ekKS1HYureA==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
       change-case: 4.1.2
     dev: false
 
-  /@lowdefy/operators-diff@4.0.0-rc.11:
-    resolution: {integrity: sha512-HSdr50ScMMw7Xkry8b7wJ7LvNPZH2XpGcJyk3Nwt4Xf9R91vsGSKk8lVA2hCqIMOdMiY4J/TKYyZoCP0kysIMg==}
+  /@lowdefy/operators-diff@4.0.0-rc.12:
+    resolution: {integrity: sha512-7neVfzBngaU2bN7elqxP4WIL+UZZrk6T4AGHBnP38UFXjxNofaiN1rHdi1UWdCotF4ZsGkQVmZq0TcMhANEOtg==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
       deep-diff: 1.0.2
     dev: false
 
-  /@lowdefy/operators-js@4.0.0-rc.11:
-    resolution: {integrity: sha512-g/5x9f8Xca7YMHpWvOr4QHyPdOyBy+VAOvPAUwI/b6Df/AZ0D/Ncfkz9gKZ0YTTn1q9lmcCqpPHLWHea6Z0ZPw==}
+  /@lowdefy/operators-js@4.0.0-rc.12:
+    resolution: {integrity: sha512-CDb92npvkjM5tQlDER4y+NUaWy8umTVjMr8fXRSEn2QH7s5SUSW7fJsEiVeu/CNWda0Ewo4Tut2FgYQ4+nYZ/w==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
     dev: false
 
-  /@lowdefy/operators-mql@4.0.0-rc.11:
-    resolution: {integrity: sha512-HbILXLLi/XBfOIO8C5ZybfCZdCkjERmtFjHVdx8n1jRk/sDDpg0qn8PbCgAN9qfXlL2lnUaZSysShv+6yDTsCA==}
+  /@lowdefy/operators-mql@4.0.0-rc.12:
+    resolution: {integrity: sha512-LfMoWaAGbduU1fyuIdERqh+3GsVYcLav8NPMN5lED0aBhAW6+DtnLfn3dVbb1xzXO6PS+4KtHadIxeftfp0dUg==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
       mingo: 6.4.6
     dev: false
 
-  /@lowdefy/operators-nunjucks@4.0.0-rc.11:
-    resolution: {integrity: sha512-XuGM4MXBK8dbQxEKSuImLfCEqlH3TUZ9jns6nbw4KWoWilR06FAaMU7a6iw+G2gdSOiqEMB84Y7NKyF6OjrQ9w==}
+  /@lowdefy/operators-nunjucks@4.0.0-rc.12:
+    resolution: {integrity: sha512-J5fhg1ATef3fvzBEMzyoAF77QNOhk6NggK2uILhbR4dY+z/m4S765mw6gpUf5ldQry8Lsc9Evni9A6l9pPbmvA==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/nunjucks': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/nunjucks': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
     dev: false
 
-  /@lowdefy/operators-uuid@4.0.0-rc.11:
-    resolution: {integrity: sha512-nFrGESGB606EXBK0eq84UiKm/qv229E5Qk/2eI+jaiEiZhxpjl5Ai3atHRVta+faNqgtCD1sGCVa0w5G4U2lYA==}
+  /@lowdefy/operators-uuid@4.0.0-rc.12:
+    resolution: {integrity: sha512-Ghk6ktj/gmgPMUVS+xuXEuvNstQx3+Loex13i7bdtSJkkoPnGZ3xDfAll4VNy9JgdD9uJ5sqqjhvEaI+O/b0jg==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
       uuid: 9.0.1
     dev: false
 
-  /@lowdefy/operators-yaml@4.0.0-rc.11:
-    resolution: {integrity: sha512-BOqsdmxzqNX2vookRK1vxYsm+9Br7QR5EQeo8zOoLxzzsWkv5A84GHrPoqYI7PxoYyES2LBv74XPjhJty7KMFQ==}
+  /@lowdefy/operators-yaml@4.0.0-rc.12:
+    resolution: {integrity: sha512-JUhIt0ACT6sYiM4DYGZCh/rrUdQYjKtOJYrv2dZgqibD0V1buFNNbBrSx2S3Z0eM/izbXRZ4RtsAl+qAvnZ54A==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/operators': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/operators': 4.0.0-rc.12
       yaml: 2.3.2
     dev: false
 
-  /@lowdefy/operators@4.0.0-rc.11:
-    resolution: {integrity: sha512-+4WsSplWdzkVwEbwG++M5JbymrhsBCid4aMDPJxhlhUHzDfKlIZNEUnqsBqtUsouH0/2BMwXphDtR0pkfE4uNg==}
+  /@lowdefy/operators@4.0.0-rc.12:
+    resolution: {integrity: sha512-SIq0a6gr36Mi04YVLCrUuJDVb6txLLA0ZczmVK8yUiDf6wxCgj5UayhyNZosMgdTpehrCLZBCE0QQHGIp7ezNw==}
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
     dev: false
 
-  /@lowdefy/plugin-next-auth@4.0.0-rc.11(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ICKGP8niU3DbUbEe34xcbNFbfq2oBOG1y45BshYVX69oV55u1Ct+4ylcJLs61gOB+wQWx0EFLGhZz5D0USdvUg==}
+  /@lowdefy/plugin-next-auth@4.0.0-rc.12(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-m3/dfK+oGsrWaFC7aLp1W7KVw/4XS75wxN11/6060JGR2wD3R9VXZ6PNvrODHSC/BDGoNh1U9oItZLX6TiztZg==}
     dependencies:
       next: 13.5.4(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
       next-auth: 4.23.2(next@13.5.4)(react-dom@18.2.0)(react@18.2.0)
@@ -2120,13 +2120,21 @@ packages:
       os-filter-obj: 2.0.0
     dev: true
 
-  /@next-auth/mongodb-adapter@1.1.3(mongodb@4.13.0)(next-auth@4.22.1):
+  /@mongodb-js/saslprep@1.1.1:
+    resolution: {integrity: sha512-t7c5K033joZZMspnHg/gWPE4kandgc2OxE74aYOtGKfgB9VPuVJPix0H6fhmm2erj5PBJ21mqcx34lpIGtUCsQ==}
+    requiresBuild: true
+    dependencies:
+      sparse-bitfield: 3.0.3
+    dev: false
+    optional: true
+
+  /@next-auth/mongodb-adapter@1.1.3(mongodb@4.17.1)(next-auth@4.22.1):
     resolution: {integrity: sha512-nH/may8hntYBlcuxepSsR2b95w6SRnP+c/FFt3KKjdTScNjhrN0zZdlT90nisjG/3gK+MvzMbz/F4Rwpgr9RMA==}
     peerDependencies:
       mongodb: ^5 || ^4
       next-auth: ^4
     dependencies:
-      mongodb: 4.13.0
+      mongodb: 4.17.1
       next-auth: 4.22.1(next@13.5.4)(nodemailer@6.9.3)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
@@ -6853,13 +6861,13 @@ packages:
     dependencies:
       js-tokens: 4.0.0
 
-  /lowdefy@4.0.0-rc.11:
-    resolution: {integrity: sha512-EZ4eqOVZ75L+0aBxl7ja5cGKaWIcpuCcYKueyhYuXl15gf+a5AdqHFa3DNPyX+rrGeZYRg2w+39OafnGUifwUQ==}
+  /lowdefy@4.0.0-rc.12:
+    resolution: {integrity: sha512-m3Y023HyCpUK+tSZ5GFtppLNAylfa8Nk7E/aXTacFYVOEttj3weFJ+2HjZP6dzwQlWO34jkg5iK5h5uok1uzdw==}
     engines: {node: '>=18'}
     hasBin: true
     dependencies:
-      '@lowdefy/helpers': 4.0.0-rc.11
-      '@lowdefy/node-utils': 4.0.0-rc.11
+      '@lowdefy/helpers': 4.0.0-rc.12
+      '@lowdefy/node-utils': 4.0.0-rc.12
       axios: 1.5.1
       commander: 11.0.0
       decompress: 4.2.1
@@ -7496,8 +7504,8 @@ packages:
       - supports-color
     dev: true
 
-  /mongodb@4.13.0:
-    resolution: {integrity: sha512-+taZ/bV8d1pYuHL4U+gSwkhmDrwkWbH1l4aah4YpmpscMwgFBkufIKxgP/G7m87/NUuQzc2Z75ZTI7ZOyqZLbw==}
+  /mongodb@4.17.1:
+    resolution: {integrity: sha512-MBuyYiPUPRTqfH2dV0ya4dcr2E5N52ocBuZ8Sgg/M030nGF78v855B3Z27mZJnp8PxjnUquEnAtjOsphgMZOlQ==}
     engines: {node: '>=12.9.0'}
     dependencies:
       bson: 4.7.2
@@ -7505,7 +7513,7 @@ packages:
       socks: 2.7.1
     optionalDependencies:
       '@aws-sdk/credential-providers': 3.429.0
-      saslprep: 1.0.3
+      '@mongodb-js/saslprep': 1.1.1
     transitivePeerDependencies:
       - aws-crt
     dev: false

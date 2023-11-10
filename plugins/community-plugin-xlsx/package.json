@@ -15,7 +15,7 @@
     "prepare": "pnpm build"
   },
   "dependencies": {
-    "@lowdefy/helpers": "^4.0.0-rc.11",
+    "@lowdefy/helpers": "^4.0.0-rc.12",
     "write-excel-file": "1.4.27"
   },
   "devDependencies": {
