@@ -15,7 +15,7 @@
     "prepare": "pnpm build"
   },
   "dependencies": {
-    "jsonwebtoken": "8.5.1",
+    "jsonwebtoken": "9.0.2",
     "next-auth": "4.22.1"
   },
   "devDependencies": {
