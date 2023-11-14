@@ -1,5 +1,13 @@
 # @lowdefy/community-plugin-nodemailer
 
+## 1.1.2
+
+### Patch Changes
+
+- 832d0b6: Fix default email template to display the app host name.
+- 40ad8b2: Unpin next-auth dependency.
+- a2ead6a: Update dependency nodemailer to v6.9.7.
+
 ## 1.1.1
 
 ### Patch Changes
