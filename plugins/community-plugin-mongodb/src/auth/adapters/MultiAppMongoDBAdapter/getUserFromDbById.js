@@ -1,7 +1,10 @@
 import transformContactToAdapterUser from './transformContactToAdapterUser.js';
 
-async function getUserFromDbById({ appName, db, userId }) {
-  const contact = await db.contacts.findOne({ _id: userId });
+async function getUserFromDbById({ appName, collectionNames, mongoClient, userId }) {
+  const contact = await mongoClient
+    .db()
+    .collection(collectionNames.contacts)
+    .findOne({ _id: userId });
   if (
     !contact ||
     contact.disabled ||

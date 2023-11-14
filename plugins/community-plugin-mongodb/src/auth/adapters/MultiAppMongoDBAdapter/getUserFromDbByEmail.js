@@ -1,7 +1,10 @@
 import transformContactToAdapterUser from './transformContactToAdapterUser.js';
 
-async function getUserFromDbByEmail({ appName, db, email }) {
-  const contact = await db.contacts.findOne({ lowercase_email: email.toLowerCase() });
+async function getUserFromDbByEmail({ appName, collectionNames, email, mongoClient }) {
+  const contact = await mongoClient
+    .db()
+    .collection(collectionNames.contacts)
+    .findOne({ lowercase_email: email.toLowerCase() });
   if (
     !contact ||
     contact.disabled ||

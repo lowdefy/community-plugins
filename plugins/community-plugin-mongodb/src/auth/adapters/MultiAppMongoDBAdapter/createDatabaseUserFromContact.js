@@ -3,9 +3,10 @@ import transformContactToAdapterUser from './transformContactToAdapterUser.js';
 async function createDatabaseUserFromContact({
   adapterUserData,
   appName,
+  collectionNames,
   contact,
-  db,
   inviteRequired,
+  mongoClient,
 }) {
   const invite = contact.apps?.[appName]?.invite;
   if (inviteRequired && (!invite || !invite.open)) {
@@ -42,11 +43,10 @@ async function createDatabaseUserFromContact({
     };
   }
 
-  const { value: updatedContact } = await db.contacts.findOneAndUpdate(
-    { _id: contact._id },
-    { $set: update },
-    { returnDocument: 'after' }
-  );
+  const { value: updatedContact } = await mongoClient
+    .db()
+    .collection(collectionNames.contacts)
+    .findOneAndUpdate({ _id: contact._id }, { $set: update }, { returnDocument: 'after' });
   return transformContactToAdapterUser({ appName, contact: updatedContact });
 }
 

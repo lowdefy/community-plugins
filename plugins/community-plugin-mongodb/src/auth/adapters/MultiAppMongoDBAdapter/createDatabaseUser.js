@@ -1,20 +1,34 @@
 import createDatabaseUserFromContact from './createDatabaseUserFromContact.js';
 import createDatabaseUserWithoutContact from './createDatabaseUserWithoutContact.js';
 
-async function createDatabaseUser({ adapterUserData, appName, db, inviteRequired }) {
-  const contact = await db.contacts.findOne({
+async function createDatabaseUser({
+  adapterUserData,
+  appName,
+  collectionNames,
+  inviteRequired,
+  mongoClient,
+}) {
+  const contact = await mongoClient.db().collection(collectionNames.contacts).findOne({
     lowercase_email: adapterUserData.email.toLowerCase(),
   });
 
   if (contact) {
-    return createDatabaseUserFromContact({ adapterUserData, appName, contact, db, inviteRequired });
+    return createDatabaseUserFromContact({
+      adapterUserData,
+      appName,
+      collectionNames,
+      contact,
+      inviteRequired,
+      mongoClient,
+    });
   }
 
   return createDatabaseUserWithoutContact({
     adapterUserData,
     appName,
-    db,
+    collectionNames,
     inviteRequired,
+    mongoClient,
   });
 }
 

@@ -2,4 +2,4 @@
 '@lowdefy/community-plugin-nodemailer': patch
 ---
 
-Escape host on email template.
+Fix default email template to display the app host name.

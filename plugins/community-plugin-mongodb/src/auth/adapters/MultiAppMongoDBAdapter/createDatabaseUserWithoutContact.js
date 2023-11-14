@@ -2,7 +2,13 @@ import { v4 as uuid } from 'uuid';
 
 import transformContactToAdapterUser from './transformContactToAdapterUser.js';
 
-async function createDatabaseUserWithoutContact({ adapterUserData, appName, db, inviteRequired }) {
+async function createDatabaseUserWithoutContact({
+  adapterUserData,
+  appName,
+  collectionNames,
+  inviteRequired,
+  mongoClient,
+}) {
   if (inviteRequired) {
     throw new Error('Access denied.');
   }
@@ -29,7 +35,7 @@ async function createDatabaseUserWithoutContact({ adapterUserData, appName, db, 
   contact.created = { timestamp: new Date(), user: { id: contact._id } };
   contact.updated = { timestamp: new Date(), user: { id: contact._id } };
 
-  await db.contacts.insertOne(contact);
+  await mongoClient.db().collection(collectionNames.contacts).insertOne(contact);
   return transformContactToAdapterUser({ appName, contact });
 }
 
