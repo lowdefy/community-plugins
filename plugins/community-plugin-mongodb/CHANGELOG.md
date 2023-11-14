@@ -1,5 +1,17 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.4.0
+
+### Minor Changes
+
+- 11ccb31: Add option to configure MultiAppMongoDBAdapter collection names.
+
+### Patch Changes
+
+- 40ad8b2: Unpin next-auth dependency.
+- 55e37da: Unpin uuid dependency.
+- 11ccb31: Fix connection timeouts in MultiAppMongoDBAdapter.
+
 ## 1.3.1
 
 ### Patch Changes
