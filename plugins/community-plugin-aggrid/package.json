@@ -1,0 +1,70 @@
+{
+  "name": "@lowdefy/community-plugin-aggrid",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "description": "Community plugin for AgGrid Blocks for Lowdefy.",
+  "homepage": "https://lowdefy.com",
+  "keywords": [
+    "lowdefy",
+    "lowdefy blocks",
+    "aggrid",
+    "table",
+    "lowdefy plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/lowdefy/lowdefy/issues"
+  },
+  "contributors": [
+    {
+      "name": "Gerrie van Wyk",
+      "url": "https://github.com/Gervwyk"
+    },
+    {
+      "name": "Johann Möller",
+      "url": "https://github.com/JohannMoller"
+    },
+    {
+      "name": "Sam Tolmay",
+      "url": "https://github.com/SamTolmay"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lowdefy/lowdefy.git"
+  },
+  "type": "module",
+  "exports": {
+    "./*": "./dist/*",
+    "./blocks": "./dist/blocks.js",
+    "./types": "./dist/types.js"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "swc src --out-dir dist --config-file ../../.swcrc --delete-dir-on-start --copy-files",
+    "clean": "rm -rf dist",
+    "prepare": "pnpm build"
+  },
+  "dependencies": {
+    "@ag-grid-community/client-side-row-model": "30.2.0",
+    "@ag-grid-community/core": "30.2.0",
+    "@ag-grid-community/csv-export": "30.2.0",
+    "@ag-grid-community/react": "30.2.0",
+    "@ag-grid-community/styles": "30.2.0",
+    "@lowdefy/block-utils": "4.0.0-rc.11",
+    "@lowdefy/helpers": "4.0.0-rc.11",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@swc/cli": "0.1.57",
+    "@swc/core": "1.2.194",
+    "@swc/jest": "0.2.21",
+    "jest": "28.1.0",
+    "swc-loader": "0.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
