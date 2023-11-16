@@ -75,6 +75,7 @@ test('updateMany logCollection - Single Document', async () => {
   const res = await MongoDBUpdateMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany',
@@ -92,6 +93,7 @@ test('updateMany logCollection - Single Document', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany',
@@ -135,6 +137,7 @@ test('updateMany logCollection - Multiple Documents', async () => {
   const res = await MongoDBUpdateMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_multiple',
@@ -152,6 +155,7 @@ test('updateMany logCollection - Multiple Documents', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_multiple',
@@ -195,6 +199,7 @@ test('updateMany logCollection - Multiple Documents one field', async () => {
   const res = await MongoDBUpdateMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_multiple_one_field',
@@ -212,6 +217,7 @@ test('updateMany logCollection - Multiple Documents one field', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_multiple_one_field',
@@ -257,6 +263,7 @@ test('updateMany logCollection upsert', async () => {
   const res = await MongoDBUpdateMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_upsert_log',
@@ -274,6 +281,7 @@ test('updateMany logCollection upsert', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_upsert_log',
@@ -319,6 +327,7 @@ test('updateMany logCollection upsert false', async () => {
   const res = await MongoDBUpdateMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_upsert_false_log',
@@ -336,6 +345,7 @@ test('updateMany logCollection upsert false', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_upsert_false_log',
@@ -379,6 +389,7 @@ test('updateMany logCollection upsert default false', async () => {
   const res = await MongoDBUpdateMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_upsert_default_false_log',
@@ -396,6 +407,7 @@ test('updateMany logCollection upsert default false', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateMany_upsert_default_false_log',

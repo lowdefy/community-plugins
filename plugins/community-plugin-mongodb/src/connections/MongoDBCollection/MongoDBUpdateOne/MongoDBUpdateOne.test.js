@@ -68,6 +68,7 @@ test('updateOne logCollection', async () => {
   const res = await MongoDBUpdateOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne',
@@ -86,6 +87,7 @@ test('updateOne logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne',
@@ -134,6 +136,7 @@ test('updateOne upsert logCollection', async () => {
   const res = await MongoDBUpdateOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne_upsert_log',
@@ -153,6 +156,7 @@ test('updateOne upsert logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne_upsert_log',
@@ -201,6 +205,7 @@ test('updateOne upsert false logCollection', async () => {
   const res = await MongoDBUpdateOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne_upsert_false',
@@ -219,6 +224,7 @@ test('updateOne upsert false logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne_upsert_false',
@@ -265,6 +271,7 @@ test('updateOne upsert default false logCollection', async () => {
   const res = await MongoDBUpdateOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne_upsert_default_false',
@@ -283,6 +290,7 @@ test('updateOne upsert default false logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateOne_upsert_default_false',
