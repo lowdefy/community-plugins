@@ -1,6 +1,6 @@
 {
   "name": "@lowdefy/community-plugin-aggrid",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "Apache-2.0",
   "description": "Community plugin for AgGrid Blocks for Lowdefy.",
   "homepage": "https://lowdefy.com",
