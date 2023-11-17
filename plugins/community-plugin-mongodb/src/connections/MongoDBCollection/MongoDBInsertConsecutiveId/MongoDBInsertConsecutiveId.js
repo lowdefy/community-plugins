@@ -22,6 +22,7 @@ async function insertDocument({
   blockId,
   connection,
   collection,
+  connectionId,
   doc,
   logCollection,
   options,
@@ -36,6 +37,7 @@ async function insertDocument({
       {
         args: { doc, options },
         blockId,
+        connectionId,
         pageId,
         payload,
         requestId,

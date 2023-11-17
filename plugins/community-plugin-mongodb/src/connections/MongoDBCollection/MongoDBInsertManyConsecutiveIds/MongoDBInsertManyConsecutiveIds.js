@@ -21,6 +21,7 @@ import schema from './schema.js';
 async function insertDocuments({
   blockId,
   connection,
+  connectionId,
   collection,
   docs,
   logCollection,
@@ -36,6 +37,7 @@ async function insertDocuments({
       {
         args: { docs, options },
         blockId,
+        connectionId,
         pageId,
         payload,
         requestId,

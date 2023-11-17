@@ -59,6 +59,7 @@ test('insertOne logCollection', async () => {
   const res = await MongoDBInsertOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertOne_log',
@@ -74,6 +75,7 @@ test('insertOne logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertOne_log',
@@ -115,6 +117,7 @@ test('insertOne logCollection options', async () => {
   const res = await MongoDBInsertOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertOne_options_log',
@@ -130,6 +133,7 @@ test('insertOne logCollection options', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertOne_options_log',

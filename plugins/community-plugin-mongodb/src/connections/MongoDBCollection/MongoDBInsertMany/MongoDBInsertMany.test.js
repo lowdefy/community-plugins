@@ -66,6 +66,7 @@ test('insertMany logCollection', async () => {
   const res = await MongoDBInsertMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertMany_log',
@@ -81,6 +82,7 @@ test('insertMany logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertMany_log',
@@ -122,6 +124,7 @@ test('insertMany logCollection options', async () => {
   const res = await MongoDBInsertMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertMany_options_log',
@@ -137,6 +140,7 @@ test('insertMany logCollection options', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'insertMany_options_log',
