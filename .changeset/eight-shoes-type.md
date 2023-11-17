@@ -2,4 +2,5 @@
 '@lowdefy/community-plugin-mongodb': patch
 ---
 
-Request export to include log changes.
+Add connectionId to log-changes logs.
+Fix: Request plugins were not exported as part of package.
