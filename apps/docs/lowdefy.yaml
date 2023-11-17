@@ -12,11 +12,14 @@ plugins:
     version: 'workspace:*'
   - name: '@lowdefy/community-plugin-xlsx'
     version: 'workspace:*'
+  - name: '@lowdefy/community-plugin-aggrid'
+    version: 'workspace:*'
 
 menus:
   _ref: menus.yaml
 
 pages:
+  - _ref: community-plugin-aggrid/AgGrid.yaml
   - _ref: community-plugin-confetti/Confetti.yaml
   - _ref: community-plugin-nodemailer/EmailProvider.yaml
   - _ref: community-plugin-mongodb/MongoDB.yaml
