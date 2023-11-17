@@ -1,5 +1,12 @@
 # @lowdefy/community-plugin-mongodb
 
+## 1.4.1
+
+### Patch Changes
+
+- 83f476f: Add connectionId to log-changes logs.
+  Fix: Request plugins were not exported as part of package.
+
 ## 1.4.0
 
 ### Minor Changes
