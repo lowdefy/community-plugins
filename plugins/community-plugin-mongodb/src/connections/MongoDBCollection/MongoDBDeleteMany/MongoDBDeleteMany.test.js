@@ -78,6 +78,7 @@ test('deleteMany logCollection - Single Document', async () => {
   const res = await MongoDBDeleteMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteMany_log',
@@ -93,6 +94,7 @@ test('deleteMany logCollection - Single Document', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteMany_log',
@@ -132,6 +134,7 @@ test('deleteMany logCollection - Multiple Documents', async () => {
   const res = await MongoDBDeleteMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteMany_multiple',
@@ -147,6 +150,7 @@ test('deleteMany logCollection - Multiple Documents', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteMany_multiple',
@@ -186,6 +190,7 @@ test('deleteMany logCollection - Multiple Documents one field', async () => {
   const res = await MongoDBDeleteMany({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteMany_multiple_one_field',
@@ -201,6 +206,7 @@ test('deleteMany logCollection - Multiple Documents one field', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteMany_multiple_one_field',

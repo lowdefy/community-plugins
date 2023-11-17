@@ -63,6 +63,7 @@ test('deleteOne logCollection', async () => {
   const res = await MongoDBDeleteOne({
     request,
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteOne_log',
@@ -80,6 +81,7 @@ test('deleteOne logCollection', async () => {
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
+    connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'deleteOne_log',

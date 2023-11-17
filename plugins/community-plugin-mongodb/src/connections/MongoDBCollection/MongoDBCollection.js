@@ -16,8 +16,14 @@
 
 import { MongoDBCollection } from '@lowdefy/connection-mongodb/connections';
 
+import MongoDBDeleteMany from './MongoDBDeleteMany/MongoDBDeleteMany.js';
+import MongoDBDeleteOne from './MongoDBDeleteOne/MongoDBDeleteOne.js';
 import MongoDBInsertConsecutiveId from './MongoDBInsertConsecutiveId/MongoDBInsertConsecutiveId.js';
+import MongoDBInsertMany from './MongoDBInsertMany/MongoDBInsertMany.js';
 import MongoDBInsertManyConsecutiveIds from './MongoDBInsertManyConsecutiveIds/MongoDBInsertManyConsecutiveIds.js';
+import MongoDBInsertOne from './MongoDBInsertOne/MongoDBInsertOne.js';
+import MongoDBUpdateMany from './MongoDBUpdateMany/MongoDBUpdateMany.js';
+import MongoDBUpdateOne from './MongoDBUpdateOne/MongoDBUpdateOne.js';
 import schema from './schema.js';
 
 const { requests } = MongoDBCollection;
@@ -26,7 +32,13 @@ export default {
   schema,
   requests: {
     ...requests,
+    MongoDBDeleteMany,
+    MongoDBDeleteOne,
     MongoDBInsertConsecutiveId,
+    MongoDBInsertMany,
     MongoDBInsertManyConsecutiveIds,
+    MongoDBInsertOne,
+    MongoDBUpdateMany,
+    MongoDBUpdateOne,
   },
 };
