@@ -28,16 +28,15 @@ async function MongodbUpdateOne({
   payload,
 }) {
   const deserializedRequest = deserialize(request);
-  const { filter, update, options } = deserializedRequest;
+  const { filter, update, options, disableNoMatchError } = deserializedRequest;
   const { collection, client, logCollection } = await getCollection({ connection });
   let response;
   try {
     if (logCollection) {
-      const { value, ...responseWithoutValue } = await collection.findOneAndUpdate(
-        filter,
-        update,
-        options
-      );
+      const { value, ...responseWithoutValue } = await collection.findOneAndUpdate(filter, update, {
+        ...options,
+        includeResultMetadata: true,
+      });
       response = responseWithoutValue;
       const after = await collection.findOne({
         _id: value ? value._id : response.lastErrorObject?.upserted,
@@ -55,8 +54,14 @@ async function MongodbUpdateOne({
         type: 'MongoDBUpdateOne',
         meta: connection.changeLog?.meta,
       });
+      if (!disableNoMatchError && !response.lastErrorObject.updatedExisting) {
+        throw new Error('No matching record to update.');
+      }
     } else {
       response = await collection.updateOne(filter, update, options);
+      if (!disableNoMatchError && response.matchedCount === 0) {
+        throw new Error('No matching record to update.');
+      }
     }
   } catch (error) {
     await client.close();

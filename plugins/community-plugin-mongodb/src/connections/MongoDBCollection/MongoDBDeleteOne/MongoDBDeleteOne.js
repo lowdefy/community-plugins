@@ -33,7 +33,10 @@ async function MongodbDeleteOne({
   let response;
   try {
     if (logCollection) {
-      const { value, ...responseWithoutValue } = await collection.findOneAndDelete(filter, options);
+      const { value, ...responseWithoutValue } = await collection.findOneAndDelete(filter, {
+        ...options,
+        includeResultMetadata: true,
+      });
       response = responseWithoutValue;
       await logCollection.insertOne({
         args: { filter, options },

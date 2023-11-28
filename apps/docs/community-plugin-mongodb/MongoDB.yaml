@@ -41,8 +41,74 @@ _ref:
             ## Requests
 
             Request types:
+              - MongoDBUpdateOne
               - MongoDBInsertConsecutiveId
               - MongoDBInsertManyConsecutiveIds
+
+            ### MongoDBUpdateOne
+
+            #### Properties
+
+            The `MongoDBUpdateOne` request extends the standard [MongoDBUpdateOne](https://www.mongodb.com/docs/manual/reference/method/db.collection.updateOne/) allowing for an additional disableNoMatchError property.
+
+            - `disableNoMatchError: boolean`: Set to true to disable the no match error when updating. It is set to false by default. _This is not the standard MongoDBUpdateOne behaviour and will throw an error when there is no matching document._
+
+            The request returns the following:
+
+            If a log collection is not set on the connection
+
+            - `acknowledged: boolean` - Acknowledgement of the insertion.
+            - `matchedCount: number` - The number of matched documents.
+            - `modifiedCount: number` - The number of modified documents.
+            - `upsertedId: string` - The ID of the upserted document.
+            - `upsertedCount: number` - The number of upserts.
+
+            If a log collection is set on the connection
+
+            - `lastErrorObject: object` - An object containing data on whether an existing document was updated or not.
+            - `ok: number` - Status of the request, 1 if the request was successful and 0 otherwise.
+            - `'$clusterTime': object` - An object containing data on the cluster time and signature.
+            - `operationTime: date` - Timestamp object of the operation time.
+
+            #### Example
+
+            ###### The disableNoMatchError property can be useful on a request that is in an action chain of other requests that should be executed whether or not it fails.
+            ```yaml
+              requests:
+                - id: item_request_1
+                  type: MongoDBUpdateOne
+                  connectionId: items
+                  payload:
+                    id:
+                      _state: item._id
+                  properties:
+                    disableNoMatchError: true
+                    filter:
+                      _id:
+                        _payload: id
+                      status: In Progress
+                    update:
+                      - $set:
+                          ...
+                - id: item_request_2
+                  ...
+              ...
+              blocks:
+                - id: update_items
+                  type: Button
+                  properties:
+                    title: Update Item
+                  events:
+                    onClick:
+                      - id: item_request_1
+                        type: Request
+                        params: item_request_1
+                      - id: item_request_2
+                        type: Request
+                        params: item_request_2
+                        messages:
+                          success: Item updated
+            ```
 
             ### MongoDBInsertConsecutiveId
 
