@@ -49,7 +49,7 @@ _ref:
 
             #### Properties
 
-            The `MongoDBUpdateOne` request extends the standard [MongoDBUpdateOne](https://www.mongodb.com/docs/manual/reference/method/db.collection.updateOne/) allowing for an additional disableNoMatchError property.
+            The `MongoDBUpdateOne` request modifies the standard [MongoDBUpdateOne](https://docs.lowdefy.com/MongoDB) to throw an error if no document was matched and updated. This behaviour can be disabled by setting the `disableNoMatchError` property.
 
             - `disableNoMatchError: boolean`: Set to true to disable the no match error when updating. It is set to false by default. _This is not the standard MongoDBUpdateOne behaviour and will throw an error when there is no matching document._
 
