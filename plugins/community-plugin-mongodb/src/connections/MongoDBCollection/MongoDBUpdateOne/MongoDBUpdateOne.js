@@ -54,12 +54,12 @@ async function MongodbUpdateOne({
         type: 'MongoDBUpdateOne',
         meta: connection.changeLog?.meta,
       });
-      if (!disableNoMatchError && !response.lastErrorObject.updatedExisting) {
+      if (!disableNoMatchError && !options?.upsert && !response.lastErrorObject.updatedExisting) {
         throw new Error('No matching record to update.');
       }
     } else {
       response = await collection.updateOne(filter, update, options);
-      if (!disableNoMatchError && response.matchedCount === 0) {
+      if (!disableNoMatchError && !options?.upsert && response.matchedCount === 0) {
         throw new Error('No matching record to update.');
       }
     }
