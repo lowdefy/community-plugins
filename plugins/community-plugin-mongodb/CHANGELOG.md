@@ -1,5 +1,16 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.0.0
+
+### Major Changes
+
+- a3a3b2c: The `MongoDBUpdateOne` request now throws an error if no document was matched and updated. This behaviour can be disabled by setting the new `disableNoMatchError` property.
+
+### Patch Changes
+
+- 0ed171e: Update dependency mongodb to v6.3.0.
+- 4c3ad0c: Handle upsert true for error throw.
+
 ## 1.4.1
 
 ### Patch Changes
