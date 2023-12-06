@@ -9,7 +9,7 @@ If you did not request this email you can safely ignore it.
 Made with Lowdefy[https://lowdefy.com]`;
 
 function text({ host, template, templateVariables, theme, url }) {
-  return nunjucksFunction(defaultTemplate ?? template)({
+  return nunjucksFunction(template ?? defaultTemplate)({
     host,
     templateVariables,
     theme,

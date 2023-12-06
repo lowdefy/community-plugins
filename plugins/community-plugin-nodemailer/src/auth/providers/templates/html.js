@@ -47,7 +47,7 @@ function html({ host, template, templateVariables, theme, url }) {
   // Insert invisible space into domains from being turned into a hyperlink by email
   // clients like Outlook and Apple mail, as this is confusing because it seems
   // like they are supposed to click on it to sign in.
-  return nunjucksFunction(defaultTemplate ?? template)({
+  return nunjucksFunction(template ?? defaultTemplate)({
     host: host.replace(/\./g, '&#8203;.'),
     templateVariables,
     theme,
