@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-nodemailer
 
+## 1.1.3
+
+### Patch Changes
+
+- 220f9cf: Fix custom templates in EmailProvider.
+
 ## 1.1.2
 
 ### Patch Changes

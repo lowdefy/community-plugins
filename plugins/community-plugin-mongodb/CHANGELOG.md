@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.0.1
+
+### Patch Changes
+
+- b864c10: Fix MultiAppMongoDBAdapter for mongodb v6 driver.
+
 ## 2.0.0
 
 ### Major Changes
