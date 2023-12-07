@@ -73,7 +73,7 @@ function MultiAppMongoDBAdapter({ properties }) {
     },
 
     async unlinkAccount(provider_providerAccountId) {
-      const { value: account } = await mongoClient
+      const account = await mongoClient
         .db()
         .collection(collectionNames.accounts)
         .findOneAndDelete(provider_providerAccountId);
@@ -118,16 +118,13 @@ function MultiAppMongoDBAdapter({ properties }) {
           { $set: session },
           { returnDocument: 'after' }
         );
-      return from(result.value);
+      return from(result);
     },
 
     async deleteSession(sessionToken) {
-      const { value: session } = await mongoClient
-        .db()
-        .collection(collectionNames.sessions)
-        .findOneAndDelete({
-          sessionToken,
-        });
+      const session = await mongoClient.db().collection(collectionNames.sessions).findOneAndDelete({
+        sessionToken,
+      });
       return from(session);
     },
 
@@ -137,7 +134,7 @@ function MultiAppMongoDBAdapter({ properties }) {
     },
 
     async useVerificationToken(identifier_token) {
-      const { value: verificationToken } = await mongoClient
+      const verificationToken = await mongoClient
         .db()
         .collection(collectionNames.verificationTokens)
         .findOneAndDelete(identifier_token);
