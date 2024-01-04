@@ -1,5 +1,11 @@
 - id: default
   links:
+    - id: introduction
+      type: MenuLink
+      pageId: introduction
+      properties:
+        title: Community Plugins
+        icon: AiOutlineBuild
     - id: community-plugin-confetti
       type: MenuLink
       pageId: Confetti
