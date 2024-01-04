@@ -19,6 +19,7 @@ menus:
   _ref: menus.yaml
 
 pages:
+  - _ref: introduction.yaml
   - _ref: community-plugin-aggrid/AgGrid.yaml
   - _ref: community-plugin-confetti/Confetti.yaml
   - _ref: community-plugin-nodemailer/EmailProvider.yaml
