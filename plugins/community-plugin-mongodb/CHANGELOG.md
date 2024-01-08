@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.1.0
+
+### Minor Changes
+
+- c6db5d5: Add a property (verificationTokens.uses) to MultiAppMongoDBAdapter to customise how many times a verification can be used.
+
 ## 2.0.1
 
 ### Patch Changes
