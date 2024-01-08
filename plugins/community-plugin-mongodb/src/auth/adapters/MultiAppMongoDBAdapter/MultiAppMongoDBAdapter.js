@@ -129,7 +129,10 @@ function MultiAppMongoDBAdapter({ properties }) {
     },
 
     async createVerificationToken(data) {
-      await mongoClient.db().collection(collectionNames.verificationTokens).insertOne(to(data));
+      const tokens = Array.from({ length: properties?.verificationTokens?.uses ?? 1 }, () =>
+        to(data)
+      );
+      await mongoClient.db().collection(collectionNames.verificationTokens).insertMany(tokens);
       return data;
     },
 
