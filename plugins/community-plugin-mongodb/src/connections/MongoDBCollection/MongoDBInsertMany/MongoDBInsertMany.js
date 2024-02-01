@@ -52,8 +52,8 @@ async function MongodbInsertMany({
     throw error;
   }
   await client.close();
-  const { acknowledged, insertedCount } = serialize(response);
-  return { acknowledged, insertedCount };
+  const { acknowledged, insertedCount, insertedIds } = serialize(response);
+  return { acknowledged, insertedCount, insertedIds };
 }
 
 MongodbInsertMany.schema = schema;

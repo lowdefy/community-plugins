@@ -45,6 +45,7 @@ test('insertMany', async () => {
   expect(res).toEqual({
     acknowledged: true,
     insertedCount: 3,
+    insertedIds: { 0: 'insertMany1-1', 1: 'insertMany1-2', 2: 'insertMany1-3' },
   });
 });
 
@@ -75,6 +76,7 @@ test('insertMany logCollection', async () => {
   expect(res).toEqual({
     acknowledged: true,
     insertedCount: 3,
+    insertedIds: { 0: 'insertMany1-1_log', 1: 'insertMany1-2_log', 2: 'insertMany1-3_log' },
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
@@ -106,6 +108,7 @@ test('insertMany options', async () => {
   expect(res).toEqual({
     acknowledged: true,
     insertedCount: 2,
+    insertedIds: { 0: 'insertMany2-1', 1: 'insertMany2-2' },
   });
 });
 
@@ -133,6 +136,7 @@ test('insertMany logCollection options', async () => {
   expect(res).toEqual({
     acknowledged: true,
     insertedCount: 2,
+    insertedIds: { 0: 'insertMany2-1_log', 1: 'insertMany2-2_log' },
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
