@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.2.0
+
+### Minor Changes
+
+- 5fc778b: Update MongoDBInsertMany to return insertedIds.
+
 ## 2.1.0
 
 ### Minor Changes
