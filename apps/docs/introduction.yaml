@@ -1,0 +1,92 @@
+_ref:
+  path: templates/general.yaml.njk
+  vars:
+    pageId: introduction
+    pageTitle: Introduction to Community Plugins
+    filePath: introduction.yaml
+    content:
+      - id: markdown
+        type: Markdown
+        properties:
+          content: |
+            ##### This is a site for all the unofficial plugins for Lowdefy created by the community.
+
+            These community plugins are built for developers by developers, and if you're building a Lowdefy app, then you're a developer too!
+
+            These community plugins also serve as a testing ground for what does or doesn't work for the community. Community plugins may begin as very specific to their use cases and less broadly applicable. However, successful and frequently used community plugins may eventually be incorporated as official Lowdefy plugins.
+
+      - id: block_id
+        type: Alert
+        properties:
+          message: Use with caution
+          banner: true
+          description: Because community plugins contain third-party code, they are more experimental and subject to change than official Lowdefy packages. It is recommended to treat community plugins as beta ware that can be used to share and learn with others in the community. # not sure if beta ware is the right term here?
+          icon: AiOutlineExperiment
+          type: info
+
+      - id: md2
+        type: MarkdownWithCode
+        properties:
+          content: |
+            Community plugins can be added directly to your Lowdefy project or simply provide a good starting point for seeing what plugins are capable of or a reference point for [developing your own plugins](https://docs.lowdefy.com/plugins-dev).
+
+            If there are any of these plugins you'd like to make use of but need to refresh your memory, you can revisit the [Lowdefy plugin docs](https://docs.lowdefy.com/plugins-introduction).
+
+            Any questions about how these plugins work or developing your own can be asked via on [Github](https://github.com/lowdefy/lowdefy/discussions) and [Discord](https://discord.gg/QQY9eJ7A2D).
+
+            ## Using a plugin
+
+            To use a plugin in an app, the plugin name and version should be specified in the `plugins` section of the Lowdefy config. Once the plugin is included, the types (blocks, connections, etc) defined in the plugin can be used anywhere in the app.
+
+            If two plugins export types with the same type name, user defined plugins will override the default Lowdefy types, and user defined plugins will overwrite other plugins defined before them in the plugins array.
+
+            ###### Example from the Confetti plugin
+
+            ```yaml
+            # lowdefy.yaml
+            lowdefy: '4.0.0-rc.12'
+            ...
+            plugins:
+              - name : '@lowdefy/community-plugin-confetti'
+                version: '1.0.0'
+            ```
+
+      - id: md2
+        type: MarkdownWithCode
+        properties:
+          content: |
+            ## Plugin versions and updates
+
+            Just like Lowdefy uses a semantic versioning, community plugins have their own *independent* versioning and version updates. Community plugin changelogs and past releases can be viewed on the Github repo [release page](https://github.com/lowdefy/community-plugins/releases).
+
+            ### Troubleshooting
+            Because community plugin versions and updates are not tied to Lowdefy versions and updates, if the plugin is no longer working, it might be that the plugin is no longer compatible with the new version of Lowdefy.
+
+            Alternatively, the developer may have updated the community plugin to a new version. This can be fixed by updated the `version` number in the `lowdefy.yaml` file as shown above. You might also need to make some changes to your app configuration to be compatible with the new version.
+
+            ### About semantic versioning
+
+            Just like Lowdefy, community plugins should be versioned using semantic versioning, with a three part version number (e.g. `version: 2.1.3`), with the form: `major.minor.patch.`
+
+            major | .minor | .patch
+            :--- | :--- | :---
+            May include breaking or architecture changes. Configuration changes likely required. | New features likely to cause only small breaking changes to individual elements | updates only contain fixes, shouldn't have any material impact other than improved performance.
+
+            This means that if a plugin is going from `version: 1.0.0` to `version: 1.0.1`, which is a `patch` change, changes are likely to be negligible to your configuration but improve performance of the plugin.
+
+            However, a change from `version: 1.0.1` to `version: 2.0.0`, which is a `major` change, could result in major breaking changes and will probably require configuration changes in your app.
+
+      - id: md2
+        type: MarkdownWithCode
+        properties:
+          content: |
+            ### _alternative to the table summary. I like the table because it preserves the x.y.z visual layout_
+
+            ##### `major`
+            Major version updates may include major breaking changes or architecture changes. You might need to make more changes to your configuration to be compatible with the new version. We don't intend to release major versions regularly, and try to minimize breaking changes.
+
+            ##### `minor`
+            Minor version changes include new features. At this stage, since the project is still in early development, they might also have minor breaking changes to individual blocks, actions, operators or connections. Please check the changelog to see if any configuration changes are needed before updating.
+
+            ##### `patch`
+            Patch updates only contain fixes, and you should be safe to update to a patched version without any changes to your app. Since we are actively developing new features, most releases will be minor version updates, and patches won't be made to older versions.
