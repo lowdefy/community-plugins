@@ -46,7 +46,11 @@ async function createDatabaseUserFromContact({
   const { value: updatedContact } = await mongoClient
     .db()
     .collection(collectionNames.contacts)
-    .findOneAndUpdate({ _id: contact._id }, { $set: update }, { returnDocument: 'after' });
+    .findOneAndUpdate(
+      { _id: contact._id },
+      { $set: update },
+      { returnDocument: 'after', includeResultMetadata: true }
+    );
   return transformContactToAdapterUser({ appName, contact: updatedContact });
 }
 
