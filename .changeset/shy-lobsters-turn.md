@@ -2,4 +2,4 @@
 '@lowdefy/community-plugin-mongodb': patch
 ---
 
-Set includeResultMetadata option true on adapter.
+Fixed issue where user login fails for an invited user on first signup.
