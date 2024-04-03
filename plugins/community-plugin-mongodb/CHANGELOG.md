@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.2.1
+
+### Patch Changes
+
+- 1f3de71: Fixed issue where user login fails for an invited user on first signup.
+
 ## 2.2.0
 
 ### Minor Changes
