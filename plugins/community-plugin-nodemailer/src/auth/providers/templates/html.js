@@ -13,7 +13,7 @@ const defaultTemplate = `
     <table align="center" width="100%" data-id="__react-email-container" role="presentation" cellSpacing="0" cellPadding="0" border="0" style="max-width:37.5em;margin:0 auto;padding:24px;margin-bottom:64px;text-align:center">
       <tbody>
         <tr style="width:100%">
-          <td><img data-id="react-email-img" alt="{{ templateVariables.appName or host }}" src="{{ theme.logo or 'https://lowdefy.com/logo-light-theme.png' }}" style="display:block;outline:none;border:none;text-decoration:none;height:{{ templateVariables.logoHeight or '32px' }}" />
+          <td><img data-id="react-email-img" alt="{{ templateVariables.appName or host }}" height="{{ (templateVariables.logoHeight or '32') | replace('px', '') }}" src="{{ theme.logo or 'https://lowdefy.com/logo-light-theme.png' }}" style="display:block;outline:none;border:none;text-decoration:none;height:{{ templateVariables.logoHeight or '32px' }}" />
             <table align="center" width="100%" data-id="__react-email-container" role="presentation" cellSpacing="0" cellPadding="0" border="0" style="max-width:37.5em;background-color:#ffffff;margin:24px auto 12px auto;padding:16px;border:1px solid #dedede;border-radius:4px">
               <tbody>
                 <tr style="width:100%">
