@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-nodemailer
 
+## 1.1.4
+
+### Patch Changes
+
+- d105485: Fix broken logo height when viewing email in Outlook.
+
 ## 1.1.3
 
 ### Patch Changes
