@@ -8,6 +8,7 @@ async function getUserFromDbByEmail({ appName, collectionNames, email, mongoClie
   if (
     !contact ||
     contact.disabled ||
+    contact.removed ||
     !contact.apps?.[appName]?.is_user ||
     contact.apps?.[appName]?.disabled
   ) {
