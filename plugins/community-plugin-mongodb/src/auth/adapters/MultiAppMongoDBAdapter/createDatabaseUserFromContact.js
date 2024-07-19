@@ -13,7 +13,7 @@ async function createDatabaseUserFromContact({
     throw new Error('Access denied.');
   }
 
-  if (contact.disabled || contact.apps?.[appName]?.disabled) {
+  if (contact.disabled || contact.removed || contact.apps?.[appName]?.disabled) {
     throw new Error('Access denied.');
   }
 

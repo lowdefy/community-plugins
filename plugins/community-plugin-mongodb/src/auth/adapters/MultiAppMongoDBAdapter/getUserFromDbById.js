@@ -8,6 +8,7 @@ async function getUserFromDbById({ appName, collectionNames, mongoClient, userId
   if (
     !contact ||
     contact.disabled ||
+    contact.removed ||
     !contact.apps?.[appName]?.is_user ||
     contact.apps?.[appName]?.disabled
   ) {
