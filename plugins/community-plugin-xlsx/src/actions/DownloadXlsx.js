@@ -4,7 +4,7 @@ import writeXlsxFile from 'write-excel-file';
 const createGetValue = ({ column }) => {
   if (type.isString(column.value)) {
     if (column.type === 'Array') {
-      return (row) => get(row, column.value).filter(Boolean).join(',');
+      return (row) => get(row, column.value)?.filter(Boolean).join(', ');
     }
     return (row) => get(row, column.value);
   }
