@@ -39,14 +39,22 @@ _ref:
                     Amount: 10
                     Date:
                       _date: 2023-01-26
+                    Tags:
+                      - 1
+                      - 2
                   - Category: b
                     Amount: 20
                     Date:
                       _date: 2023-01-27
+                    Tags:
+                      - 2
                   - Category: c
                     Amount: 30
                     Date:
                       _date: 2023-01-28
+                    Tags:
+                      - 2
+                      - 4
                 schema:
                   - column: Category Name
                     value: Category
@@ -60,6 +68,10 @@ _ref:
                     value: Date
                     type: Date
                     width: 20
+                  - column: Tags
+                    value: Tags
+                    type: Array
+                    width: 20
       - id: markdown
         type: MarkdownWithCode
         properties:
@@ -71,6 +83,8 @@ _ref:
             - `dateFormat: string`: The format of dates in the file.
 
             See [write-excel-file](https://www.npmjs.com/package/write-excel-file) for additional properties.
+
+            An `Array` type is added that joins the array separated by commas.
 
             ### Examples
 
@@ -92,14 +106,22 @@ _ref:
                         Amount: 10
                         Date:
                           _date: 2023-01-26
+                        Tags:
+                          - 1
+                          - 2
                       - Category: b
                         Amount: 20
                         Date:
                           _date: 2023-01-27
+                        Tags:
+                          - 2
                       - Category: c
                         Amount: 30
                         Date:
                           _date: 2023-01-28
+                        Tags:
+                          - 2
+                          - 4
                     schema:
                       - column: Category Name
                         value: Category
@@ -112,6 +134,10 @@ _ref:
                       - column: Date Created
                         value: Date
                         type: Date
+                        width: 20
+                      - column: Tags
+                        value: Tags
+                        type: Array
                         width: 20
             ```
 
