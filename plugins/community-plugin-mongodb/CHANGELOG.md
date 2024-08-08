@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.3.0
+
+### Minor Changes
+
+- dd8f667: Add support for a removed field on the user object.
+
 ## 2.2.1
 
 ### Patch Changes
