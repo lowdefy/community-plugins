@@ -30,28 +30,30 @@ async function MongoDBUpdateInsertOne({
   const deserializedRequest = deserialize(request);
   const { filter, update, options, disableNoMatchError } = deserializedRequest;
   const { collection, client, logCollection } = await getCollection({ connection });
+  const findOptions = options?.find;
+  const insertOptions = options?.insert;
+  const updateOptions = options?.update;
   let response;
+
   try {
     if (logCollection) {
-      const document = await collection.findOne(filter, options);
+      const document = await collection.findOne(filter, { ...findOptions });
       var insertedDocument;
       if (document) {
         delete document._id;
-        insertedDocument = await collection.insertOne(document);
+        insertedDocument = await collection.insertOne(document, { ...insertOptions });
       }
 
       const { value, ...responseWithoutValue } = await collection.findOneAndUpdate(
         insertedDocument ? { _id: insertedDocument.insertedId } : filter,
         update,
         {
-          ...options,
-          includeResultMetadata: true,
+          ...updateOptions,
+          includeResultMetadata: true, //TODO: Use document after
+          returnDocument: 'after',
         }
       );
       response = responseWithoutValue;
-      const after = await collection.findOne({
-        _id: value ? value._id : response.lastErrorObject?.upserted,
-      });
       await logCollection.insertOne({
         args: { filter, update, options },
         blockId,
@@ -59,18 +61,22 @@ async function MongoDBUpdateInsertOne({
         pageId,
         payload,
         requestId,
-        before: value,
-        after,
+        before: document,
+        after: value,
         timestamp: new Date(),
         type: 'MongoDBUpdateInsertOne',
         meta: connection.changeLog?.meta,
       });
-      if (!disableNoMatchError && !options?.upsert && !response.lastErrorObject.updatedExisting) {
+      if (
+        !disableNoMatchError &&
+        !updateOptions?.upsert &&
+        !response.lastErrorObject.updatedExisting
+      ) {
         throw new Error('No matching record to update.');
       }
     } else {
-      response = await collection.updateOne(filter, update, options);
-      if (!disableNoMatchError && !options?.upsert && response.matchedCount === 0) {
+      response = await collection.updateOne(filter, update, { ...updateOptions });
+      if (!disableNoMatchError && !updateOptions?.upsert && response.matchedCount === 0) {
         throw new Error('No matching record to update.');
       }
     }

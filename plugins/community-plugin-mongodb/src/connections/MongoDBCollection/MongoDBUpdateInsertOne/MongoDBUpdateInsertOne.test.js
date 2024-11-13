@@ -102,7 +102,7 @@ test('updateInsertOne upsert', async () => {
   const request = {
     filter: { _id: 'uniqueId_upsert', doc_id: 'updateInsertOne' },
     update: { $set: { v: 'after' } },
-    options: { upsert: true },
+    options: { update: { upsert: true } },
   };
   const connection = {
     databaseUri,
@@ -124,7 +124,7 @@ test('updateInsertOne upsert logCollection', async () => {
   const request = {
     filter: { _id: 'uniqueId_upsert_log', doc_id: 'updateInsertOne' },
     update: { $set: { v: 'after' } },
-    options: { upsert: true },
+    options: { update: { upsert: true } },
   };
   const connection = {
     databaseUri,
@@ -171,7 +171,7 @@ test('updateInsertOne upsert false', async () => {
   const request = {
     filter: { doc_id: 'uniqueId_upsert_false' },
     update: { $set: { v: 'after' } },
-    options: { upsert: false },
+    options: { update: { upsert: false } },
   };
   const connection = {
     databaseUri,
@@ -188,7 +188,7 @@ test('updateInsertOne upsert false logCollection', async () => {
   const request = {
     filter: { doc_id: 'updateInsertOne_upsert_false' },
     update: { $set: { v: 'after' } },
-    options: { upsert: false },
+    options: { update: { upsert: false } },
   };
   const connection = {
     databaseUri,
