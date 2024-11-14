@@ -575,3 +575,24 @@ test('request options not an object', async () => {
     'MongoDBUpdateInsertOne request property "options" should be an object.'
   );
 });
+
+test('request update options not an object', async () => {
+  const request = { update: {}, filter: {}, options: { update: 'update' } };
+  expect(() => validate({ schema, data: request })).toThrow(
+    'MongoDBUpdateInsertOne request property option "update" should be an object.'
+  );
+});
+
+test('request find options not an object', async () => {
+  const request = { update: {}, filter: {}, options: { find: 'find' } };
+  expect(() => validate({ schema, data: request })).toThrow(
+    'MongoDBUpdateInsertOne request property option "find" should be an object.'
+  );
+});
+
+test('request insert options not an object', async () => {
+  const request = { update: {}, filter: {}, options: { insert: 'insert' } };
+  expect(() => validate({ schema, data: request })).toThrow(
+    'MongoDBUpdateInsertOne request property option "insert" should be an object.'
+  );
+});

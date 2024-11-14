@@ -36,9 +36,32 @@ export default {
     },
     options: {
       type: 'object',
-      description: 'Optional settings.',
+      description: 'Optional settings for each mongodb operation.',
       errorMessage: {
         type: 'MongoDBUpdateInsertOne request property "options" should be an object.',
+      },
+      properties: {
+        find: {
+          type: 'object',
+          description: 'Find options for mongodb find one.',
+          errorMessage: {
+            type: 'MongoDBUpdateInsertOne request property option "find" should be an object.',
+          },
+        },
+        insert: {
+          type: 'object',
+          description: 'Insert options for mongodb insert one.',
+          errorMessage: {
+            type: 'MongoDBUpdateInsertOne request property option "insert" should be an object.',
+          },
+        },
+        update: {
+          type: 'object',
+          description: 'Update options for mongodb find one and update.',
+          errorMessage: {
+            type: 'MongoDBUpdateInsertOne request property option "update" should be an object.',
+          },
+        },
       },
     },
   },
