@@ -33,12 +33,11 @@ async function MongoDBUpdateInsertOne({
   const findOptions = options?.find;
   const insertOptions = options?.insert;
   const updateOptions = options?.update;
-  let response;
+  let response, insertedDocument;
 
   try {
     if (logCollection) {
       const document = await collection.findOne(filter, { ...findOptions });
-      var insertedDocument;
       if (document) {
         delete document._id;
         insertedDocument = await collection.insertOne(document, { ...insertOptions });
@@ -49,7 +48,7 @@ async function MongoDBUpdateInsertOne({
         update,
         {
           ...updateOptions,
-          includeResultMetadata: true, //TODO: Use document after
+          includeResultMetadata: true,
           returnDocument: 'after',
         }
       );
@@ -75,7 +74,17 @@ async function MongoDBUpdateInsertOne({
         throw new Error('No matching record to update.');
       }
     } else {
-      response = await collection.updateOne(filter, update, { ...updateOptions });
+      const document = await collection.findOne(filter, { ...findOptions });
+      if (document) {
+        delete document._id;
+        insertedDocument = await collection.insertOne(document, { ...insertOptions });
+      }
+
+      response = await collection.updateOne(
+        insertedDocument ? { _id: insertedDocument.insertedId } : filter,
+        update,
+        { ...updateOptions }
+      );
       if (!disableNoMatchError && !updateOptions?.upsert && response.matchedCount === 0) {
         throw new Error('No matching record to update.');
       }
