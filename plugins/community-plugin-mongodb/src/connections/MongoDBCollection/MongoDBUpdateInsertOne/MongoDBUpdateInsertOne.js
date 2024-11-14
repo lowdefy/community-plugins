@@ -36,8 +36,8 @@ async function MongoDBUpdateInsertOne({
   let response, insertedDocument;
 
   try {
+    const document = await collection.findOne(filter, { ...findOptions });
     if (logCollection) {
-      const document = await collection.findOne(filter, { ...findOptions });
       if (document) {
         delete document._id;
         insertedDocument = await collection.insertOne(document, { ...insertOptions });
@@ -74,7 +74,6 @@ async function MongoDBUpdateInsertOne({
         throw new Error('No matching record to update.');
       }
     } else {
-      const document = await collection.findOne(filter, { ...findOptions });
       if (document) {
         delete document._id;
         insertedDocument = await collection.insertOne(document, { ...insertOptions });
