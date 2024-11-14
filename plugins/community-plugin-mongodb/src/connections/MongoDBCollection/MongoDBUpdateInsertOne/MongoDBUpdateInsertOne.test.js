@@ -102,7 +102,7 @@ test('updateInsertOne logCollection with find options', async () => {
   const request = {
     filter: { doc_id: 'updateInsertOne' },
     update: { $set: { v: 'afterLog' } },
-    options: { find: { projection: { _id: 1, v: 1 } } },
+    options: { find: { projection: { doc_id: 0 } } },
   };
   const connection = {
     databaseUri,
@@ -117,7 +117,7 @@ test('updateInsertOne logCollection with find options', async () => {
     connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
-    requestId: 'updateInsertOne',
+    requestId: 'updateInsertOneFindOptions',
     connection,
   });
   expect(res).toEqual({
@@ -129,14 +129,14 @@ test('updateInsertOne logCollection with find options', async () => {
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
-    requestId: 'updateInsertOne',
+    requestId: 'updateInsertOneFindOptions',
   });
   expect(logged).toMatchObject({
     blockId: 'blockId',
     connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
-    requestId: 'updateInsertOne',
+    requestId: 'updateInsertOneFindOptions',
     before: { v: 'before' },
     after: { v: 'afterLog' },
     type: 'MongoDBUpdateInsertOne',
