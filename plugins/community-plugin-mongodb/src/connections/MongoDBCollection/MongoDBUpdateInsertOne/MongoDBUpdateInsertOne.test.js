@@ -91,8 +91,54 @@ test('updateInsertOne logCollection', async () => {
     pageId: 'pageId',
     payload: { payload: true },
     requestId: 'updateInsertOne',
-    before: { doc_id: 'updateInsertOne', v: 'after' },
+    before: { doc_id: 'updateInsertOne', v: 'before' },
     after: { doc_id: 'updateInsertOne', v: 'afterLog' },
+    type: 'MongoDBUpdateInsertOne',
+    meta: { meta: true },
+  });
+});
+
+test('updateInsertOne logCollection with find options', async () => {
+  const request = {
+    filter: { doc_id: 'updateInsertOne' },
+    update: { $set: { v: 'afterLog' } },
+    options: { find: { projection: { _id: 1, v: 1 } } },
+  };
+  const connection = {
+    databaseUri,
+    databaseName,
+    collection,
+    changeLog: { collection: logCollection, meta: { meta: true } },
+    write: true,
+  };
+  const res = await MongoDBUpdateInsertOne({
+    request,
+    blockId: 'blockId',
+    connectionId: 'connectionId',
+    pageId: 'pageId',
+    payload: { payload: true },
+    requestId: 'updateInsertOne',
+    connection,
+  });
+  expect(res).toEqual({
+    lastErrorObject: {
+      n: 1,
+      updatedExisting: true,
+    },
+    ok: 1,
+  });
+  const logged = await findLogCollectionRecordTestMongoDb({
+    logCollection,
+    requestId: 'updateInsertOne',
+  });
+  expect(logged).toMatchObject({
+    blockId: 'blockId',
+    connectionId: 'connectionId',
+    pageId: 'pageId',
+    payload: { payload: true },
+    requestId: 'updateInsertOne',
+    before: { v: 'before' },
+    after: { v: 'afterLog' },
     type: 'MongoDBUpdateInsertOne',
     meta: { meta: true },
   });
