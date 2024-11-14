@@ -18,6 +18,7 @@ import { validate } from '@lowdefy/ajv';
 import MongoDBUpdateInsertOne from './MongoDBUpdateInsertOne.js';
 import findLogCollectionRecordTestMongoDb from '../../../test/findLogCollectionRecordTestMongoDb.js';
 import populateTestMongoDb from '../../../test/populateTestMongoDb.js';
+import getTestCollection from '../../../test/getTestCollection.js';
 
 const { checkRead, checkWrite } = MongoDBUpdateInsertOne.meta;
 const schema = MongoDBUpdateInsertOne.schema;
@@ -28,7 +29,7 @@ const collection = 'updateInsertOne';
 const logCollection = 'logCollection';
 const documents = [{ _id: 'uniqueId', v: 'before', doc_id: 'updateInsertOne' }];
 
-beforeAll(() => {
+beforeEach(() => {
   return populateTestMongoDb({ collection, documents });
 });
 
@@ -483,6 +484,46 @@ test('updateInsertOne mongodb error', async () => {
   await expect(MongoDBUpdateInsertOne({ request, connection })).rejects.toThrow(
     'Unknown modifier: $badOp'
   );
+});
+
+test('updateInsertOne validate write', async () => {
+  const request = {
+    filter: { doc_id: 'updateInsertOne' },
+    update: { $set: { v: 'after' } },
+  };
+  const connection = {
+    databaseUri,
+    databaseName,
+    collection,
+    write: true,
+  };
+  const res = await MongoDBUpdateInsertOne({
+    request,
+    blockId: 'blockId',
+    connectionId: 'connectionId',
+    pageId: 'pageId',
+    payload: { payload: true },
+    requestId: 'updateInsertOne_validate_write',
+    connection,
+  });
+  expect(res).toEqual({
+    acknowledged: true,
+    modifiedCount: 1,
+    upsertedId: null,
+    upsertedCount: 0,
+    matchedCount: 1,
+  });
+  const { collection: testCollection, client } = await getTestCollection();
+  const cursor = await testCollection.find(
+    { doc_id: 'updateInsertOne' },
+    { projection: { _id: 0 } }
+  );
+  const records = await cursor.toArray();
+  expect(records).toEqual([
+    { doc_id: 'updateInsertOne', v: 'before' },
+    { doc_id: 'updateInsertOne', v: 'after' },
+  ]);
+  await client.close();
 });
 
 test('checkRead should be false', async () => {
