@@ -44,6 +44,7 @@ _ref:
               - MongoDBUpdateOne
               - MongoDBInsertConsecutiveId
               - MongoDBInsertManyConsecutiveIds
+              - MongoDBVersionedUpdateOne
 
             ### MongoDBUpdateOne
 
@@ -199,4 +200,71 @@ _ref:
               "_id" : "ABC-0016",
               ...,
             }
+            ```
+
+            ### MongoDBVersionedUpdateOne
+
+            #### Properties
+
+            The `MongoDBVersionedUpdateOne` request uses the standard [MongoDBUpdateOne](https://docs.lowdefy.com/MongoDB) syntax to insert an identical document to the one found with only the updated field(s) changed.
+            The `MongoDBVersionedUpdateOne` request consists of __three__ stages; a `find` to locate the document, an `insert` to insert an identical document, and an `update` to apply the changes.
+
+            - `options: object` - An object containing options for each stage of the request.
+
+            The request returns the following:
+
+            If a log collection is not set on the connection
+
+            - `acknowledged: boolean` - Acknowledgement of the insertion.
+            - `matchedCount: number` - The number of matched documents.
+            - `modifiedCount: number` - The number of modified documents.
+            - `upsertedId: string` - The ID of the upserted document.
+            - `upsertedCount: number` - The number of upserts.
+
+            If a log collection is set on the connection
+
+            - `lastErrorObject: object` - An object containing data on whether an existing document was updated or not.
+            - `ok: number` - Status of the request, 1 if the request was successful and 0 otherwise.
+            - `'$clusterTime': object` - An object containing data on the cluster time and signature.
+            - `operationTime: date` - Timestamp object of the operation time.
+
+            #### Example
+
+            ###### Find the document with the highest item number and insert an identical document with a new name. A new document is inserted if none is found.
+            ```yaml
+              id: versioned_update
+              type: MongoDBVersionedUpdateOne
+              connectionId: items
+              payload:
+                id:
+                  _state: item._id
+              properties:
+                options:
+                  find:
+                    sort:
+                      item_number: -1
+                  update:
+                    upsert: true
+                filter:
+                  name: 'old_item'
+                update:
+                  $set:
+                    name: 'new_item'
+            ```
+
+            ###### Before
+            ```json
+              [
+                {"_id": ObjectId("..."), "name": "old_item", item_number: 2, "item_id": "old_item_2"},
+                {"_id": ObjectId("..."), "name": "old_item", item_number: 1, "item_id": "old_item_1"},
+              ]
+            ```
+
+            ###### After
+            ```json
+              [
+                {"_id": ObjectId("..."), "name": "old_item", item_number: 2, "item_id": "old_item_2"},
+                {"_id": ObjectId("..."), "name": "old_item", item_number: 1, "item_id": "old_item_1"},
+                {"_id": ObjectId("..."), "name": "new_item", item_number: 2, "item_id": "old_item_2"},
+              ]
             ```
