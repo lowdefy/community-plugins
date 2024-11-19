@@ -15,13 +15,13 @@
 */
 
 import { validate } from '@lowdefy/ajv';
-import MongoDBUpdateInsertOne from './MongoDBUpdateInsertOne.js';
+import MongoDBVersionedUpdateOne from './MongoDBVersionedUpdateOne.js';
 import findLogCollectionRecordTestMongoDb from '../../../test/findLogCollectionRecordTestMongoDb.js';
 import populateTestMongoDb from '../../../test/populateTestMongoDb.js';
 import getTestCollection from '../../../test/getTestCollection.js';
 
-const { checkRead, checkWrite } = MongoDBUpdateInsertOne.meta;
-const schema = MongoDBUpdateInsertOne.schema;
+const { checkRead, checkWrite } = MongoDBVersionedUpdateOne.meta;
+const schema = MongoDBVersionedUpdateOne.schema;
 
 const databaseUri = process.env.MONGO_URL;
 const databaseName = 'test';
@@ -44,7 +44,7 @@ test('updateInsertOne', async () => {
     collection,
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({ request, connection });
+  const res = await MongoDBVersionedUpdateOne({ request, connection });
   expect(res).toEqual({
     acknowledged: true,
     modifiedCount: 1,
@@ -66,7 +66,7 @@ test('updateInsertOne logCollection', async () => {
     changeLog: { collection: logCollection, meta: { meta: true } },
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({
+  const res = await MongoDBVersionedUpdateOne({
     request,
     blockId: 'blockId',
     connectionId: 'connectionId',
@@ -94,7 +94,7 @@ test('updateInsertOne logCollection', async () => {
     requestId: 'updateInsertOne',
     before: { doc_id: 'updateInsertOne', v: 'before' },
     after: { doc_id: 'updateInsertOne', v: 'afterLog' },
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -112,7 +112,7 @@ test('updateInsertOne logCollection with find options', async () => {
     changeLog: { collection: logCollection, meta: { meta: true } },
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({
+  const res = await MongoDBVersionedUpdateOne({
     request,
     blockId: 'blockId',
     connectionId: 'connectionId',
@@ -140,7 +140,7 @@ test('updateInsertOne logCollection with find options', async () => {
     requestId: 'updateInsertOneFindOptions',
     before: { v: 'before' },
     after: { v: 'afterLog' },
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -157,7 +157,7 @@ test('updateInsertOne upsert', async () => {
     collection,
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({ request, connection });
+  const res = await MongoDBVersionedUpdateOne({ request, connection });
   expect(res).toEqual({
     acknowledged: true,
     modifiedCount: 0,
@@ -180,7 +180,7 @@ test('updateInsertOne upsert logCollection', async () => {
     changeLog: { collection: logCollection, meta: { meta: true } },
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({
+  const res = await MongoDBVersionedUpdateOne({
     request,
     blockId: 'blockId',
     connectionId: 'connectionId',
@@ -209,7 +209,7 @@ test('updateInsertOne upsert logCollection', async () => {
     requestId: 'uniqueId_upsert_log',
     before: null,
     after: { _id: 'uniqueId_upsert_log', v: 'after', doc_id: 'updateInsertOne' },
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -227,7 +227,7 @@ test('updateInsertOne upsert false', async () => {
     write: true,
   };
   expect(async () => {
-    await MongoDBUpdateInsertOne({ request, connection });
+    await MongoDBVersionedUpdateOne({ request, connection });
   }).rejects.toThrow('No matching record to update.');
 });
 
@@ -245,7 +245,7 @@ test('updateInsertOne upsert false logCollection', async () => {
     write: true,
   };
   await expect(async () => {
-    await MongoDBUpdateInsertOne({
+    await MongoDBVersionedUpdateOne({
       request,
       blockId: 'blockId',
       connectionId: 'connectionId',
@@ -267,7 +267,7 @@ test('updateInsertOne upsert false logCollection', async () => {
     requestId: 'uniqueId_upsert_false',
     before: null,
     after: null,
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -284,7 +284,7 @@ test('updateInsertOne upsert default false', async () => {
     write: true,
   };
   expect(async () => {
-    await MongoDBUpdateInsertOne({ request, connection });
+    await MongoDBVersionedUpdateOne({ request, connection });
   }).rejects.toThrow('No matching record to update.');
 });
 
@@ -301,7 +301,7 @@ test('updateInsertOne upsert default false logCollection', async () => {
     write: true,
   };
   await expect(async () => {
-    await MongoDBUpdateInsertOne({
+    await MongoDBVersionedUpdateOne({
       request,
       blockId: 'blockId',
       connectionId: 'connectionId',
@@ -323,7 +323,7 @@ test('updateInsertOne upsert default false logCollection', async () => {
     requestId: 'updateInsertOne_upsert_default_false',
     before: null,
     after: null,
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -340,7 +340,7 @@ test('updateInsertOne disableNoMatchError', async () => {
     collection,
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({ request, connection });
+  const res = await MongoDBVersionedUpdateOne({ request, connection });
   expect(res).toEqual({
     acknowledged: true,
     modifiedCount: 0,
@@ -363,7 +363,7 @@ test('updateInsertOne disableNoMatchError logCollection', async () => {
     changeLog: { collection: logCollection, meta: { meta: true } },
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({
+  const res = await MongoDBVersionedUpdateOne({
     request,
     blockId: 'blockId',
     connectionId: 'connectionId',
@@ -391,7 +391,7 @@ test('updateInsertOne disableNoMatchError logCollection', async () => {
     requestId: 'updateInsertOne_disable_no_match_error',
     before: null,
     after: null,
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -409,7 +409,7 @@ test('updateInsertOne disableNoMatchError false', async () => {
     write: true,
   };
   expect(async () => {
-    await MongoDBUpdateInsertOne({ request, connection });
+    await MongoDBVersionedUpdateOne({ request, connection });
   }).rejects.toThrow('No matching record to update.');
 });
 
@@ -427,7 +427,7 @@ test('updateInsertOne disableNoMatchError false logCollection', async () => {
     write: true,
   };
   await expect(async () => {
-    await MongoDBUpdateInsertOne({
+    await MongoDBVersionedUpdateOne({
       request,
       blockId: 'blockId',
       connectionId: 'connectionId',
@@ -449,7 +449,7 @@ test('updateInsertOne disableNoMatchError false logCollection', async () => {
     requestId: 'updateInsertOne_disable_no_match_error_false',
     before: null,
     after: null,
-    type: 'MongoDBUpdateInsertOne',
+    type: 'MongoDBVersionedUpdateOne',
     meta: { meta: true },
   });
 });
@@ -465,7 +465,7 @@ test('updateInsertOne connection error', async () => {
     collection,
     write: true,
   };
-  await expect(MongoDBUpdateInsertOne({ request, connection })).rejects.toThrow(
+  await expect(MongoDBVersionedUpdateOne({ request, connection })).rejects.toThrow(
     'Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"'
   );
 });
@@ -481,7 +481,7 @@ test('updateInsertOne mongodb error', async () => {
     collection,
     write: true,
   };
-  await expect(MongoDBUpdateInsertOne({ request, connection })).rejects.toThrow(
+  await expect(MongoDBVersionedUpdateOne({ request, connection })).rejects.toThrow(
     'Unknown modifier: $badOp'
   );
 });
@@ -497,7 +497,7 @@ test('updateInsertOne validate write', async () => {
     collection,
     write: true,
   };
-  const res = await MongoDBUpdateInsertOne({
+  const res = await MongoDBVersionedUpdateOne({
     request,
     blockId: 'blockId',
     connectionId: 'connectionId',
@@ -537,62 +537,62 @@ test('checkWrite should be true', async () => {
 test('request not an object', async () => {
   const request = 'request';
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request properties should be an object.'
+    'MongoDBVersionedUpdateOne request properties should be an object.'
   );
 });
 
 test('request no filter', async () => {
   const request = { update: {} };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request should have required property "filter".'
+    'MongoDBVersionedUpdateOne request should have required property "filter".'
   );
 });
 
 test('request no update', async () => {
   const request = { filter: {} };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request should have required property "update".'
+    'MongoDBVersionedUpdateOne request should have required property "update".'
   );
 });
 
 test('request update not an object', async () => {
   const request = { update: 'update', filter: {} };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request property "update" should be an object.'
+    'MongoDBVersionedUpdateOne request property "update" should be an object.'
   );
 });
 
 test('request filter not an object', async () => {
   const request = { update: {}, filter: 'filter' };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request property "filter" should be an object.'
+    'MongoDBVersionedUpdateOne request property "filter" should be an object.'
   );
 });
 
 test('request options not an object', async () => {
   const request = { update: {}, filter: {}, options: 'options' };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request property "options" should be an object.'
+    'MongoDBVersionedUpdateOne request property "options" should be an object.'
   );
 });
 
 test('request update options not an object', async () => {
   const request = { update: {}, filter: {}, options: { update: 'update' } };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request property option "update" should be an object.'
+    'MongoDBVersionedUpdateOne request property option "update" should be an object.'
   );
 });
 
 test('request find options not an object', async () => {
   const request = { update: {}, filter: {}, options: { find: 'find' } };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request property option "find" should be an object.'
+    'MongoDBVersionedUpdateOne request property option "find" should be an object.'
   );
 });
 
 test('request insert options not an object', async () => {
   const request = { update: {}, filter: {}, options: { insert: 'insert' } };
   expect(() => validate({ schema, data: request })).toThrow(
-    'MongoDBUpdateInsertOne request property option "insert" should be an object.'
+    'MongoDBVersionedUpdateOne request property option "insert" should be an object.'
   );
 });

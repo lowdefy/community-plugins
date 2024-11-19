@@ -16,7 +16,7 @@
 
 export default {
   $schema: 'http://json-schema.org/draft-07/schema#',
-  title: 'Lowdefy Request Schema - MongoDBUpdateInsertOne',
+  title: 'Lowdefy Request Schema - MongoDBVersionedUpdateOne',
   type: 'object',
   required: ['filter', 'update'],
   properties: {
@@ -24,52 +24,52 @@ export default {
       type: 'object',
       description: 'The filter used to select the document to find and insert.',
       errorMessage: {
-        type: 'MongoDBUpdateInsertOne request property "filter" should be an object.',
+        type: 'MongoDBVersionedUpdateOne request property "filter" should be an object.',
       },
     },
     update: {
       type: ['object', 'array'],
       description: 'The update operations to be applied to the new inserted document.',
       errorMessage: {
-        type: 'MongoDBUpdateInsertOne request property "update" should be an object.',
+        type: 'MongoDBVersionedUpdateOne request property "update" should be an object.',
       },
     },
     options: {
       type: 'object',
       description: 'Optional settings for each mongodb operation.',
       errorMessage: {
-        type: 'MongoDBUpdateInsertOne request property "options" should be an object.',
+        type: 'MongoDBVersionedUpdateOne request property "options" should be an object.',
       },
       properties: {
         find: {
           type: 'object',
           description: 'Find options for mongodb find one.',
           errorMessage: {
-            type: 'MongoDBUpdateInsertOne request property option "find" should be an object.',
+            type: 'MongoDBVersionedUpdateOne request property option "find" should be an object.',
           },
         },
         insert: {
           type: 'object',
           description: 'Insert options for mongodb insert one.',
           errorMessage: {
-            type: 'MongoDBUpdateInsertOne request property option "insert" should be an object.',
+            type: 'MongoDBVersionedUpdateOne request property option "insert" should be an object.',
           },
         },
         update: {
           type: 'object',
           description: 'Update options for mongodb find one and update.',
           errorMessage: {
-            type: 'MongoDBUpdateInsertOne request property option "update" should be an object.',
+            type: 'MongoDBVersionedUpdateOne request property option "update" should be an object.',
           },
         },
       },
     },
   },
   errorMessage: {
-    type: 'MongoDBUpdateInsertOne request properties should be an object.',
+    type: 'MongoDBVersionedUpdateOne request properties should be an object.',
     required: {
-      filter: 'MongoDBUpdateInsertOne request should have required property "filter".',
-      update: 'MongoDBUpdateInsertOne request should have required property "update".',
+      filter: 'MongoDBVersionedUpdateOne request should have required property "filter".',
+      update: 'MongoDBVersionedUpdateOne request should have required property "update".',
     },
   },
 };

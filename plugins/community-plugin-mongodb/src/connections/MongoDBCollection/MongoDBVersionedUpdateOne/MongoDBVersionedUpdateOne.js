@@ -18,7 +18,7 @@ import getCollection from '../getCollection.js';
 import { serialize, deserialize } from '../serialize.js';
 import schema from './schema.js';
 
-async function MongoDBUpdateInsertOne({
+async function MongoDBVersionedUpdateOne({
   blockId,
   connection,
   connectionId,
@@ -63,7 +63,7 @@ async function MongoDBUpdateInsertOne({
         before: document,
         after: value,
         timestamp: new Date(),
-        type: 'MongoDBUpdateInsertOne',
+        type: 'MongoDBVersionedUpdateOne',
         meta: connection.changeLog?.meta,
       });
       if (
@@ -96,10 +96,10 @@ async function MongoDBUpdateInsertOne({
   return serialize(response);
 }
 
-MongoDBUpdateInsertOne.schema = schema;
-MongoDBUpdateInsertOne.meta = {
+MongoDBVersionedUpdateOne.schema = schema;
+MongoDBVersionedUpdateOne.meta = {
   checkRead: false,
   checkWrite: true,
 };
 
-export default MongoDBUpdateInsertOne;
+export default MongoDBVersionedUpdateOne;
