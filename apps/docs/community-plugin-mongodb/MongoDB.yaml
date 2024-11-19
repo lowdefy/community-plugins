@@ -235,9 +235,6 @@ _ref:
               id: versioned_update
               type: MongoDBVersionedUpdateOne
               connectionId: items
-              payload:
-                id:
-                  _state: item._id
               properties:
                 options:
                   find:
