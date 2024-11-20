@@ -235,6 +235,8 @@ _ref:
             - `'$clusterTime': object` - An object containing data on the cluster time and signature.
             - `operationTime: date` - Timestamp object of the operation time.
 
+            > To ensure that the most recent document is updated, a `sort` specification should be given in the find options.
+
             #### Example
 
             ###### Find the document with the highest item number and insert an identical document with a new name. A new document is inserted if none is found.
@@ -243,32 +245,34 @@ _ref:
               type: MongoDBVersionedUpdateOne
               connectionId: items
               properties:
+                filter:
+                  entity_id: 123
+                update:
+                  $set:
+                    name: New Name
+                    updated_at:
+                      _date: now
                 options:
                   find:
                     sort:
-                      item_number: -1
+                      updated_at: -1
                   update:
                     upsert: true
-                filter:
-                  name: 'old_item'
-                update:
-                  $set:
-                    name: 'new_item'
             ```
 
             ###### Before
             ```json
               [
-                {"_id": ObjectId("..."), "name": "old_item", item_number: 2, "item_id": "old_item_2"},
-                {"_id": ObjectId("..."), "name": "old_item", item_number: 1, "item_id": "old_item_1"},
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 23,"updated_at": ISODate("2024-01-01") },
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 33, "updated_at": ISODate("2024-03-01")},
               ]
             ```
 
             ###### After
             ```json
-              [
-                {"_id": ObjectId("..."), "name": "old_item", item_number: 2, "item_id": "old_item_2"},
-                {"_id": ObjectId("..."), "name": "old_item", item_number: 1, "item_id": "old_item_1"},
-                {"_id": ObjectId("..."), "name": "new_item", item_number: 2, "item_id": "old_item_2"},
+              [                
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 23,"updated_at": ISODate("2024-01-01") },
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 33, "updated_at": ISODate("2024-03-01")},
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "New Name", "value": 33, "updated_at": ISODate("2024-11-01")},
               ]
             ```
