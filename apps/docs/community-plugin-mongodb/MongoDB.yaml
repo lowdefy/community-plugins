@@ -44,6 +44,7 @@ _ref:
               - MongoDBUpdateOne
               - MongoDBInsertConsecutiveId
               - MongoDBInsertManyConsecutiveIds
+              - MongoDBVersionedUpdateOne
 
             ### MongoDBUpdateOne
 
@@ -199,4 +200,79 @@ _ref:
               "_id" : "ABC-0016",
               ...,
             }
+            ```
+
+            ### MongoDBVersionedUpdateOne
+
+            #### Properties
+
+            The `MongoDBVersionedUpdateOne` request uses the standard [MongoDBUpdateOne](https://docs.lowdefy.com/MongoDB) syntax to insert an identical document to the one found with only the updated field(s) changed.
+
+            The `MongoDBVersionedUpdateOne` request consists of __three stages__:
+            - `Find`: locates the document.
+            - `Insert`: creates and inserts the document identical to the one found.
+            - `Update`: applies the specified changes to the inserted document.
+
+            The `options` property:
+            - `find: object` - An object containing options for the `find` stage of the request.
+            - `insert: object` - An object containing options for the `insert` stage of the request.
+            - `update: object` - An object containing options for the `update` stage of the request.
+
+            The request returns the following:
+
+            If a log collection is not set on the connection
+
+            - `acknowledged: boolean` - Acknowledgement of the insertion.
+            - `matchedCount: number` - The number of matched documents.
+            - `modifiedCount: number` - The number of modified documents.
+            - `upsertedId: string` - The ID of the upserted document.
+            - `upsertedCount: number` - The number of upserts.
+
+            If a log collection is set on the connection
+
+            - `lastErrorObject: object` - An object containing data on whether an existing document was updated or not.
+            - `ok: number` - Status of the request, 1 if the request was successful and 0 otherwise.
+            - `'$clusterTime': object` - An object containing data on the cluster time and signature.
+            - `operationTime: date` - Timestamp object of the operation time.
+
+            > To ensure that the most recent document is updated, a `sort` specification should be given in the find options.
+
+            #### Example
+
+            ###### Find the document with the highest item number and insert an identical document with a new name. A new document is inserted if none is found.
+            ```yaml
+              id: versioned_update
+              type: MongoDBVersionedUpdateOne
+              connectionId: items
+              properties:
+                filter:
+                  entity_id: 123
+                update:
+                  $set:
+                    name: New Name
+                    updated_at:
+                      _date: now
+                options:
+                  find:
+                    sort:
+                      updated_at: -1
+                  update:
+                    upsert: true
+            ```
+
+            ###### Before
+            ```json
+              [
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 23,"updated_at": ISODate("2024-01-01") },
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 33, "updated_at": ISODate("2024-03-01")},
+              ]
+            ```
+
+            ###### After
+            ```json
+              [                
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 23,"updated_at": ISODate("2024-01-01") },
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "Name", "value": 33, "updated_at": ISODate("2024-03-01")},
+                {"_id": ObjectId("..."), "entity_id": 123, "name": "New Name", "value": 33, "updated_at": ISODate("2024-11-01")},
+              ]
             ```
