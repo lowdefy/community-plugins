@@ -207,9 +207,16 @@ _ref:
             #### Properties
 
             The `MongoDBVersionedUpdateOne` request uses the standard [MongoDBUpdateOne](https://docs.lowdefy.com/MongoDB) syntax to insert an identical document to the one found with only the updated field(s) changed.
-            The `MongoDBVersionedUpdateOne` request consists of __three__ stages; a `find` to locate the document, an `insert` to insert an identical document, and an `update` to apply the changes.
 
-            - `options: object` - An object containing options for each stage of the request.
+            The `MongoDBVersionedUpdateOne` request consists of __three stages__:
+            - `Find`: locates the document.
+            - `Insert`: creates and inserts the document identical to the one found.
+            - `Update`: applies the specified changes to the inserted document.
+
+            The `options` property:
+            - `find: object` - An object containing options for the `find` stage of the request.
+            - `insert: object` - An object containing options for the `insert` stage of the request.
+            - `update: object` - An object containing options for the `update` stage of the request.
 
             The request returns the following:
 
