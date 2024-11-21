@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 2.4.1
+
+### Patch Changes
+
+- 39cb4ea: Fix MongoDBVersionedUpdateOne request was not included in connection.
+
 ## 2.4.0
 
 ### Minor Changes
