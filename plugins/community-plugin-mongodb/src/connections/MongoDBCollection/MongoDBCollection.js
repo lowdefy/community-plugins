@@ -24,6 +24,7 @@ import MongoDBInsertManyConsecutiveIds from './MongoDBInsertManyConsecutiveIds/M
 import MongoDBInsertOne from './MongoDBInsertOne/MongoDBInsertOne.js';
 import MongoDBUpdateMany from './MongoDBUpdateMany/MongoDBUpdateMany.js';
 import MongoDBUpdateOne from './MongoDBUpdateOne/MongoDBUpdateOne.js';
+import MongoDBVersionedUpdateOne from './MongoDBVersionedUpdateOne/MongoDBVersionedUpdateOne.js';
 import schema from './schema.js';
 
 const { requests } = MongoDBCollection;
@@ -40,5 +41,6 @@ export default {
     MongoDBInsertOne,
     MongoDBUpdateMany,
     MongoDBUpdateOne,
+    MongoDBVersionedUpdateOne,
   },
 };
