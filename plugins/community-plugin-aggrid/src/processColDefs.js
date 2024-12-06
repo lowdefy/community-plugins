@@ -16,6 +16,7 @@
 
 import { renderHtml } from '@lowdefy/block-utils';
 import { type } from '@lowdefy/helpers';
+import renderButtons from './renderButtons.js';
 
 function recProcessColDefs(columnDefs, methods) {
   return columnDefs.map((col) => {
@@ -30,6 +31,8 @@ function recProcessColDefs(columnDefs, methods) {
           methods,
         });
       };
+    } else if (type.isArray(col.blocks)) {
+      return renderButtons({ buttons: col.buttons });
     }
     return {
       ...col,
