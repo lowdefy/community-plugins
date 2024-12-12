@@ -37,8 +37,16 @@ const typeMap = {
       />
     );
   },
-  Tag: ({ props }) => {
-    return <Tag {...props} />;
+  Tag: ({ block, methods, components, rowEvent, events, eventId }) => {
+    return (
+      <Tag
+        blockId={eventId}
+        components={components}
+        methods={methods}
+        properties={block.properties}
+        onClick={() => methods.triggerEvent({ name: eventId, event: rowEvent })}
+      />
+    );
   },
 };
 
@@ -52,7 +60,7 @@ function registerEvent({ methods, eventId, actions, events }) {
 
 function renderBlocks({ blocks, methods, components, rowEvent, events }) {
   return (
-    <div>
+    <div style={{ display: 'flex', gap: '4px' }}>
       {blocks.map((block) => {
         const eventId = `${block.id}_${rowEvent.rowIndex}_actions`;
         registerEvent({ methods, eventId, actions: block.events?.onClick, events });
