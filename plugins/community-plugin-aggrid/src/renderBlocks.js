@@ -61,8 +61,8 @@ function registerEvent({ methods, eventId, actions, events }) {
 function renderBlocks({ blocks, methods, components, rowEvent, events }) {
   return (
     <div style={{ display: 'flex', gap: '4px' }}>
-      {blocks.map((block) => {
-        const eventId = `${block.id}_${rowEvent.rowIndex}_actions`;
+      {blocks.map((block, index) => {
+        const eventId = `${block.id}_${rowEvent.rowIndex}_${index}_actions`;
         registerEvent({ methods, eventId, actions: block.events?.onClick, events });
         return typeMap[block.type]({ block, methods, components, rowEvent, events, eventId });
       })}

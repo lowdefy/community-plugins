@@ -144,8 +144,17 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
     }
   }, []);
 
+  const clearBlockActions = useCallback(() => {
+    Object.keys(events).forEach((key) => {
+      if (key.endsWith('_actions')) {
+        delete events[key];
+      }
+    });
+  }, []);
+
   useEffect(() => {
     if (JSON.stringify(rowData) !== JSON.stringify(newRowData)) {
+      clearBlockActions();
       setRowData(newRowData);
     }
   }, [newRowData]);
