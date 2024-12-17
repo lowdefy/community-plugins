@@ -50,20 +50,34 @@ const typeMap = {
   },
 };
 
-function registerEvent({ methods, eventId, actions, events }) {
-  if (events[eventId] || !actions) return;
+function registerEvent({ methods, eventId, actions, events, rowEvent, blockColumns }) {
+  if (!actions && events[eventId]) {
+    delete events[eventId];
+  }
+  if (!actions) return;
+
   methods.registerEvent({
     name: eventId,
     actions,
   });
+  if (!blockColumns.current[rowEvent.columnId]) {
+    blockColumns.current[rowEvent.columnId] = true;
+  }
 }
 
-function renderBlocks({ blocks, methods, components, rowEvent, events }) {
+function renderBlocks({ blocks, methods, components, rowEvent, events, blockColumns }) {
   return (
-    <div style={{ display: 'flex', gap: '4px' }}>
+    <div style={{ display: 'flex', gap: '4px', margin: 'auto' }}>
       {blocks.map((block, index) => {
         const eventId = `${block.id}_${rowEvent.rowIndex}_${index}_actions`;
-        registerEvent({ methods, eventId, actions: block.events?.onClick, events });
+        registerEvent({
+          methods,
+          eventId,
+          actions: block.events?.onClick,
+          events,
+          rowEvent,
+          blockColumns,
+        });
         return typeMap[block.type]({ block, methods, components, rowEvent, events, eventId });
       })}
     </div>

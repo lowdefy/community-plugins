@@ -30,6 +30,7 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
     ...someProperties
   } = properties;
   const [rowData, setRowData] = useState(newRowData ?? []);
+  const blockColumns = useRef({});
 
   const gridRef = useRef();
 
@@ -58,7 +59,7 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
     }
   }, []);
   const onCellClicked = useCallback((event) => {
-    if (events.onCellClick) {
+    if (events.onCellClick && !blockColumns.current[event.column.colId]) {
       methods.triggerEvent({
         name: 'onCellClick',
         event: {
@@ -174,7 +175,7 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
       onRowClicked={onRowClick}
       onCellClicked={onCellClicked}
       modules={[ClientSideRowModelModule, CsvExportModule]}
-      columnDefs={processColDefs(columnDefs, methods, components, events)}
+      columnDefs={processColDefs(columnDefs, methods, components, events, blockColumns)}
       ref={gridRef}
       getRowId={getRowId}
     />
