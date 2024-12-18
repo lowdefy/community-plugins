@@ -20,6 +20,7 @@ import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-mod
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 
 import processColDefs from './processColDefs.js';
+import mapOperators from './mapOperators.js';
 
 const AgGrid = ({ components, events, loading, methods, properties }) => {
   const {
@@ -154,7 +155,7 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
 
     methods.registerEvent({
       name: eventId,
-      actions,
+      actions: mapOperators(actions),
     });
     blockColumns.current[rowEvent.columnId] = true;
   }, []);
