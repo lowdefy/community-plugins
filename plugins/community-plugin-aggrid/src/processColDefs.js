@@ -18,7 +18,7 @@ import { renderHtml } from '@lowdefy/block-utils';
 import { type } from '@lowdefy/helpers';
 import renderBlocks from './renderBlocks.js';
 
-function recProcessColDefs(columnDefs, methods, components, events, blockColumns) {
+function recProcessColDefs(columnDefs, methods, components, events, registerEvent) {
   return columnDefs.map((col) => {
     const newColDef = {};
     if (type.isArray(col.children)) {
@@ -46,7 +46,7 @@ function recProcessColDefs(columnDefs, methods, components, events, blockColumns
             columnId: params.column.colId,
           },
           events,
-          blockColumns,
+          registerEvent,
         });
       };
       // delete col.blocks;
@@ -60,8 +60,8 @@ function recProcessColDefs(columnDefs, methods, components, events, blockColumns
   });
 }
 
-function processColDefs(columnDefs = [], methods, components, events, blockColumns) {
-  return recProcessColDefs(columnDefs, methods, components, events, blockColumns);
+function processColDefs(columnDefs = [], methods, components, events, registerEvent) {
+  return recProcessColDefs(columnDefs, methods, components, events, registerEvent);
 }
 
 export default processColDefs;

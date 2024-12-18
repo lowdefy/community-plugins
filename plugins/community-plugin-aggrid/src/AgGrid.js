@@ -145,17 +145,31 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
     }
   }, []);
 
-  const clearBlockActions = useCallback(() => {
+  const registerBlockEvent = useCallback(({ eventId, actions, rowEvent }) => {
+    if (!actions && events[eventId]) {
+      delete events[eventId];
+    }
+    if (!actions) return;
+
+    methods.registerEvent({
+      name: eventId,
+      actions,
+    });
+    blockColumns.current[rowEvent.columnId] = true;
+  }, []);
+
+  const clearBlockEvents = useCallback(() => {
     Object.keys(events).forEach((key) => {
       if (key.endsWith('_actions')) {
         delete events[key];
       }
     });
+    blockColumns.current = {};
   }, []);
 
   useEffect(() => {
     if (JSON.stringify(rowData) !== JSON.stringify(newRowData)) {
-      clearBlockActions();
+      clearBlockEvents();
       setRowData(newRowData);
     }
   }, [newRowData]);
@@ -175,7 +189,7 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
       onRowClicked={onRowClick}
       onCellClicked={onCellClicked}
       modules={[ClientSideRowModelModule, CsvExportModule]}
-      columnDefs={processColDefs(columnDefs, methods, components, events, blockColumns)}
+      columnDefs={processColDefs(columnDefs, methods, components, events, registerBlockEvent)}
       ref={gridRef}
       getRowId={getRowId}
     />
