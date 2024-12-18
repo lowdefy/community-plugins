@@ -59,6 +59,7 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
     }
   }, []);
   const onCellClicked = useCallback((event) => {
+    //TODO: cellClick triggers once if button modifies row data
     if (events.onCellClick && !blockColumns.current[event.column.colId]) {
       methods.triggerEvent({
         name: 'onCellClick',
