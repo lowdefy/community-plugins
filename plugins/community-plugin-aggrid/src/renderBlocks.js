@@ -38,6 +38,7 @@ const typeMap = {
     );
   },
   Tag: ({ block, methods, components, rowEvent, events, eventId }) => {
+    // TODO: Define onClose
     return (
       <Tag
         blockId={eventId}
@@ -52,7 +53,7 @@ const typeMap = {
 
 function renderBlocks({ blocks, methods, components, rowEvent, events, registerEvent }) {
   return (
-    <div style={{ display: 'flex', gap: '4px', margin: 'auto' }}>
+    <div style={{ display: 'flex', gap: '4px' }}>
       {blocks.map((block, index) => {
         const eventId = `${block.id}_${rowEvent.rowIndex}_${index}_actions`;
         registerEvent({ eventId, actions: block.events?.onClick, rowEvent });
