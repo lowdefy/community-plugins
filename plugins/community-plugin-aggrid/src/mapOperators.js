@@ -26,10 +26,10 @@ function recMapOperators(action) {
   }
 
   const newObject = {};
-  const prefix = '$';
+  const prefix = '_';
 
   Object.entries(action).forEach(([key, value]) => {
-    const newKey = key.replace(new RegExp(`^\\${prefix}+`), (match) => '_'.repeat(match.length));
+    const newKey = key.replace(new RegExp(`^${prefix}`), '');
     newObject[newKey] = recMapOperators(value);
   });
 
