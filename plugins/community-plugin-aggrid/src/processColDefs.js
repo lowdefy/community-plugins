@@ -49,9 +49,6 @@ function recProcessColDefs(columnDefs, methods, components, events, registerEven
           registerEvent,
         });
       };
-      // delete col.blocks;
-      // console.log('blocks: ', blocks);
-      // col.cellRenderer = blocks;
     }
     return {
       ...col,
