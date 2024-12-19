@@ -148,10 +148,10 @@ const AgGrid = ({ components, events, loading, methods, properties }) => {
   }, []);
 
   const registerBlockEvent = useCallback(({ eventId, actions, rowEvent }) => {
-    if (!actions && events[eventId]) {
-      delete events[eventId];
+    if (!actions || events[eventId]) {
+      blockColumns.current[rowEvent.columnId] = !!events[eventId];
+      return;
     }
-    if (!actions) return;
 
     methods.registerEvent({
       name: eventId,
