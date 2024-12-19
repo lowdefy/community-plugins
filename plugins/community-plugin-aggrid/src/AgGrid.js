@@ -20,8 +20,9 @@ import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-mod
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 
 import processColDefs from './processColDefs.js';
+import mapOperators from './mapOperators.js';
 
-const AgGrid = ({ properties, methods, loading, events }) => {
+const AgGrid = ({ components, events, loading, methods, properties }) => {
   const {
     quickFilterValue,
     columnDefs,
@@ -30,10 +31,20 @@ const AgGrid = ({ properties, methods, loading, events }) => {
     ...someProperties
   } = properties;
   const [rowData, setRowData] = useState(newRowData ?? []);
+  const blockColumns = useRef({});
 
   const gridRef = useRef();
 
   const memoDefaultColDef = useMemo(() => defaultColDef);
+
+  const getRowId = useCallback(
+    (params) =>
+      params.data[properties.rowId] ??
+      params.data.id ??
+      params.data._id ??
+      JSON.stringify(params.data),
+    []
+  );
 
   const onRowClick = useCallback((event) => {
     if (events.onRowClick) {
@@ -49,7 +60,8 @@ const AgGrid = ({ properties, methods, loading, events }) => {
     }
   }, []);
   const onCellClicked = useCallback((event) => {
-    if (events.onCellClick) {
+    //TODO: cellClick triggers once if button modifies row data
+    if (events.onCellClick && !blockColumns.current[event.column.colId]) {
       methods.triggerEvent({
         name: 'onCellClick',
         event: {
@@ -92,7 +104,7 @@ const AgGrid = ({ properties, methods, loading, events }) => {
         name: 'onFilterChanged',
         event: {
           rows: event.api.rowModel.rowsToDisplay.map((row) => row.data),
-          filter: this.gridApi.getFilterModel(),
+          filter: gridRef.current.api.getFilterModel(),
         },
       });
     }
@@ -111,7 +123,6 @@ const AgGrid = ({ properties, methods, loading, events }) => {
   }, []);
 
   useEffect(() => {
-    methods.registerMethod('exportDataAsCsv', (args) => gridRef.current.api.exportDataAsCsv(args));
     methods.registerMethod('exportDataAsCsv', (args) => gridRef.current.api.exportDataAsCsv(args));
     methods.registerMethod('sizeColumnsToFit', () => gridRef.current.api.sizeColumnsToFit());
     methods.registerMethod('setFilterModel', (model) => gridRef.current.api.setFilterModel(model));
@@ -136,8 +147,31 @@ const AgGrid = ({ properties, methods, loading, events }) => {
     }
   }, []);
 
+  const registerBlockEvent = useCallback(({ eventId, actions, rowEvent }) => {
+    if (!actions || events[eventId]) {
+      blockColumns.current[rowEvent.columnId] = !!events[eventId];
+      return;
+    }
+
+    methods.registerEvent({
+      name: eventId,
+      actions: mapOperators(actions),
+    });
+    blockColumns.current[rowEvent.columnId] = true;
+  }, []);
+
+  const clearBlockEvents = useCallback(() => {
+    Object.keys(events).forEach((key) => {
+      if (key.endsWith('_actions')) {
+        delete events[key];
+      }
+    });
+    blockColumns.current = {};
+  }, []);
+
   useEffect(() => {
     if (JSON.stringify(rowData) !== JSON.stringify(newRowData)) {
+      clearBlockEvents();
       setRowData(newRowData);
     }
   }, [newRowData]);
@@ -157,8 +191,9 @@ const AgGrid = ({ properties, methods, loading, events }) => {
       onRowClicked={onRowClick}
       onCellClicked={onCellClicked}
       modules={[ClientSideRowModelModule, CsvExportModule]}
-      columnDefs={processColDefs(columnDefs, methods)}
+      columnDefs={processColDefs(columnDefs, methods, components, events, registerBlockEvent)}
       ref={gridRef}
+      getRowId={getRowId}
     />
   );
 };
