@@ -33,10 +33,9 @@ function recProcessColDefs(columnDefs, methods, components, events, registerEven
       };
     } else if (type.isArray(col.blocks) || type.isArray(col.cellRenderer)) {
       //TODO: delete col.blocks
-      const blocks = JSON.parse(JSON.stringify(col.blocks)) ?? col.cellRenderer;
       newColDef.cellRenderer = (params) => {
         return renderBlocks({
-          blocks: blocks,
+          blocks: col.blocks,
           methods,
           components,
           rowEvent: {
