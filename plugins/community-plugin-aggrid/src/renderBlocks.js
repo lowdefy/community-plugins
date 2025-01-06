@@ -37,14 +37,13 @@ const typeMap = {
       />
     );
   },
-  Tag: ({ block, methods, components, rowEvent, events, eventId }) => {
-    // TODO: Define onClose
+  Tag: ({ block, methods, components, rowEvent, eventId }) => {
     return (
       <Tag
         blockId={eventId}
         components={components}
         methods={methods}
-        properties={block.properties}
+        properties={{ title: rowEvent.value, ...block.properties }}
         onClick={() => methods.triggerEvent({ name: eventId, event: rowEvent })}
       />
     );

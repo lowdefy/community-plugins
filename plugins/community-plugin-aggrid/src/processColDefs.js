@@ -40,6 +40,7 @@ function recProcessColDefs(columnDefs, methods, components, events, registerEven
           components,
           rowEvent: {
             row: params.data,
+            value: params.getValue(),
             rowIndex: params.rowIndex,
             index: parseInt(params.node.id),
             columnId: params.column.colId,

@@ -16,6 +16,7 @@
 
 import { type } from '@lowdefy/helpers';
 
+// TODO: Rename to removeUnderscore
 function recMapOperators(action) {
   if (!type.isObject(action) && !type.isArray(action)) {
     return action;
