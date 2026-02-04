@@ -1,0 +1,35 @@
+{
+  "name": "@lowdefy/community-plugin-e2e-mdb",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./fixtures": "./dist/fixtures/index.js",
+    "./setup": "./dist/setup/globalSetup.js",
+    "./teardown": "./dist/setup/globalTeardown.js"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "swc src --out-dir dist --config-file ../../.swcrc --delete-dir-on-start --copy-files",
+    "prepare": "pnpm build"
+  },
+  "dependencies": {
+    "mongodb": "6.3.0",
+    "mongodb-memory-server": "^10.0.0",
+    "yaml": "^2.3.4"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.40.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@swc/cli": "0.1.62",
+    "@swc/core": "1.3.96"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
