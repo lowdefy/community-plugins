@@ -40,6 +40,16 @@ function getMongoUri() {
   );
 }
 
+function getDatabaseFromUri(uri) {
+  try {
+    const url = new URL(uri);
+    const dbName = url.pathname.slice(1);
+    return dbName || 'test';
+  } catch {
+    return 'test';
+  }
+}
+
 export const mdbFixtures = base.extend({
   // Worker-scoped MongoDB client (shared across tests in a worker)
   mdbClient: [
@@ -57,7 +67,8 @@ export const mdbFixtures = base.extend({
 
   // Test-scoped mdb helper with automatic cleanup
   mdb: async ({ mdbClient }, use, testInfo) => {
-    const dbName = `test_${testInfo.workerIndex}_${Date.now()}`;
+    const uri = getMongoUri();
+    const dbName = getDatabaseFromUri(uri);
     const db = mdbClient.db(dbName);
 
     const options = {
@@ -70,8 +81,13 @@ export const mdbFixtures = base.extend({
 
     await use(mdb);
 
-    // Cleanup: drop the test database
-    await db.dropDatabase();
+    // Cleanup: clear all collections used during the test
+    const collections = await db.listCollections().toArray();
+    for (const { name } of collections) {
+      if (!name.startsWith('system.')) {
+        await db.collection(name).deleteMany({});
+      }
+    }
   },
 });
 
