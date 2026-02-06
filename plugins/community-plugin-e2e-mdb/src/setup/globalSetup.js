@@ -43,8 +43,11 @@ async function globalSetup() {
   // Store instance globally for teardown
   globalThis.__MONGOD__ = mongod;
 
-  // Set environment variable for tests
-  process.env.MDB_E2E_URI = uri;
+  // Set environment variable for tests if not already configured
+  // (e.g., with fixed port approach in playwright.config.js that includes a database name)
+  if (!process.env.MDB_E2E_URI) {
+    process.env.MDB_E2E_URI = uri;
+  }
 
   return async () => {
     // Cleanup function called by Playwright
