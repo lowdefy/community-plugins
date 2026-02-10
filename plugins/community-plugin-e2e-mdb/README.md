@@ -46,9 +46,12 @@ test('should insert and find document', async ({ mdb, page }) => {
   await page.fill('[name="name"]', 'Charlie');
   await page.click('[data-testid="submit"]');
 
-  // Assert database state with polling
-  await mdb.expect('users').toContainDocument({ name: 'Charlie' });
-  await mdb.expect('users').toHaveDocumentCount(3);
+  // Assert database state using native MongoDB driver
+  const user = await mdb.collection('users').findOne({ name: 'Charlie' });
+  expect(user).toBeDefined();
+
+  const count = await mdb.collection('users').countDocuments();
+  expect(count).toBe(3);
 });
 ```
 
@@ -93,57 +96,14 @@ Saves current database state to YAML snap files.
 await mdb.snap('after-purchase', ['orders', 'inventory']);
 ```
 
-### `mdb.expect(collectionName)`
-
-Returns an assertion object with polling support:
-
-#### `toContainDocument(filter)`
-
-Polls until a document matching the filter is found (or timeout).
-
-```javascript
-await mdb.expect('users').toContainDocument({ email: 'new@example.com' });
-```
-
-#### `toHaveDocumentCount(n)`
-
-Polls until the collection has exactly n documents.
-
-```javascript
-await mdb.expect('orders').toHaveDocumentCount(5);
-```
-
-#### `not.toContainDocument(filter)`
-
-Polls until no document matches the filter.
-
-```javascript
-await mdb.expect('users').not.toContainDocument({ deleted: true });
-```
-
 ### `mdb.collection(collectionName)`
 
-Direct access to a MongoDB collection for custom operations.
+Direct access to a native MongoDB collection for custom operations.
 
 ```javascript
 const users = mdb.collection('users');
 const count = await users.countDocuments();
-```
-
-### `mdb.clearCollection(collectionName)`
-
-Deletes all documents from a collection.
-
-```javascript
-await mdb.clearCollection('logs');
-```
-
-### `mdb.clearAllCollections()`
-
-Deletes all documents from all collections in the test database.
-
-```javascript
-await mdb.clearAllCollections();
+const user = await users.findOne({ email: 'alice@example.com' });
 ```
 
 ### `mdb.db`
@@ -205,8 +165,6 @@ const db = client.db('test');
 
 const mdb = createMdbHelper(db, {
   baseDir: './tests',
-  timeout: 10000,  // Polling timeout in ms
-  interval: 200,   // Polling interval in ms
 });
 ```
 

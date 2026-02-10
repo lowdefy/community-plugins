@@ -21,8 +21,6 @@ export { mdbFixtures, expect } from './fixtures/index.js';
 export { createMdbHelper } from './mdb/createMdbHelper.js';
 export { load, snap } from './mdb/snap.js';
 export { seed } from './mdb/seed.js';
-export { createExpect } from './mdb/expect.js';
-export { createCollectionWrapper } from './mdb/collection.js';
 
 // Setup functions
 export { default as globalSetup } from './setup/globalSetup.js';

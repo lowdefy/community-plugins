@@ -16,23 +16,16 @@
 
 import { load, snap } from './snap.js';
 import { seed } from './seed.js';
-import { createExpect } from './expect.js';
-import { createCollectionWrapper } from './collection.js';
 
 export function createMdbHelper(db, options = {}) {
-  const {
-    baseDir = process.cwd(),
-    timeout = 5000,
-    interval = 100,
-  } = options;
+  const { baseDir = process.cwd() } = options;
 
-  const expectOptions = { timeout, interval };
   const snapOptions = { baseDir };
 
   return {
     db,
 
-    collection: createCollectionWrapper(db),
+    collection: (name) => db.collection(name),
 
     async load(snapName) {
       await load(db, snapName, snapOptions);
@@ -44,20 +37,6 @@ export function createMdbHelper(db, options = {}) {
 
     async seed(collectionName, documents) {
       return seed(db, collectionName, documents);
-    },
-
-    expect: createExpect(db, expectOptions),
-
-    async clearCollection(collectionName) {
-      const collection = db.collection(collectionName);
-      await collection.deleteMany({});
-    },
-
-    async clearAllCollections() {
-      const collections = await db.listCollections().toArray();
-      for (const { name } of collections) {
-        await db.collection(name).deleteMany({});
-      }
     },
   };
 }

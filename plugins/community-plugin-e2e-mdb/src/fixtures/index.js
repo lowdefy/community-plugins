@@ -73,8 +73,6 @@ export const mdbFixtures = base.extend({
 
     const options = {
       baseDir: testInfo.project.testDir || process.cwd(),
-      timeout: 5000,
-      interval: 100,
     };
 
     const mdb = createMdbHelper(db, options);
