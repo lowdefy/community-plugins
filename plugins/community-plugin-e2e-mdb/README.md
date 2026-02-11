@@ -65,11 +65,13 @@ The raw MongoDB client instance. Shared across tests within a worker.
 
 #### `mdb` (test-scoped)
 
-The main helper object with the following methods:
+The main helper object, created fresh for each test. All non-system collections are automatically cleared after each test.
+
+Methods:
 
 ### `mdb.seed(collectionName, documents)`
 
-Clears the collection and inserts the provided documents.
+Clears the collection and inserts the provided documents. Returns the native MongoDB collection instance.
 
 ```javascript
 await mdb.seed('products', [
@@ -148,6 +150,7 @@ createdAt: !date 2024-01-15T10:30:00.000Z
 ## Environment Variables
 
 - `MDB_E2E_URI`: MongoDB connection URI (set automatically by globalSetup)
+- `MDB_E2E_PORT`: Port for the in-memory MongoDB server (default: `27117`)
 
 ## Advanced Usage
 
