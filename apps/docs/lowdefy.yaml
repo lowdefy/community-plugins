@@ -24,3 +24,4 @@ pages:
   - _ref: community-plugin-nodemailer/EmailProvider.yaml
   - _ref: community-plugin-mongodb/MongoDB.yaml
   - _ref: community-plugin-xlsx/DownloadXlsx.yaml
+  - _ref: community-plugin-e2e-mdb/E2eMdb.yaml

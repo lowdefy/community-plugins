@@ -25,3 +25,8 @@
       pageId: DownloadXlsx
       properties:
         title: DownloadXlsx
+    - id: community-plugin-e2e-mdb
+      type: MenuLink
+      pageId: E2eMdb
+      properties:
+        title: E2E MongoDB
