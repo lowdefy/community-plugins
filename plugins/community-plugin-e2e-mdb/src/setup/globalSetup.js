@@ -35,10 +35,7 @@ async function globalSetup() {
     instanceId: mongod.instanceInfo?.instance?.pid,
   };
 
-  fs.writeFileSync(
-    path.join(process.cwd(), STATE_FILE),
-    JSON.stringify(state, null, 2)
-  );
+  fs.writeFileSync(path.join(process.cwd(), STATE_FILE), JSON.stringify(state, null, 2));
 
   // Store instance globally for teardown
   globalThis.__MONGOD__ = mongod;
@@ -48,6 +45,12 @@ async function globalSetup() {
   if (!process.env.MDB_E2E_URI) {
     process.env.MDB_E2E_URI = uri;
   }
+
+  // Set Lowdefy secret env vars so the server resolves to MongoMemoryServer.
+  // LOWDEFY_E2E_SECRET_* overrides LOWDEFY_SECRET_* in server-e2e (lowdefy/lowdefy#2058).
+  // Both are set for backwards compatibility with older server-e2e versions.
+  process.env.LOWDEFY_E2E_SECRET_MONGODB_URI = uri;
+  process.env.LOWDEFY_SECRET_MONGODB_URI = uri;
 
   return async () => {
     // Cleanup function called by Playwright
