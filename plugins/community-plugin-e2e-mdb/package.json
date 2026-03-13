@@ -7,7 +7,8 @@
     ".": "./dist/index.js",
     "./fixtures": "./dist/fixtures/index.js",
     "./setup": "./dist/setup/globalSetup.js",
-    "./teardown": "./dist/setup/globalTeardown.js"
+    "./teardown": "./dist/setup/globalTeardown.js",
+    "./config": "./dist/config/configureMdb.js"
   },
   "files": [
     "dist/*"

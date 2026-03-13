@@ -22,6 +22,9 @@ export { createMdbHelper } from './mdb/createMdbHelper.js';
 export { load, snap } from './mdb/snap.js';
 export { seed } from './mdb/seed.js';
 
+// Config-time setup
+export { default as configureMdb } from './config/configureMdb.js';
+
 // Setup functions
 export { default as globalSetup } from './setup/globalSetup.js';
 export { default as globalTeardown } from './setup/globalTeardown.js';

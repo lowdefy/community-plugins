@@ -17,12 +17,15 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import fs from 'fs';
 import path from 'path';
+import configureMdb from '../config/configureMdb.js';
 
 const STATE_FILE = '.mdb-e2e-state.json';
 
 async function globalSetup() {
-  // Use fixed port for predictable URI (can be set at config time before globalSetup runs)
-  // Default to 27117 to avoid conflict with standard MongoDB port 27017
+  // Ensure env vars are set (idempotent if configureMdb was already called at config time).
+  // When used without configureMdb(), this provides backwards compatibility.
+  configureMdb();
+
   const port = parseInt(process.env.LOWDEFY_E2E_MONGODB_PORT) || 27117;
   const mongod = await MongoMemoryServer.create({
     instance: { port },
@@ -40,20 +43,7 @@ async function globalSetup() {
   // Store instance globally for teardown
   globalThis.__MONGOD__ = mongod;
 
-  // Set environment variable for tests if not already configured
-  // (e.g., with fixed port approach in playwright.config.js that includes a database name)
-  if (!process.env.LOWDEFY_E2E_MONGODB_URI) {
-    process.env.LOWDEFY_E2E_MONGODB_URI = uri;
-  }
-
-  // Set Lowdefy secret env vars so the server resolves to MongoMemoryServer.
-  // LOWDEFY_E2E_SECRET_* overrides LOWDEFY_SECRET_* in server-e2e (lowdefy/lowdefy#2058).
-  // Both are set for backwards compatibility with older server-e2e versions.
-  process.env.LOWDEFY_E2E_SECRET_MONGODB_URI = uri;
-  process.env.LOWDEFY_SECRET_MONGODB_URI = uri;
-
   return async () => {
-    // Cleanup function called by Playwright
     if (globalThis.__MONGOD__) {
       await globalThis.__MONGOD__.stop();
       delete globalThis.__MONGOD__;

@@ -14,16 +14,30 @@ pnpm add @lowdefy/community-plugin-e2e-mdb
 
 ### Playwright Configuration
 
-Configure your `playwright.config.js`:
+Configure your `playwright.config.js`. Call `configureMdb()` **before** `createConfig()` — Playwright starts the webServer before globalSetup, so environment variables must be set at config evaluation time.
 
 ```javascript
-import { defineConfig } from '@playwright/test';
+import { configureMdb } from '@lowdefy/community-plugin-e2e-mdb/config';
+import { createConfig } from '@lowdefy/e2e-utils/config';
 
-export default defineConfig({
+// Set MongoDB env vars at config time (before webServer starts)
+configureMdb();
+
+const config = createConfig({
+  /* ... */
+});
+
+export default {
+  ...config,
   globalSetup: '@lowdefy/community-plugin-e2e-mdb/setup',
   globalTeardown: '@lowdefy/community-plugin-e2e-mdb/teardown',
-  // ... other config
-});
+};
+```
+
+`configureMdb()` accepts optional overrides and returns the URI:
+
+```javascript
+const uri = configureMdb({ port: 27200, databaseName: 'my_test_db' });
 ```
 
 ### Using the Fixtures
