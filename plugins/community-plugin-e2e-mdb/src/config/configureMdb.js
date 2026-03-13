@@ -23,15 +23,26 @@
  *
  * globalSetup then starts MongoMemoryServer on the configured port.
  *
+ * By default, a single-node replica set is used so that transactions
+ * (required by MongoDBInsertConsecutiveId and other operations) work.
+ * Pass `replicaSet: false` to use a standalone instance instead.
+ *
  * @param {Object} [options]
  * @param {number} [options.port=27117] - Port for MongoMemoryServer
  * @param {string} [options.databaseName='e2e_test'] - Database name
+ * @param {string|false} [options.replicaSet='testset'] - Replica set name, or false for standalone
  * @returns {string} The MongoDB URI
  */
-function configureMdb({ port, databaseName } = {}) {
+function configureMdb({ port, databaseName, replicaSet = 'testset' } = {}) {
   const mdbPort = port || parseInt(process.env.LOWDEFY_E2E_MONGODB_PORT) || 27117;
   const dbName = databaseName || 'e2e_test';
-  const uri = `mongodb://127.0.0.1:${mdbPort}/${dbName}`;
+
+  let uri;
+  if (replicaSet) {
+    uri = `mongodb://127.0.0.1:${mdbPort}/${dbName}?replicaSet=${replicaSet}`;
+  } else {
+    uri = `mongodb://127.0.0.1:${mdbPort}/${dbName}`;
+  }
 
   // Set the URI for the mdb plugin fixtures and globalSetup
   process.env.LOWDEFY_E2E_MONGODB_URI = uri;

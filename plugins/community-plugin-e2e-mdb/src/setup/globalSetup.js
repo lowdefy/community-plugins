@@ -14,7 +14,7 @@
   limitations under the License.
 */
 
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryServer, MongoMemoryReplSet } from 'mongodb-memory-server';
 import fs from 'fs';
 import path from 'path';
 import configureMdb from '../config/configureMdb.js';
@@ -27,15 +27,29 @@ async function globalSetup() {
   configureMdb();
 
   const port = parseInt(process.env.LOWDEFY_E2E_MONGODB_PORT) || 27117;
-  const mongod = await MongoMemoryServer.create({
-    instance: { port },
-  });
-  const uri = mongod.getUri();
+  const uri = process.env.LOWDEFY_E2E_MONGODB_URI || '';
+
+  // Detect replica set mode from the URI configured by configureMdb().
+  const rsMatch = uri.match(/replicaSet=([^&]+)/);
+
+  let mongod;
+  if (rsMatch) {
+    mongod = await MongoMemoryReplSet.create({
+      replSet: { count: 1, name: rsMatch[1] },
+      instanceOpts: [{ port }],
+    });
+  } else {
+    mongod = await MongoMemoryServer.create({
+      instance: { port },
+    });
+  }
+
+  const actualUri = mongod.getUri();
 
   // Store state for teardown and tests
   const state = {
-    uri,
-    instanceId: mongod.instanceInfo?.instance?.pid,
+    uri: actualUri,
+    mode: rsMatch ? 'replset' : 'standalone',
   };
 
   fs.writeFileSync(path.join(process.cwd(), STATE_FILE), JSON.stringify(state, null, 2));

@@ -17,7 +17,7 @@ pnpm add @lowdefy/community-plugin-e2e-mdb
 Configure your `playwright.config.js`. Call `configureMdb()` **before** `createConfig()` — Playwright starts the webServer before globalSetup, so environment variables must be set at config evaluation time.
 
 ```javascript
-import { configureMdb } from '@lowdefy/community-plugin-e2e-mdb/config';
+import configureMdb from '@lowdefy/community-plugin-e2e-mdb/config';
 import { createConfig } from '@lowdefy/e2e-utils/config';
 
 // Set MongoDB env vars at config time (before webServer starts)
@@ -38,6 +38,12 @@ export default {
 
 ```javascript
 const uri = configureMdb({ port: 27200, databaseName: 'my_test_db' });
+```
+
+By default, a single-node replica set is started so that MongoDB transactions work (required by `MongoDBInsertConsecutiveId` and other operations). To use a standalone instance instead:
+
+```javascript
+configureMdb({ replicaSet: false });
 ```
 
 ### Using the Fixtures
