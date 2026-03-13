@@ -152,8 +152,8 @@ createdAt: !date 2024-01-15T10:30:00.000Z
 
 ## Environment Variables
 
-- `MDB_E2E_URI`: MongoDB connection URI (set automatically by globalSetup)
-- `MDB_E2E_PORT`: Port for the in-memory MongoDB server (default: `27117`)
+- `LOWDEFY_E2E_MONGODB_URI`: MongoDB connection URI (set automatically by globalSetup)
+- `LOWDEFY_E2E_MONGODB_PORT`: Port for the in-memory MongoDB server (default: `27117`)
 - `LOWDEFY_E2E_SECRET_MONGODB_URI`: Set automatically by globalSetup. Overrides `LOWDEFY_SECRET_MONGODB_URI` in server-e2e so the MongoMemoryServer URI survives secret-manager injection via `commandPrefix`.
 - `LOWDEFY_SECRET_MONGODB_URI`: Set automatically by globalSetup for backwards compatibility with server-e2e versions that don't support `LOWDEFY_E2E_SECRET_*`.
 
@@ -195,10 +195,10 @@ const mdb = createMdbHelper(db, {
 
 ### Using with Existing MongoDB
 
-If you have an existing MongoDB instance, skip the global setup/teardown and set `MDB_E2E_URI`:
+If you have an existing MongoDB instance, skip the global setup/teardown and set `LOWDEFY_E2E_MONGODB_URI`:
 
 ```bash
-MDB_E2E_URI=mongodb://localhost:27017 npx playwright test
+LOWDEFY_E2E_MONGODB_URI=mongodb://localhost:27017 npx playwright test
 ```
 
 ## License

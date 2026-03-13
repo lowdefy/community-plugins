@@ -23,7 +23,7 @@ const STATE_FILE = '.mdb-e2e-state.json';
 async function globalSetup() {
   // Use fixed port for predictable URI (can be set at config time before globalSetup runs)
   // Default to 27117 to avoid conflict with standard MongoDB port 27017
-  const port = parseInt(process.env.MDB_E2E_PORT) || 27117;
+  const port = parseInt(process.env.LOWDEFY_E2E_MONGODB_PORT) || 27117;
   const mongod = await MongoMemoryServer.create({
     instance: { port },
   });
@@ -42,8 +42,8 @@ async function globalSetup() {
 
   // Set environment variable for tests if not already configured
   // (e.g., with fixed port approach in playwright.config.js that includes a database name)
-  if (!process.env.MDB_E2E_URI) {
-    process.env.MDB_E2E_URI = uri;
+  if (!process.env.LOWDEFY_E2E_MONGODB_URI) {
+    process.env.LOWDEFY_E2E_MONGODB_URI = uri;
   }
 
   // Set Lowdefy secret env vars so the server resolves to MongoMemoryServer.
