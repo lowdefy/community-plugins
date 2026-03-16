@@ -24,8 +24,8 @@ const STATE_FILE = '.mdb-e2e-state.json';
 
 function getMongoUri() {
   // First check environment variable
-  if (process.env.MDB_E2E_URI) {
-    return process.env.MDB_E2E_URI;
+  if (process.env.LOWDEFY_E2E_MONGODB_URI) {
+    return process.env.LOWDEFY_E2E_MONGODB_URI;
   }
 
   // Fallback to state file

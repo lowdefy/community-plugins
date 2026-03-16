@@ -14,43 +14,50 @@
   limitations under the License.
 */
 
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryServer, MongoMemoryReplSet } from 'mongodb-memory-server';
 import fs from 'fs';
 import path from 'path';
+import configureMdb from '../config/configureMdb.js';
 
 const STATE_FILE = '.mdb-e2e-state.json';
 
 async function globalSetup() {
-  // Use fixed port for predictable URI (can be set at config time before globalSetup runs)
-  // Default to 27117 to avoid conflict with standard MongoDB port 27017
-  const port = parseInt(process.env.MDB_E2E_PORT) || 27117;
-  const mongod = await MongoMemoryServer.create({
-    instance: { port },
-  });
-  const uri = mongod.getUri();
+  // Ensure env vars are set (idempotent if configureMdb was already called at config time).
+  // When used without configureMdb(), this provides backwards compatibility.
+  configureMdb();
+
+  const port = parseInt(process.env.LOWDEFY_E2E_MONGODB_PORT) || 27117;
+  const uri = process.env.LOWDEFY_E2E_MONGODB_URI || '';
+
+  // Detect replica set mode from the URI configured by configureMdb().
+  const rsMatch = uri.match(/replicaSet=([^&]+)/);
+
+  let mongod;
+  if (rsMatch) {
+    mongod = await MongoMemoryReplSet.create({
+      replSet: { count: 1, name: rsMatch[1] },
+      instanceOpts: [{ port }],
+    });
+  } else {
+    mongod = await MongoMemoryServer.create({
+      instance: { port },
+    });
+  }
+
+  const actualUri = mongod.getUri();
 
   // Store state for teardown and tests
   const state = {
-    uri,
-    instanceId: mongod.instanceInfo?.instance?.pid,
+    uri: actualUri,
+    mode: rsMatch ? 'replset' : 'standalone',
   };
 
-  fs.writeFileSync(
-    path.join(process.cwd(), STATE_FILE),
-    JSON.stringify(state, null, 2)
-  );
+  fs.writeFileSync(path.join(process.cwd(), STATE_FILE), JSON.stringify(state, null, 2));
 
   // Store instance globally for teardown
   globalThis.__MONGOD__ = mongod;
 
-  // Set environment variable for tests if not already configured
-  // (e.g., with fixed port approach in playwright.config.js that includes a database name)
-  if (!process.env.MDB_E2E_URI) {
-    process.env.MDB_E2E_URI = uri;
-  }
-
   return async () => {
-    // Cleanup function called by Playwright
     if (globalThis.__MONGOD__) {
       await globalThis.__MONGOD__.stop();
       delete globalThis.__MONGOD__;

@@ -14,16 +14,36 @@ pnpm add @lowdefy/community-plugin-e2e-mdb
 
 ### Playwright Configuration
 
-Configure your `playwright.config.js`:
+Configure your `playwright.config.js`. Call `configureMdb()` **before** `createConfig()` — Playwright starts the webServer before globalSetup, so environment variables must be set at config evaluation time.
 
 ```javascript
-import { defineConfig } from '@playwright/test';
+import configureMdb from '@lowdefy/community-plugin-e2e-mdb/config';
+import { createConfig } from '@lowdefy/e2e-utils/config';
 
-export default defineConfig({
+// Set MongoDB env vars at config time (before webServer starts)
+configureMdb();
+
+const config = createConfig({
+  /* ... */
+});
+
+export default {
+  ...config,
   globalSetup: '@lowdefy/community-plugin-e2e-mdb/setup',
   globalTeardown: '@lowdefy/community-plugin-e2e-mdb/teardown',
-  // ... other config
-});
+};
+```
+
+`configureMdb()` accepts optional overrides and returns the URI:
+
+```javascript
+const uri = configureMdb({ port: 27200, databaseName: 'my_test_db' });
+```
+
+By default, a single-node replica set is started so that MongoDB transactions work (required by `MongoDBInsertConsecutiveId` and other operations). To use a standalone instance instead:
+
+```javascript
+configureMdb({ replicaSet: false });
 ```
 
 ### Using the Fixtures
@@ -117,6 +137,7 @@ Direct access to the MongoDB database instance.
 Snap files are YAML files stored in `<testDir>/snaps/<snapName>/<collectionName>.yaml`.
 
 Example structure:
+
 ```
 tests/
   snaps/
@@ -129,6 +150,7 @@ tests/
 ```
 
 Example YAML file (`users.yaml`):
+
 ```yaml
 - _id: user1
   name: Alice
@@ -143,14 +165,34 @@ Example YAML file (`users.yaml`):
 ### Date Handling
 
 Use the `!date` tag for Date values:
+
 ```yaml
 createdAt: !date 2024-01-15T10:30:00.000Z
 ```
 
 ## Environment Variables
 
-- `MDB_E2E_URI`: MongoDB connection URI (set automatically by globalSetup)
-- `MDB_E2E_PORT`: Port for the in-memory MongoDB server (default: `27117`)
+- `LOWDEFY_E2E_MONGODB_URI`: MongoDB connection URI (set automatically by globalSetup)
+- `LOWDEFY_E2E_MONGODB_PORT`: Port for the in-memory MongoDB server (default: `27117`)
+- `LOWDEFY_E2E_SECRET_MONGODB_URI`: Set automatically by globalSetup. Overrides `LOWDEFY_SECRET_MONGODB_URI` in server-e2e so the MongoMemoryServer URI survives secret-manager injection via `commandPrefix`.
+- `LOWDEFY_SECRET_MONGODB_URI`: Set automatically by globalSetup for backwards compatibility with server-e2e versions that don't support `LOWDEFY_E2E_SECRET_*`.
+
+### Overriding Secrets in E2E Tests
+
+When using a secret manager (e.g. Infisical, Doppler) via `commandPrefix` in your Lowdefy e2e config, the secret manager injects `LOWDEFY_SECRET_*` env vars that can override values set by test infrastructure. The `LOWDEFY_E2E_SECRET_*` prefix (supported in server-e2e via [lowdefy/lowdefy#2058](https://github.com/lowdefy/lowdefy/issues/2058)) takes precedence over `LOWDEFY_SECRET_*` during secret resolution, ensuring test-infrastructure values win.
+
+This plugin sets `LOWDEFY_E2E_SECRET_MONGODB_URI` automatically. To override other secrets in your tests, set additional `LOWDEFY_E2E_SECRET_*` env vars in your `playwright.config.js`:
+
+```javascript
+export default defineConfig({
+  use: {
+    // Override any secret that would otherwise come from the secret manager
+    env: {
+      LOWDEFY_E2E_SECRET_MY_API_KEY: 'test-api-key',
+    },
+  },
+});
+```
 
 ## Advanced Usage
 
@@ -173,10 +215,10 @@ const mdb = createMdbHelper(db, {
 
 ### Using with Existing MongoDB
 
-If you have an existing MongoDB instance, skip the global setup/teardown and set `MDB_E2E_URI`:
+If you have an existing MongoDB instance, skip the global setup/teardown and set `LOWDEFY_E2E_MONGODB_URI`:
 
 ```bash
-MDB_E2E_URI=mongodb://localhost:27017 npx playwright test
+LOWDEFY_E2E_MONGODB_URI=mongodb://localhost:27017 npx playwright test
 ```
 
 ## License
