@@ -1,10 +1,10 @@
-export default {
+module.exports = {
   mongodbMemoryServerOptions: {
     instance: {
       dbName: 'test',
     },
     binary: {
-      version: '5.0.3',
+      version: '7.0.0',
     },
     autoStart: false,
   },
