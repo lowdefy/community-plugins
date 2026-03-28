@@ -16,18 +16,37 @@
 
 import { renderHtml } from '@lowdefy/block-utils';
 import { type } from '@lowdefy/helpers';
+import renderBlocks from './renderBlocks.js';
 
-function recProcessColDefs(columnDefs, methods) {
+function recProcessColDefs(columnDefs, methods, components, events, registerEvent) {
   return columnDefs.map((col) => {
     const newColDef = {};
     if (type.isArray(col.children)) {
-      newColDef.children = recProcessColDefs(col.children, methods);
+      newColDef.children = recProcessColDefs(col.children, methods, components);
     }
     if (type.isFunction(col.cellRenderer)) {
       newColDef.cellRenderer = (params) => {
         return renderHtml({
           html: col.cellRenderer(params),
           methods,
+        });
+      };
+    } else if (type.isArray(col.blocks) || type.isArray(col.cellRenderer)) {
+      //TODO: delete col.blocks
+      newColDef.cellRenderer = (params) => {
+        return renderBlocks({
+          blocks: col.blocks,
+          methods,
+          components,
+          rowEvent: {
+            row: params.data,
+            value: params.getValue(),
+            rowIndex: params.rowIndex,
+            index: parseInt(params.node.id),
+            columnId: params.column.colId,
+          },
+          events,
+          registerEvent,
         });
       };
     }
@@ -38,8 +57,8 @@ function recProcessColDefs(columnDefs, methods) {
   });
 }
 
-function processColDefs(columnDefs = [], methods) {
-  return recProcessColDefs(columnDefs, methods);
+function processColDefs(columnDefs = [], methods, components, events, registerEvent) {
+  return recProcessColDefs(columnDefs, methods, components, events, registerEvent);
 }
 
 export default processColDefs;
