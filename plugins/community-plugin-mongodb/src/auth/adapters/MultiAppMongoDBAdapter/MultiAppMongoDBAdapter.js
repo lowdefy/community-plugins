@@ -17,10 +17,10 @@ function MultiAppMongoDBAdapter({ properties }) {
   const { appName, collections, databaseUri, mongoDBClientOptions } = properties;
   const mongoClient = new MongoClient(databaseUri, mongoDBClientOptions);
   const collectionNames = {
-    accounts: collections?.accounts ?? 'user_accounts',
-    contacts: collections?.contacts ?? 'user_contacts',
-    sessions: collections?.sessions ?? 'user_sessions',
-    verificationTokens: collections?.verificationTokens ?? 'user_verification_tokens',
+    accounts: collections?.accounts ?? 'user-accounts',
+    contacts: collections?.contacts ?? 'user-contacts',
+    sessions: collections?.sessions ?? 'user-sessions',
+    verificationTokens: collections?.verificationTokens ?? 'user-verification-tokens',
   };
 
   return {
