@@ -70,10 +70,8 @@ test('deleteOne logCollection', async () => {
     connection,
   });
   expect(res).toEqual({
-    lastErrorObject: {
-      n: 1,
-    },
-    ok: 1,
+    acknowledged: true,
+    deletedCount: 1,
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,

@@ -33,14 +33,25 @@ async function MongodbUpdateOne({
   let response;
   try {
     if (logCollection) {
-      const { value, ...responseWithoutValue } = await collection.findOneAndUpdate(filter, update, {
+      const before = await collection.findOne(filter);
+      const result = await collection.findOneAndUpdate(filter, update, {
         ...options,
         includeResultMetadata: true,
+        returnDocument: 'after',
       });
-      response = responseWithoutValue;
-      const after = await collection.findOne({
-        _id: value ? value._id : response.lastErrorObject?.upserted,
-      });
+      const after = result.value ?? null;
+      const upsertedId = result.lastErrorObject?.upserted ?? null;
+      const matched = result.lastErrorObject?.updatedExisting ? 1 : 0;
+      response = {
+        acknowledged: true,
+        matchedCount: matched,
+        modifiedCount: matched,
+        upsertedId,
+        upsertedCount: upsertedId ? 1 : 0,
+      };
+      if (!disableNoMatchError && !options?.upsert && matched === 0 && !upsertedId) {
+        throw new Error('No matching record to update.');
+      }
       await logCollection.insertOne({
         args: { filter, update, options },
         blockId,
@@ -48,15 +59,12 @@ async function MongodbUpdateOne({
         pageId,
         payload,
         requestId,
-        before: value,
+        before,
         after,
         timestamp: new Date(),
         type: 'MongoDBUpdateOne',
         meta: connection.changeLog?.meta,
       });
-      if (!disableNoMatchError && !options?.upsert && !response.lastErrorObject.updatedExisting) {
-        throw new Error('No matching record to update.');
-      }
     } else {
       response = await collection.updateOne(filter, update, options);
       if (!disableNoMatchError && !options?.upsert && response.matchedCount === 0) {
