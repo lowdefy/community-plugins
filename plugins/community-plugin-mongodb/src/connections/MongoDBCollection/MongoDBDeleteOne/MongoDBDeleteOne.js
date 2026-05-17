@@ -33,11 +33,15 @@ async function MongodbDeleteOne({
   let response;
   try {
     if (logCollection) {
-      const { value, ...responseWithoutValue } = await collection.findOneAndDelete(filter, {
+      const result = await collection.findOneAndDelete(filter, {
         ...options,
         includeResultMetadata: true,
       });
-      response = responseWithoutValue;
+      const before = result.value ?? null;
+      response = {
+        acknowledged: true,
+        deletedCount: result.lastErrorObject?.n ?? 0,
+      };
       await logCollection.insertOne({
         args: { filter, options },
         blockId,
@@ -45,7 +49,7 @@ async function MongodbDeleteOne({
         pageId,
         payload,
         requestId,
-        before: value,
+        before,
         timestamp: new Date(),
         type: 'MongoDBDeleteOne',
         meta: connection.changeLog?.meta,

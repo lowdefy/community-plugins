@@ -26,7 +26,10 @@ const databaseUri = process.env.MONGO_URL;
 const databaseName = 'test';
 const collection = 'updateOne';
 const logCollection = 'logCollection';
-const documents = [{ _id: 'updateOne', v: 'before' }];
+const documents = [
+  { _id: 'updateOne', v: 'before' },
+  { _id: null, v: 'sentinel' },
+];
 
 beforeAll(() => {
   return populateTestMongoDb({ collection, documents });
@@ -75,11 +78,11 @@ test('updateOne logCollection', async () => {
     connection,
   });
   expect(res).toEqual({
-    lastErrorObject: {
-      n: 1,
-      updatedExisting: true,
-    },
-    ok: 1,
+    acknowledged: true,
+    matchedCount: 1,
+    modifiedCount: 1,
+    upsertedId: null,
+    upsertedCount: 0,
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
@@ -143,12 +146,11 @@ test('updateOne upsert logCollection', async () => {
     connection,
   });
   expect(res).toEqual({
-    lastErrorObject: {
-      n: 1,
-      updatedExisting: false,
-      upserted: 'updateOne_upsert_log',
-    },
-    ok: 1,
+    acknowledged: true,
+    matchedCount: 0,
+    modifiedCount: 0,
+    upsertedId: 'updateOne_upsert_log',
+    upsertedCount: 1,
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
@@ -212,17 +214,7 @@ test('updateOne upsert false logCollection', async () => {
     logCollection,
     requestId: 'updateOne_upsert_false',
   });
-  expect(logged).toMatchObject({
-    blockId: 'blockId',
-    connectionId: 'connectionId',
-    pageId: 'pageId',
-    payload: { payload: true },
-    requestId: 'updateOne_upsert_false',
-    before: null,
-    after: null,
-    type: 'MongoDBUpdateOne',
-    meta: { meta: true },
-  });
+  expect(logged).toBeNull();
 });
 
 test('updateOne upsert default false', async () => {
@@ -268,17 +260,7 @@ test('updateOne upsert default false logCollection', async () => {
     logCollection,
     requestId: 'updateOne_upsert_default_false',
   });
-  expect(logged).toMatchObject({
-    blockId: 'blockId',
-    connectionId: 'connectionId',
-    pageId: 'pageId',
-    payload: { payload: true },
-    requestId: 'updateOne_upsert_default_false',
-    before: null,
-    after: null,
-    type: 'MongoDBUpdateOne',
-    meta: { meta: true },
-  });
+  expect(logged).toBeNull();
 });
 
 test('updateOne disableNoMatchError', async () => {
@@ -326,11 +308,11 @@ test('updateOne disableNoMatchError logCollection', async () => {
     connection,
   });
   expect(res).toEqual({
-    lastErrorObject: {
-      n: 0,
-      updatedExisting: false,
-    },
-    ok: 1,
+    acknowledged: true,
+    matchedCount: 0,
+    modifiedCount: 0,
+    upsertedId: null,
+    upsertedCount: 0,
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
@@ -394,17 +376,87 @@ test('updateOne disableNoMatchError false logCollection', async () => {
     logCollection,
     requestId: 'updateOne_disable_no_match_error_false',
   });
-  expect(logged).toMatchObject({
+  expect(logged).toBeNull();
+});
+
+test('updateOne no-match logCollection does not pick up _id:null doc as after', async () => {
+  const request = {
+    filter: { _id: 'updateOne_no_match_id_null_regression' },
+    update: { $set: { v: 'after' } },
+    disableNoMatchError: true,
+  };
+  const connection = {
+    databaseUri,
+    databaseName,
+    collection,
+    changeLog: { collection: logCollection, meta: { meta: true } },
+    write: true,
+  };
+  const res = await MongoDBUpdateOne({
+    request,
     blockId: 'blockId',
     connectionId: 'connectionId',
     pageId: 'pageId',
     payload: { payload: true },
-    requestId: 'updateOne_disable_no_match_error_false',
-    before: null,
-    after: null,
-    type: 'MongoDBUpdateOne',
-    meta: { meta: true },
+    requestId: 'updateOne_no_match_id_null_regression',
+    connection,
   });
+  expect(res).toEqual({
+    acknowledged: true,
+    matchedCount: 0,
+    modifiedCount: 0,
+    upsertedId: null,
+    upsertedCount: 0,
+  });
+  const logged = await findLogCollectionRecordTestMongoDb({
+    logCollection,
+    requestId: 'updateOne_no_match_id_null_regression',
+  });
+  expect(logged.before).toBeNull();
+  expect(logged.after).toBeNull();
+});
+
+test('updateOne response shape is invariant to logCollection', async () => {
+  const baseConnection = { databaseUri, databaseName, collection, write: true };
+  const logConnection = {
+    ...baseConnection,
+    changeLog: { collection: logCollection, meta: { meta: true } },
+  };
+
+  const match = {
+    filter: { _id: 'updateOne_invariance_match' },
+    update: { $set: { v: 'after' } },
+    options: { upsert: true },
+  };
+  const upsert = {
+    filter: { _id: 'updateOne_invariance_upsert' },
+    update: { $set: { v: 'after' } },
+    options: { upsert: true },
+  };
+  const noMatch = {
+    filter: { _id: 'updateOne_invariance_no_match' },
+    update: { $set: { v: 'after' } },
+    disableNoMatchError: true,
+  };
+
+  // Pre-seed the match doc so the matched-case response is identical in both branches.
+  await MongoDBUpdateOne({ request: match, connection: baseConnection });
+
+  const expectedKeys = ['acknowledged', 'matchedCount', 'modifiedCount', 'upsertedCount', 'upsertedId'];
+  for (const request of [match, upsert, noMatch]) {
+    const resNoLog = await MongoDBUpdateOne({ request, connection: baseConnection });
+    const resWithLog = await MongoDBUpdateOne({
+      request,
+      blockId: 'blockId',
+      connectionId: 'connectionId',
+      pageId: 'pageId',
+      payload: { payload: true },
+      requestId: `invariance_${request.filter._id}`,
+      connection: logConnection,
+    });
+    expect(Object.keys(resNoLog).sort()).toEqual(expectedKeys);
+    expect(Object.keys(resWithLog).sort()).toEqual(expectedKeys);
+  }
 });
 
 test('updateOne connection error', async () => {

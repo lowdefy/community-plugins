@@ -70,10 +70,8 @@ test('deleteOne logCollection', async () => {
     connection,
   });
   expect(res).toEqual({
-    lastErrorObject: {
-      n: 1,
-    },
-    ok: 1,
+    acknowledged: true,
+    deletedCount: 1,
   });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
@@ -89,6 +87,61 @@ test('deleteOne logCollection', async () => {
     type: 'MongoDBDeleteOne',
     meta: { meta: true },
   });
+});
+
+test('deleteOne response shape is invariant to logCollection', async () => {
+  const invarianceCollection = 'deleteOneInvariance';
+  await populateTestMongoDb({
+    collection: invarianceCollection,
+    documents: [{ _id: 'inv_no_log' }, { _id: 'inv_with_log' }],
+  });
+  const baseConnection = {
+    databaseUri,
+    databaseName,
+    collection: invarianceCollection,
+    write: true,
+  };
+  const logConnection = {
+    ...baseConnection,
+    changeLog: { collection: logCollection, meta: { meta: true } },
+  };
+
+  const expectedKeys = ['acknowledged', 'deletedCount'];
+
+  const resNoLog = await MongoDBDeleteOne({
+    request: { filter: { _id: 'inv_no_log' } },
+    connection: baseConnection,
+  });
+  const resWithLog = await MongoDBDeleteOne({
+    request: { filter: { _id: 'inv_with_log' } },
+    blockId: 'blockId',
+    connectionId: 'connectionId',
+    pageId: 'pageId',
+    payload: { payload: true },
+    requestId: 'deleteOne_invariance_log',
+    connection: logConnection,
+  });
+  expect(Object.keys(resNoLog).sort()).toEqual(expectedKeys);
+  expect(Object.keys(resWithLog).sort()).toEqual(expectedKeys);
+  expect(resWithLog).toEqual(resNoLog);
+
+  // No-match case
+  const resNoMatchNoLog = await MongoDBDeleteOne({
+    request: { filter: { _id: 'inv_missing' } },
+    connection: baseConnection,
+  });
+  const resNoMatchWithLog = await MongoDBDeleteOne({
+    request: { filter: { _id: 'inv_missing' } },
+    blockId: 'blockId',
+    connectionId: 'connectionId',
+    pageId: 'pageId',
+    payload: { payload: true },
+    requestId: 'deleteOne_invariance_no_match_log',
+    connection: logConnection,
+  });
+  expect(Object.keys(resNoMatchNoLog).sort()).toEqual(expectedKeys);
+  expect(Object.keys(resNoMatchWithLog).sort()).toEqual(expectedKeys);
+  expect(resNoMatchWithLog).toEqual(resNoMatchNoLog);
 });
 
 test('deleteOne connection error', async () => {

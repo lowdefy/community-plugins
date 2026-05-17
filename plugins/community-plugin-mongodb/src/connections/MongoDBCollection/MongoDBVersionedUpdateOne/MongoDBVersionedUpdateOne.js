@@ -43,7 +43,7 @@ async function MongoDBVersionedUpdateOne({
         insertedDocument = await collection.insertOne(document, { ...insertOptions });
       }
 
-      const { value, ...responseWithoutValue } = await collection.findOneAndUpdate(
+      const result = await collection.findOneAndUpdate(
         insertedDocument ? { _id: insertedDocument.insertedId } : filter,
         update,
         {
@@ -52,7 +52,19 @@ async function MongoDBVersionedUpdateOne({
           returnDocument: 'after',
         }
       );
-      response = responseWithoutValue;
+      const after = result.value ?? null;
+      const upsertedId = result.lastErrorObject?.upserted ?? null;
+      const matched = result.lastErrorObject?.updatedExisting ? 1 : 0;
+      response = {
+        acknowledged: true,
+        matchedCount: matched,
+        modifiedCount: matched,
+        upsertedId,
+        upsertedCount: upsertedId ? 1 : 0,
+      };
+      if (!disableNoMatchError && !updateOptions?.upsert && matched === 0 && !upsertedId) {
+        throw new Error('No matching record to update.');
+      }
       await logCollection.insertOne({
         args: { filter, update, options },
         blockId,
@@ -61,18 +73,11 @@ async function MongoDBVersionedUpdateOne({
         payload,
         requestId,
         before: document,
-        after: value,
+        after,
         timestamp: new Date(),
         type: 'MongoDBVersionedUpdateOne',
         meta: connection.changeLog?.meta,
       });
-      if (
-        !disableNoMatchError &&
-        !updateOptions?.upsert &&
-        !response.lastErrorObject.updatedExisting
-      ) {
-        throw new Error('No matching record to update.');
-      }
     } else {
       if (document) {
         delete document._id;
