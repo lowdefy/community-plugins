@@ -392,7 +392,7 @@ test('updateOne no-match logCollection does not pick up _id:null doc as after', 
     changeLog: { collection: logCollection, meta: { meta: true } },
     write: true,
   };
-  await MongoDBUpdateOne({
+  const res = await MongoDBUpdateOne({
     request,
     blockId: 'blockId',
     connectionId: 'connectionId',
@@ -401,12 +401,62 @@ test('updateOne no-match logCollection does not pick up _id:null doc as after', 
     requestId: 'updateOne_no_match_id_null_regression',
     connection,
   });
+  expect(res).toEqual({
+    acknowledged: true,
+    matchedCount: 0,
+    modifiedCount: 0,
+    upsertedId: null,
+    upsertedCount: 0,
+  });
   const logged = await findLogCollectionRecordTestMongoDb({
     logCollection,
     requestId: 'updateOne_no_match_id_null_regression',
   });
   expect(logged.before).toBeNull();
   expect(logged.after).toBeNull();
+});
+
+test('updateOne response shape is invariant to logCollection', async () => {
+  const baseConnection = { databaseUri, databaseName, collection, write: true };
+  const logConnection = {
+    ...baseConnection,
+    changeLog: { collection: logCollection, meta: { meta: true } },
+  };
+
+  const match = {
+    filter: { _id: 'updateOne_invariance_match' },
+    update: { $set: { v: 'after' } },
+    options: { upsert: true },
+  };
+  const upsert = {
+    filter: { _id: 'updateOne_invariance_upsert' },
+    update: { $set: { v: 'after' } },
+    options: { upsert: true },
+  };
+  const noMatch = {
+    filter: { _id: 'updateOne_invariance_no_match' },
+    update: { $set: { v: 'after' } },
+    disableNoMatchError: true,
+  };
+
+  // Pre-seed the match doc so the matched-case response is identical in both branches.
+  await MongoDBUpdateOne({ request: match, connection: baseConnection });
+
+  const expectedKeys = ['acknowledged', 'matchedCount', 'modifiedCount', 'upsertedCount', 'upsertedId'];
+  for (const request of [match, upsert, noMatch]) {
+    const resNoLog = await MongoDBUpdateOne({ request, connection: baseConnection });
+    const resWithLog = await MongoDBUpdateOne({
+      request,
+      blockId: 'blockId',
+      connectionId: 'connectionId',
+      pageId: 'pageId',
+      payload: { payload: true },
+      requestId: `invariance_${request.filter._id}`,
+      connection: logConnection,
+    });
+    expect(Object.keys(resNoLog).sort()).toEqual(expectedKeys);
+    expect(Object.keys(resWithLog).sort()).toEqual(expectedKeys);
+  }
 });
 
 test('updateOne connection error', async () => {

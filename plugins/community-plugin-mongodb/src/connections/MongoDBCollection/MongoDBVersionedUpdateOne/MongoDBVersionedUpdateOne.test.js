@@ -423,6 +423,45 @@ test('updateInsertOne disableNoMatchError false logCollection', async () => {
   expect(logged).toBeNull();
 });
 
+test('updateInsertOne response shape is invariant to logCollection', async () => {
+  const baseConnection = { databaseUri, databaseName, collection, write: true };
+  const logConnection = {
+    ...baseConnection,
+    changeLog: { collection: logCollection, meta: { meta: true } },
+  };
+
+  const match = {
+    filter: { doc_id: 'updateInsertOne' },
+    update: { $set: { v: 'after' } },
+  };
+  const upsert = {
+    filter: { _id: 'invariance_upsert', doc_id: 'updateInsertOne' },
+    update: { $set: { v: 'after' } },
+    options: { update: { upsert: true } },
+  };
+  const noMatch = {
+    filter: { doc_id: 'invariance_no_match' },
+    update: { $set: { v: 'after' } },
+    disableNoMatchError: true,
+  };
+
+  const expectedKeys = ['acknowledged', 'matchedCount', 'modifiedCount', 'upsertedCount', 'upsertedId'];
+  for (const request of [match, upsert, noMatch]) {
+    const resNoLog = await MongoDBVersionedUpdateOne({ request, connection: baseConnection });
+    const resWithLog = await MongoDBVersionedUpdateOne({
+      request,
+      blockId: 'blockId',
+      connectionId: 'connectionId',
+      pageId: 'pageId',
+      payload: { payload: true },
+      requestId: `invariance_${request.filter._id ?? request.filter.doc_id}`,
+      connection: logConnection,
+    });
+    expect(Object.keys(resNoLog).sort()).toEqual(expectedKeys);
+    expect(Object.keys(resWithLog).sort()).toEqual(expectedKeys);
+  }
+});
+
 test('updateInsertOne connection error', async () => {
   const request = {
     filter: { doc_id: 'updateInsertOne_connection_error' },
