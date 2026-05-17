@@ -1,5 +1,16 @@
 # @lowdefy/community-plugin-mongodb
 
+## 3.0.0
+
+### Major Changes
+
+- 733def3: Fix default collection names in `MultiAppMongoDBAdapter` to use dashes instead of underscores (e.g. `user-accounts` instead of `user_accounts`).
+
+### Minor Changes
+
+- 94486d1: Fix the change-log path in `MongoDBDeleteOne` and `MongoDBVersionedUpdateOne`. Both now return the same standard result shape regardless of whether `changeLog` is configured (`MongoDBDeleteOne` → `{ acknowledged, deletedCount }`; `MongoDBVersionedUpdateOne` → `{ acknowledged, matchedCount, modifiedCount, upsertedId, upsertedCount }`) instead of `{ lastErrorObject, ok }`. `MongoDBVersionedUpdateOne` no longer writes audit rows for operations that throw `No matching record to update.`. Breaking change for callers that read `lastErrorObject` / `ok` from the logging branch of either operator.
+- 94486d1: Fix `MongoDBUpdateOne` change-log path. The return shape now matches the non-logged path (`{ acknowledged, matchedCount, modifiedCount, upsertedId, upsertedCount }`) instead of `{ lastErrorObject, ok }`. Audit rows are no longer written for operations that throw `No matching record to update.`. The `after` snapshot is captured atomically via `findOneAndUpdate({ returnDocument: 'after' })`, and the document lookup can no longer collapse to `{ _id: undefined }`. Breaking change for callers that read `lastErrorObject` / `ok` from the logging branch.
+
 ## 2.4.1
 
 ### Patch Changes
