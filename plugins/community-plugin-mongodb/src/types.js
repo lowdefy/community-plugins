@@ -2,6 +2,7 @@
 
 import * as adapters from './auth/adapters.js';
 import * as connections from './connections.js';
+import * as websockets from './websockets.js';
 
 export default {
   auth: {
@@ -11,4 +12,5 @@ export default {
   requests: Object.keys(connections)
     .map((connection) => Object.keys(connections[connection].requests))
     .flat(),
+  websockets: Object.keys(websockets),
 };
