@@ -25,35 +25,35 @@ import schema from './schema.js';
 // deployments).
 async function MongoDBChangeStream({ connection, properties, publish, signal }) {
   const { fullDocument, pipeline } = deserialize(properties ?? {});
-  const { collection, client } = await getCollection({ connection });
+  const { collection } = await getCollection({ connection });
+  if (signal.aborted) {
+    return;
+  }
+  const stream = collection.watch(pipeline ?? [], {
+    fullDocument: fullDocument ?? 'updateLookup',
+  });
+  signal.addEventListener(
+    'abort',
+    () => {
+      stream.close().catch(() => {
+        // Already closed — nothing to clean up.
+      });
+    },
+    { once: true }
+  );
   try {
-    if (signal.aborted) {
-      return;
+    for await (const change of stream) {
+      publish({ data: serialize(change) });
     }
-    const stream = collection.watch(pipeline ?? [], {
-      fullDocument: fullDocument ?? 'updateLookup',
-    });
-    signal.addEventListener(
-      'abort',
-      () => {
-        stream.close().catch(() => {
-          // Already closed — nothing to clean up.
-        });
-      },
-      { once: true }
-    );
-    try {
-      for await (const change of stream) {
-        publish({ data: serialize(change) });
-      }
-    } catch (error) {
-      // Closing the stream on abort surfaces as an error on the iterator.
-      if (!signal.aborted) {
-        throw error;
-      }
+  } catch (error) {
+    // Closing the stream on abort surfaces as an error on the iterator.
+    if (!signal.aborted) {
+      throw error;
     }
   } finally {
-    await client.close();
+    // Tear down only the change stream — the MongoClient is shared across
+    // requests and must stay open. Closing an already-closed stream is a no-op.
+    await stream.close().catch(() => {});
   }
 }
 

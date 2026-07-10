@@ -29,75 +29,69 @@ async function MongoDBVersionedUpdateOne({
 }) {
   const deserializedRequest = deserialize(request);
   const { filter, update, options, disableNoMatchError } = deserializedRequest;
-  const { collection, client, logCollection } = await getCollection({ connection });
+  const { collection, logCollection } = await getCollection({ connection });
   const findOptions = options?.find;
   const insertOptions = options?.insert;
   const updateOptions = options?.update;
   let response, insertedDocument;
 
-  try {
-    const document = await collection.findOne(filter, { ...findOptions });
-    if (logCollection) {
-      if (document) {
-        delete document._id;
-        insertedDocument = await collection.insertOne(document, { ...insertOptions });
-      }
-
-      const result = await collection.findOneAndUpdate(
-        insertedDocument ? { _id: insertedDocument.insertedId } : filter,
-        update,
-        {
-          ...updateOptions,
-          includeResultMetadata: true,
-          returnDocument: 'after',
-        }
-      );
-      const after = result.value ?? null;
-      const upsertedId = result.lastErrorObject?.upserted ?? null;
-      const matched = result.lastErrorObject?.updatedExisting ? 1 : 0;
-      response = {
-        acknowledged: true,
-        matchedCount: matched,
-        modifiedCount: matched,
-        upsertedId,
-        upsertedCount: upsertedId ? 1 : 0,
-      };
-      if (!disableNoMatchError && !updateOptions?.upsert && matched === 0 && !upsertedId) {
-        throw new Error('No matching record to update.');
-      }
-      await logCollection.insertOne({
-        args: { filter, update, options },
-        blockId,
-        connectionId,
-        pageId,
-        payload,
-        requestId,
-        before: document,
-        after,
-        timestamp: new Date(),
-        type: 'MongoDBVersionedUpdateOne',
-        meta: connection.changeLog?.meta,
-      });
-    } else {
-      if (document) {
-        delete document._id;
-        insertedDocument = await collection.insertOne(document, { ...insertOptions });
-      }
-
-      response = await collection.updateOne(
-        insertedDocument ? { _id: insertedDocument.insertedId } : filter,
-        update,
-        { ...updateOptions }
-      );
-      if (!disableNoMatchError && !updateOptions?.upsert && response.matchedCount === 0) {
-        throw new Error('No matching record to update.');
-      }
+  const document = await collection.findOne(filter, { ...findOptions });
+  if (logCollection) {
+    if (document) {
+      delete document._id;
+      insertedDocument = await collection.insertOne(document, { ...insertOptions });
     }
-  } catch (error) {
-    await client.close();
-    throw error;
+
+    const result = await collection.findOneAndUpdate(
+      insertedDocument ? { _id: insertedDocument.insertedId } : filter,
+      update,
+      {
+        ...updateOptions,
+        includeResultMetadata: true,
+        returnDocument: 'after',
+      }
+    );
+    const after = result.value ?? null;
+    const upsertedId = result.lastErrorObject?.upserted ?? null;
+    const matched = result.lastErrorObject?.updatedExisting ? 1 : 0;
+    response = {
+      acknowledged: true,
+      matchedCount: matched,
+      modifiedCount: matched,
+      upsertedId,
+      upsertedCount: upsertedId ? 1 : 0,
+    };
+    if (!disableNoMatchError && !updateOptions?.upsert && matched === 0 && !upsertedId) {
+      throw new Error('No matching record to update.');
+    }
+    await logCollection.insertOne({
+      args: { filter, update, options },
+      blockId,
+      connectionId,
+      pageId,
+      payload,
+      requestId,
+      before: document,
+      after,
+      timestamp: new Date(),
+      type: 'MongoDBVersionedUpdateOne',
+      meta: connection.changeLog?.meta,
+    });
+  } else {
+    if (document) {
+      delete document._id;
+      insertedDocument = await collection.insertOne(document, { ...insertOptions });
+    }
+
+    response = await collection.updateOne(
+      insertedDocument ? { _id: insertedDocument.insertedId } : filter,
+      update,
+      { ...updateOptions }
+    );
+    if (!disableNoMatchError && !updateOptions?.upsert && response.matchedCount === 0) {
+      throw new Error('No matching record to update.');
+    }
   }
-  await client.close();
   return serialize(response);
 }
 
