@@ -29,29 +29,22 @@ async function MongodbDeleteMany({
 }) {
   const deserializedRequest = deserialize(request);
   const { filter, options } = deserializedRequest;
-  const { collection, client, logCollection } = await getCollection({ connection });
-  let response;
-  try {
-    response = await collection.deleteMany(filter, options);
-    if (logCollection) {
-      await logCollection.insertOne({
-        args: { filter, options },
-        blockId,
-        connectionId,
-        pageId,
-        payload,
-        requestId,
-        response,
-        timestamp: new Date(),
-        type: 'MongoDBDeleteMany',
-        meta: connection.changeLog?.meta,
-      });
-    }
-  } catch (error) {
-    await client.close();
-    throw error;
+  const { collection, logCollection } = await getCollection({ connection });
+  const response = await collection.deleteMany(filter, options);
+  if (logCollection) {
+    await logCollection.insertOne({
+      args: { filter, options },
+      blockId,
+      connectionId,
+      pageId,
+      payload,
+      requestId,
+      response,
+      timestamp: new Date(),
+      type: 'MongoDBDeleteMany',
+      meta: connection.changeLog?.meta,
+    });
   }
-  await client.close();
   const { acknowledged, deletedCount } = serialize(response);
   return { acknowledged, deletedCount };
 }

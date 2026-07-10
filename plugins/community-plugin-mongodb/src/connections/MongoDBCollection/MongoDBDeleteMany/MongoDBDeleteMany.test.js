@@ -16,6 +16,7 @@
 
 import { validate } from '@lowdefy/ajv';
 import MongoDBDeleteMany from './MongoDBDeleteMany.js';
+import { closeClients } from '../getCollection.js';
 import findLogCollectionRecordTestMongoDb from '../../../test/findLogCollectionRecordTestMongoDb.js';
 import populateTestMongoDb from '../../../test/populateTestMongoDb.js';
 
@@ -42,6 +43,12 @@ const documents = [
   { _id: 'deleteMany_5_log', f: 'deleteMany_log' },
   { _id: 'deleteMany_6_log', f: 'deleteMany_log' },
 ];
+
+afterAll(async () => {
+  // getCollection now shares one MongoClient per connection for the process
+  // lifetime; close it so the test worker can exit cleanly.
+  await closeClients();
+});
 
 beforeAll(() => {
   return populateTestMongoDb({ collection, documents });

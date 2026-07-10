@@ -84,7 +84,8 @@ test('MongoDBChangeStream publishes serialized change events', async () => {
   });
   await run;
   expect(publish).toHaveBeenCalledTimes(0); // aborted before start — resolver returns early
-  expect(client.close).toHaveBeenCalled();
+  // The shared MongoClient must never be closed by a request.
+  expect(client.close).not.toHaveBeenCalled();
 });
 
 test('MongoDBChangeStream publishes events until aborted', async () => {
@@ -117,7 +118,8 @@ test('MongoDBChangeStream publishes events until aborted', async () => {
   expect(publish.mock.calls[0][0].data.fullDocument.createdAt).toEqual(createdAt);
   expect(publish.mock.calls[1][0].data.fullDocument.name).toEqual('two');
   expect(stream.close).toHaveBeenCalled();
-  expect(client.close).toHaveBeenCalled();
+  // Tearing down tears down the stream, not the shared client.
+  expect(client.close).not.toHaveBeenCalled();
 });
 
 test('MongoDBChangeStream passes fullDocument option through', async () => {
@@ -137,7 +139,7 @@ test('MongoDBChangeStream passes fullDocument option through', async () => {
 
 test('MongoDBChangeStream rethrows stream errors when not aborted', async () => {
   const { default: MongoDBChangeStream } = await import('./MongoDBChangeStream.js');
-  const { abortController, client, publish } = createHarness({
+  const { abortController, client, publish, stream } = createHarness({
     changes: [],
     failWith: new Error('stream broke'),
   });
@@ -149,5 +151,7 @@ test('MongoDBChangeStream rethrows stream errors when not aborted', async () => 
       signal: abortController.signal,
     })
   ).rejects.toThrow('stream broke');
-  expect(client.close).toHaveBeenCalled();
+  // The stream is torn down; the shared client is left open.
+  expect(stream.close).toHaveBeenCalled();
+  expect(client.close).not.toHaveBeenCalled();
 });
