@@ -13,7 +13,9 @@ function createValueFunction(column) {
 
 async function DownloadXlsx({ params }) {
   const { data, fileName, schema, ...options } = params;
-  if (!type.isArray(data) || !type.isObject(data[0])) {
+  // An empty array is valid: with a schema, write-excel-file emits a header-only file, so a filter
+  // that matches no rows still downloads.
+  if (!type.isArray(data) || (data.length > 0 && !type.isObject(data[0]))) {
     throw new Error('Data should be an array of objects.');
   }
   if (!type.isArray(schema) || !type.isObject(schema[0])) {
