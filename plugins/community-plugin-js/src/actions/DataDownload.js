@@ -1,3 +1,5 @@
+import fetchAllPages from './fetchAllPages.js';
+
 async function DataDownload({
   methods: { request, setState },
   params: { requestName, filename = 'data_export.csv', pageSize = 2000, fields },
@@ -6,20 +8,18 @@ async function DataDownload({
     throw new Error('DataDownload requires a request name.');
   }
 
-  let skip = 0;
-  await setState({ data_download: { skip, pageSize } });
-  let response = await request(requestName);
-  let data = response[0];
-
-  while (response[0].length === pageSize) {
-    skip = skip + pageSize;
-    await setState({ data_download: { skip, pageSize } });
-    response = await request(requestName);
-    data = data.concat(response[0]);
-  }
+  const data = await fetchAllPages({
+    request,
+    setState,
+    requestName,
+    pageSize,
+    stateKey: 'data_download',
+  });
 
   if (!fields) {
-    fields = Object.keys(data[0]);
+    // No rows means no columns to infer; fall back to an empty header so an empty result set
+    // downloads an empty CSV instead of throwing on Object.keys(undefined).
+    fields = Object.keys(data[0] ?? {});
   }
   const arrays = [fields];
   data.forEach((obj) => arrays.push(fields.map((field) => obj[field])));
