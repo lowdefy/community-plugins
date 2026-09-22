@@ -17,7 +17,9 @@ async function DataDownload({
   });
 
   if (!fields) {
-    fields = Object.keys(data[0]);
+    // No rows means no columns to infer; fall back to an empty header so an empty result set
+    // downloads an empty CSV instead of throwing on Object.keys(undefined).
+    fields = Object.keys(data[0] ?? {});
   }
   const arrays = [fields];
   data.forEach((obj) => arrays.push(fields.map((field) => obj[field])));
