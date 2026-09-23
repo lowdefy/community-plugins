@@ -113,7 +113,6 @@ async function MongoDBInsertConsecutiveId({
     }, transactionOptions);
   } finally {
     await session.endSession();
-    await client.close();
   }
   const { acknowledged, insertedId } = serialize(response);
   return { acknowledged, insertedId };

@@ -29,39 +29,33 @@ async function MongodbDeleteOne({
 }) {
   const deserializedRequest = deserialize(request);
   const { filter, options } = deserializedRequest;
-  const { collection, client, logCollection } = await getCollection({ connection });
+  const { collection, logCollection } = await getCollection({ connection });
   let response;
-  try {
-    if (logCollection) {
-      const result = await collection.findOneAndDelete(filter, {
-        ...options,
-        includeResultMetadata: true,
-      });
-      const before = result.value ?? null;
-      response = {
-        acknowledged: true,
-        deletedCount: result.lastErrorObject?.n ?? 0,
-      };
-      await logCollection.insertOne({
-        args: { filter, options },
-        blockId,
-        connectionId,
-        pageId,
-        payload,
-        requestId,
-        before,
-        timestamp: new Date(),
-        type: 'MongoDBDeleteOne',
-        meta: connection.changeLog?.meta,
-      });
-    } else {
-      response = await collection.deleteOne(filter, options);
-    }
-  } catch (error) {
-    await client.close();
-    throw error;
+  if (logCollection) {
+    const result = await collection.findOneAndDelete(filter, {
+      ...options,
+      includeResultMetadata: true,
+    });
+    const before = result.value ?? null;
+    response = {
+      acknowledged: true,
+      deletedCount: result.lastErrorObject?.n ?? 0,
+    };
+    await logCollection.insertOne({
+      args: { filter, options },
+      blockId,
+      connectionId,
+      pageId,
+      payload,
+      requestId,
+      before,
+      timestamp: new Date(),
+      type: 'MongoDBDeleteOne',
+      meta: connection.changeLog?.meta,
+    });
+  } else {
+    response = await collection.deleteOne(filter, options);
   }
-  await client.close();
   return serialize(response);
 }
 

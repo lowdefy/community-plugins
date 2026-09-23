@@ -16,6 +16,7 @@
 
 import { validate } from '@lowdefy/ajv';
 import MongoDBInsertMany from './MongoDBInsertMany.js';
+import { closeClients } from '../getCollection.js';
 import clearTestMongoDb from '../../../test/clearTestMongoDb.js';
 import findLogCollectionRecordTestMongoDb from '../../../test/findLogCollectionRecordTestMongoDb.js';
 
@@ -26,6 +27,12 @@ const databaseUri = process.env.MONGO_URL;
 const databaseName = 'test';
 const collection = 'insertMany';
 const logCollection = 'logCollection';
+
+afterAll(async () => {
+  // getCollection now shares one MongoClient per connection for the process
+  // lifetime; close it so the test worker can exit cleanly.
+  await closeClients();
+});
 
 beforeAll(() => {
   return clearTestMongoDb({ collection });
