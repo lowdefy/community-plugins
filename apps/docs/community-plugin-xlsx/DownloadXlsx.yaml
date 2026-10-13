@@ -77,7 +77,7 @@ _ref:
         properties:
           content: |
             #### Properties
-            - `data: object[]`: An array of rows containing data.
+            - `data: object[]`: An array of rows containing data. If it is empty or missing, the file contains only the header row from the schema.
             - `fileName: string`: The name the file will be saved as when downloaded.
             - `schema: object[]`: A schema to describe each column.
             - `dateFormat: string`: The format of dates in the file.

@@ -12,11 +12,13 @@ function createValueFunction(column) {
 }
 
 async function DownloadXlsx({ params }) {
-  const { data, fileName, schema, ...options } = params;
+  const { data: rawData, fileName, schema, ...options } = params;
   // data must be an array of objects. An empty array is valid: write-excel-file accepts empty
   // data (a header row when the schema defines column titles, otherwise an empty sheet), so a
-  // filter matching no rows still downloads. Every element is checked, not just the first, so a
+  // filter matching no rows still downloads. Missing data (e.g. a request that returned nothing)
+  // is treated the same as an empty array. Every element is checked, not just the first, so a
   // malformed row surfaces this error instead of a confusing failure inside write-excel-file.
+  const data = rawData ?? [];
   if (!type.isArray(data) || data.some((row) => !type.isObject(row))) {
     throw new Error('Data should be an array of objects.');
   }
