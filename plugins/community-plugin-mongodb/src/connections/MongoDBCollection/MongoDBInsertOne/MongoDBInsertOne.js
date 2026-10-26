@@ -29,29 +29,22 @@ async function MongodbInsertOne({
 }) {
   const deserializedRequest = deserialize(request);
   const { doc, options } = deserializedRequest;
-  const { collection, client, logCollection } = await getCollection({ connection });
-  let response;
-  try {
-    response = await collection.insertOne(doc, options);
-    if (logCollection) {
-      await logCollection.insertOne({
-        args: { doc, options },
-        blockId,
-        connectionId,
-        pageId,
-        payload,
-        requestId,
-        response,
-        timestamp: new Date(),
-        type: 'MongoDBInsertOne',
-        meta: connection.changeLog?.meta,
-      });
-    }
-  } catch (error) {
-    await client.close();
-    throw error;
+  const { collection, logCollection } = await getCollection({ connection });
+  const response = await collection.insertOne(doc, options);
+  if (logCollection) {
+    await logCollection.insertOne({
+      args: { doc, options },
+      blockId,
+      connectionId,
+      pageId,
+      payload,
+      requestId,
+      response,
+      timestamp: new Date(),
+      type: 'MongoDBInsertOne',
+      meta: connection.changeLog?.meta,
+    });
   }
-  await client.close();
   const { acknowledged, insertedId } = serialize(response);
   return { acknowledged, insertedId };
 }

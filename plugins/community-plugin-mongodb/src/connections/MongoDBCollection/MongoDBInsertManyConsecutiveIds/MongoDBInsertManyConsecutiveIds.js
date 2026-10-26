@@ -115,7 +115,6 @@ async function MongoDBInsertManyConsecutiveIds({
     }, transactionOptions);
   } finally {
     await session.endSession();
-    await client.close();
   }
   const { acknowledged, insertedIds } = serialize(response);
   return { acknowledged, insertedIds };

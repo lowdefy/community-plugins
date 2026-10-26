@@ -16,6 +16,7 @@
 
 import { validate } from '@lowdefy/ajv';
 import MongoDBVersionedUpdateOne from './MongoDBVersionedUpdateOne.js';
+import { closeClients } from '../getCollection.js';
 import findLogCollectionRecordTestMongoDb from '../../../test/findLogCollectionRecordTestMongoDb.js';
 import populateTestMongoDb from '../../../test/populateTestMongoDb.js';
 import getTestCollection from '../../../test/getTestCollection.js';
@@ -28,6 +29,12 @@ const databaseName = 'test';
 const collection = 'updateInsertOne';
 const logCollection = 'logCollection';
 const documents = [{ _id: 'uniqueId', v: 'before', doc_id: 'updateInsertOne' }];
+
+afterAll(async () => {
+  // getCollection now shares one MongoClient per connection for the process
+  // lifetime; close it so the test worker can exit cleanly.
+  await closeClients();
+});
 
 beforeEach(() => {
   return populateTestMongoDb({ collection, documents });
