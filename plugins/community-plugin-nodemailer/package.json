@@ -17,7 +17,7 @@
   "dependencies": {
     "@lowdefy/nunjucks": "^4.0.0-rc.12",
     "next-auth": "4",
-    "nodemailer": "6.9.7"
+    "nodemailer": "10.1.7"
   },
   "devDependencies": {
     "@swc/cli": "0.1.62",
