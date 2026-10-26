@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-xlsx
 
+## 1.1.2
+
+### Patch Changes
+
+- 73b60b4: Fix `DownloadXlsx` throwing `Data should be an array of objects.` when `data` is `null` or missing, for example `_request` on a request that returned nothing. Missing data is now treated like an empty array, so the file downloads with only the header row from the schema.
+
 ## 1.1.1
 
 ### Patch Changes

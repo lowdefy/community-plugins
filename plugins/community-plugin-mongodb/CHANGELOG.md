@@ -1,5 +1,11 @@
 # @lowdefy/community-plugin-mongodb
 
+## 3.0.1
+
+### Patch Changes
+
+- 9d21989: Reuse a shared MongoClient per connection URI instead of creating and closing a new client on every request, preventing connection/thread exhaustion under sustained load.
+
 ## 3.0.0
 
 ### Major Changes
