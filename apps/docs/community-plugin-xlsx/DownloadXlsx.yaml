@@ -81,6 +81,7 @@ _ref:
             - `fileName: string`: The name the file will be saved as when downloaded.
             - `schema: object[]`: A schema to describe each column.
             - `dateFormat: string`: The format of dates in the file.
+            - `sheets: string[]`: The names of the sheets, to write a file with several sheets. `data` is then an array with the rows of each sheet, and `schema` an array with the schema of each sheet, in the same order as `sheets`.
 
             See [write-excel-file](https://www.npmjs.com/package/write-excel-file) for additional properties.
 
@@ -209,4 +210,43 @@ _ref:
                         value: Date
                         type: Date
                         width: 20
+            ```
+
+            ###### Several sheets.
+            ```yaml
+            id: xlsx_button
+            type: Button
+            properties:
+              title: Excel Download
+            events:
+              onClick:
+                - id: get_orders
+                  type: Request
+                  params: get_orders
+                - id: get_customers
+                  type: Request
+                  params: get_customers
+                - id: download_xlsx
+                  type: DownloadXlsx
+                  params:
+                    fileName: download.xlsx
+                    sheets:
+                      - Orders
+                      - Customers
+                    data:
+                      - _request: get_orders
+                      - _request: get_customers
+                    schema:
+                      - - column: Order Number
+                          value: number
+                          type: String
+                        - column: Total
+                          value: total
+                          type: Number
+                      - - column: Customer Name
+                          value: name
+                          type: String
+                        - column: Email
+                          value: email
+                          type: String
             ```
